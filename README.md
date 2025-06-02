@@ -1,6 +1,5 @@
 # Blogify
 
-
 A modern blogging platform built with Node.js, Express, and MongoDB.
 
 ## Features
@@ -8,8 +7,11 @@ A modern blogging platform built with Node.js, Express, and MongoDB.
 | Feature                  | Description                                                                  |
 | ------------------------ | ---------------------------------------------------------------------------- |
 | User Authentication      | Sign-up and sign-in functionality with secure password handling using bcrypt |
+| Email Verification       | Email verification system for new user accounts                              |
+| Password Reset           | Secure password reset functionality via email                                |
 | User Management          | User profiles and account management                                         |
 | Blog Creation            | Users can create, edit, and delete their blog posts                          |
+| Image Upload             | Cloudinary integration for image uploads and storage                         |
 | Blog Interaction         | Like, dislike, and share functionality for blog posts                        |
 | Commenting System        | Users can add and delete comments on blog posts                              |
 | Search Functionality     | Search capability to find specific blog posts                                |
@@ -17,7 +19,7 @@ A modern blogging platform built with Node.js, Express, and MongoDB.
 | Responsive Design        | CSS components for various screen sizes                                      |
 | Security Features        | Helmet for HTTP security headers, strong password validation                 |
 | Session Management       | User sessions with express-session and MongoDB storage                       |
-| Error Handling           | Custom error handling middleware                                             |
+| Error Handling           | Custom error handling middleware with flash messages                         |
 | SEO Features             | Proper metadata and site structure for search engines                        |
 | Social Media Integration | Share counts and social media links                                          |
 | About Page               | Information about the website/company                                        |
@@ -32,8 +34,9 @@ blogify/
 ├── package.json            # Project dependencies
 ├── .env                    # Environment variables
 │
-├── configs/                # Configuration files
+├── .configs/               # Configuration files
 │   ├── db.js               # Database configuration
+│   ├── env.js              # Environment variables export
 │   ├── session.js          # Session configuration
 │   └── helmet.js           # Helmet security configuration
 │
@@ -41,6 +44,7 @@ blogify/
 │   ├── auth.controller.js  # Authentication controller
 │   ├── blog.controller.js  # Blog post controller
 │   ├── comment.controller.js # Comment controller
+│   ├── image.controller.js # Image upload controller
 │   ├── search.controller.js # Search controller
 │   └── user.controller.js  # User management controller
 │
@@ -54,6 +58,7 @@ blogify/
 │   ├── auth.routes.js      # Authentication routes
 │   ├── blog.routes.js      # Blog interaction routes
 │   ├── contact.routes.js   # Contact page routes
+│   ├── image.routes.js     # Image upload routes
 │   ├── index.routes.js     # Home page routes
 │   ├── search.routes.js    # Search functionality routes
 │   └── users.routes.js     # User management routes
@@ -63,16 +68,21 @@ blogify/
 │   ├── blog.service.js     # Blog post services
 │   ├── comment.service.js  # Comment services
 │   ├── search.service.js   # Search services
-│   └── user.service.js     # User management services
+│   ├── user.service.js     # User management services
+│   └── validation.service.js # Input validation services
 │
 ├── middlewares/            # Express middlewares
 │   ├── auth.middleware.js  # Authentication middleware
 │   ├── authStatus.middleware.js # Auth status tracking
 │   ├── errorHandler.middleware.js # Error handling
 │   ├── path.middleware.js  # Path handling
-│   └── signInChecker.middleware.js # Sign-in verification
+│   ├── signInChecker.middleware.js # Sign-in verification
+│   ├── toast.middleware.js # Flash message handling
+│   ├── upload.middleware.js # File upload handling
+│   └── verification.middleware.js # Email verification
 │
 ├── utils/                  # Utility functions
+│   ├── cloudinary.utils.js # Cloudinary configuration
 │   ├── createToken.utils.js # JWT token creation
 │   └── handleError.utils.js # Error handling utilities
 │
@@ -81,41 +91,25 @@ blogify/
 │
 ├── public/                 # Static assets
 │   ├── images/             # Image assets
+│   ├── icons/              # Icon assets
 │   ├── javascripts/        # Client-side JavaScript
-│   │   ├── blog-interactions.js # Blog interaction handlers
-│   │   ├── navbarDisappear.js # Navbar behavior
-│   │   ├── scripts.js      # General scripts
-│   │   └── toggleButton.js # UI toggle functionality
+│   │   ├── auth/           # Authentication scripts
+│   │   ├── components/     # UI component scripts
+│   │   └── blog/           # Blog interaction scripts
 │   └── stylesheets/        # CSS files
 │       ├── components/     # Component-specific styles
-│       │   ├── navbar.css  # Navigation styling
-│       │   ├── blog.css    # Blog post styling
-│       │   ├── footer.css  # Footer styling
-│       │   └── ...         # Other component styles
-│       ├── utils/          # CSS utilities
-│       ├── global.css      # Global styles
-│       └── styles.css      # Main stylesheet
+│       └── utils/          # CSS utilities
 │
 └── views/                  # EJS templates
     ├── layout.ejs          # Main layout template
+    ├── components/         # Reusable UI components
     ├── pages/              # Page templates
-    │   ├── about.ejs       # About page
-    │   ├── contact.ejs     # Contact page
-    │   ├── error.ejs       # Error page
-    │   ├── index.ejs       # Home page
+    │   ├── about/          # About page
     │   ├── auth/           # Authentication pages
-    │   │   ├── sign-in.ejs # Sign in page
-    │   │   └── sign-up.ejs # Sign up page
+    │   ├── blog/           # Blog pages
+    │   ├── contact/        # Contact page
     │   └── user/           # User pages
-    │       ├── dashboard.ejs # User dashboard
-    │       ├── add-post.ejs # Add blog post
-    │       └── edit-post.ejs # Edit blog post
-    └── partials/           # Reusable components
-        ├── navbar.ejs      # Navigation bar
-        ├── footer.ejs      # Footer
-        ├── blog.ejs        # Blog post template
-        ├── search.ejs      # Search component
-        └── ...             # Other components
+    └── partials/           # Reusable template parts
 ```
 
 ## Getting Started
@@ -124,26 +118,34 @@ blogify/
 2. Install dependencies: `npm install` or `pnpm install`
 3. Create a `.env` file with the following variables:
    ```
+   NODE_ENV=development
    PORT=3000
-   MONGO_URI=your_mongodb_connection_string
-   SESSION_SECRET=your_session_secret
+   APP_URL=http://localhost:3000
+   MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
+   SESSION_SECRET=your_session_secret
+   EMAIL_USERNAME=your_email_username
+   EMAIL_FROM=your_email_address
+   EMAIL_PASSWORD=your_email_password
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
    ```
-4. Start the development server: `npm run dev`
+4. Start the development server: `npm run dev` or `pnpm dev`
 5. Visit `http://localhost:3000` in your browser
 
 ## Architecture
 
-This project follows the MVC (Model-View-Controller) architecture pattern:
+This project follows the MVC (Model-View-Controller) architecture pattern with additional service layer:
 
 - **Models**: Define data structure and database interactions using Mongoose schemas
 - **Views**: Render HTML templates using EJS templating engine
-- **Controllers**: Handle HTTP requests and responses, implementing business logic
+- **Controllers**: Handle HTTP requests and responses
+- **Services**: Contain core business logic separated from controllers
 
 Additional architectural layers:
 
 - **Routes**: Define API endpoints and connect them to controllers
-- **Services**: Contain core business logic separated from controllers
 - **Middlewares**: Process requests before they reach route handlers
 - **Utils/Helpers**: Provide utility functions and view helpers
 
@@ -153,8 +155,10 @@ Additional architectural layers:
 - **Database**: MongoDB with Mongoose ODM
 - **View Engine**: EJS with express-ejs-layouts
 - **Authentication**: JWT, bcrypt for password hashing
+- **Email**: Nodemailer for email verification and password reset
+- **File Upload**: Multer with Cloudinary integration
 - **Session Management**: express-session with MongoDB store
-- **Security**: Helmet for HTTP headers, input validation
+- **Security**: Helmet for HTTP headers, input validation with validator.js
 - **CSS**: Custom component-based CSS architecture
 - **Development**: Nodemon, ESLint, Prettier
 
@@ -163,15 +167,18 @@ Additional architectural layers:
 ### User Authentication
 
 - Secure sign-up and sign-in with email validation
+- Email verification system for new accounts
+- Password reset functionality
 - Password strength validation and secure storage
-- JWT-based authentication
+- JWT-based authentication with HTTP-only cookies
 - Protected routes for authenticated users
 
 ### Blog Management
 
 - Create, read, update, and delete blog posts
-- Rich text editing for blog content
+- Image upload with Cloudinary integration
 - User-specific blog management dashboard
+- Rich content editing
 
 ### Social Features
 
