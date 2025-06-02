@@ -1,0 +1,41 @@
+.back_btn {
+  width: fit-content;
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--black-II);
+  border-radius: 0.25rem;
+  margin: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  &:hover {
+    background-color: var(--trans-white-I);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .back_btn {
+    margin: 1rem 0.5rem;
+    gap: 0.5rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .back_btn {
+    font-size: var(--sm);
+    font-weight: 500;
+    padding: 0.2rem 0.75rem;
+    margin: 1rem 0.5rem;
+    gap: 0.25rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .back_btn {
+    font-size: var(--xs);
+    font-weight: 400;
+    padding: 0.2rem 0.5rem;
+    margin: 0.5rem 0.25rem;
+    gap: 0.25rem;
+  }
+}

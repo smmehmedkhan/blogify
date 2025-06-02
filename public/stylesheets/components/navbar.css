@@ -1,0 +1,201 @@
+nav {
+  width: 100%;
+  border-bottom: 1px dashed var(--black-II);
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  &.disappear {
+    transform: translateY(-100%);
+    transition: all 0.2s ease-out;
+  }
+
+  & .navbar__contain-box {
+    max-width: var(--max-width);
+    height: 60px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & .navbar__desktop {
+      display: block;
+
+      & .navbar__links {
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1.5rem;
+
+        & li {
+          font-weight: 700;
+          cursor: pointer;
+          &:hover {
+            & a {
+              color: var(--rose);
+            }
+          }
+          & a {
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            &.active {
+              color: var(--purple);
+            }
+          }
+        }
+      }
+    }
+
+    & .navbar__mobile {
+      display: none;
+
+      & #hamburger {
+        border: 0;
+        background-color: transparent;
+        display: flex;
+        place-items: center;
+        cursor: pointer;
+        transition: var(--transition);
+        &.active {
+          & i {
+            color: var(--rose);
+          }
+        }
+        &:hover {
+          scale: 0.99;
+          opacity: 0.7;
+        }
+
+        & i {
+          color: var(--white);
+          font-size: var(--lg);
+        }
+      }
+
+      & .navbar__menu {
+        width: 100%;
+        border-bottom: 1px solid var(--black-II);
+        border-radius: 0 0 0.5rem 0.5rem;
+        visibility: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        transform: translate(100%, 1px);
+        transition: all 0.4s ease-out;
+        &::before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          border: 0;
+          border-radius: 0 0 0.5rem 0.5rem;
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+        &.show {
+          visibility: visible;
+          transform: translate(0, 1px);
+        }
+        &.hide {
+          visibility: hidden;
+          transform: translate(100%, 1px);
+        }
+      }
+
+      & .navbar__links {
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        padding: 5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & li {
+          width: 100%;
+          padding-block: 0.75rem;
+          margin: 0;
+          font-size: var(--nm);
+          font-weight: 500;
+          cursor: pointer;
+          transition: var(--transition);
+          &:not(:last-child) {
+            border-bottom: 1px dashed var(--gray);
+          }
+          &:hover a {
+            color: var(--rose);
+          }
+
+          & a {
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            &.active {
+              color: var(--purple);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  nav {
+    & .navbar__contain-box {
+      padding: 1rem 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  nav {
+    & .navbar__contain-box {
+      height: 50px;
+      padding: 0.75rem 1.5rem;
+      & .navbar__desktop {
+        display: none;
+      }
+      & .navbar__mobile {
+        display: block;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  nav {
+    background-color: var(--white-trans2);
+    & .navbar__contain-box {
+      height: 40px;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}

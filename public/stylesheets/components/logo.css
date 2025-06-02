@@ -1,0 +1,45 @@
+.brand-logo {
+  cursor: pointer;
+  transition: var(--transition);
+  &:hover {
+    opacity: 0.8;
+  }
+
+  & a {
+    color: var(--white);
+    font-size: var(--xl);
+    font-family: var(--play);
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    place-items: center;
+    gap: 0.25rem;
+
+    & .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .brand-logo a {
+    font-size: var(--lg);
+
+    & .logo {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .brand-logo a {
+    font-size: var(--md);
+
+    & .logo {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

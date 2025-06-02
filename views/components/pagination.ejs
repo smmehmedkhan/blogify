@@ -1,0 +1,19 @@
+<div class="pagination_wrapper">
+  <!-- Previous Button -->
+  <a href="<%= prevPage !== null && ('/?page=' + prevPage) %>" class="prev_link <%= prevPage === null && 'disabled' %>"
+    aria-disabled="<%= prevPage === null %>" <%=prevPage===null && 'tabindex="-1"' %>
+    >
+    <i class="fa-solid fa-left-long"></i>
+  </a>
+
+  <!-- Current Page Info -->
+  <p class="page_num">Page <%= current %> of <%= totalPages %>
+  </p>
+
+  <!-- Next Button -->
+  <a href="<%= nextPage !== null && ('/?page=' + nextPage) %>" class="next_link <%= nextPage === null && 'disabled' %>"
+    aria-disabled="<%= nextPage === null %>" <%=nextPage===null && 'tabindex="-1"' %>
+    >
+    <i class="fa-solid fa-right-long"></i>
+  </a>
+</div>

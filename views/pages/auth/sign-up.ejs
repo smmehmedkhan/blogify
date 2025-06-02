@@ -1,0 +1,49 @@
+<div class="sign_up-wrapper">
+  <div class="sign_up-box">
+    <h3>Sign Up</h3>
+    <p>Join and start your journey with us!</p>
+
+    <form id="SignUpForm" action="/auth/sign-up" method="post" autocomplete="on">
+      <div class="input-group">
+        <label for="username"><b>User name</b></label>
+        <input type="text" name="username" id="username" placeholder="John Doe" value="<%- userName || null %>" />
+        <p id="userNameError"><%- userNameError %></p>
+      </div>
+
+      <div class="input-group">
+        <label for="email"><b>Email</b></label>
+        <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" value="<%- email || null %>" />
+        <p id="emailError"><%- emailError %></p>
+      </div>
+
+      <div class="input-group">
+        <label for="password"><b>Password</b></label>
+        <input type="password" name="password" id="password" placeholder="Enter your secure password"
+          value="<%- password || null %>" />
+        <p id="passError"><%- notValidPassword %></p>
+      </div>
+
+      <div class="input-group">
+        <label for="confirmPassword"><b>Confirm password</b></label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Re-enter your password"
+          value="<%- confirmPassword || null %>" />
+        <p id="confirmPassError"><%- passMismatch %></p>
+      </div>
+
+      <button class="btn" type="submit" id="signUpSubmitBtn">Sign Up</button>
+    </form>
+
+    <p class="condition-links">
+      By signing up, you agree to our
+      <a href="/terms">Terms &amp; Conditions</a> and
+      <a href="/privacy">Privacy Policy</a>.
+    </p>
+
+    <p class="sign_in-link">
+      Already signed up an account?
+      <a href="/auth/sign-in">Sign in</a>
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript" src="/javascripts/auth/signUpValidator.js"></script>

@@ -1,0 +1,218 @@
+.dash-banner {
+  width: 100%;
+  padding: 5rem 2.5rem;
+  background: var(--sky-grad);
+  text-align: center;
+  border-block: 1px dashed var(--gray);
+  margin-block: 2.5rem;
+}
+
+.user-add_post-wrapper {
+  width: 100%;
+  padding: 0.5rem 2.5rem;
+  border-block: 1px dashed var(--white-trans-light);
+  margin-bottom: 2.5rem;
+  background-color: var(--black-trans-light);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & p {
+    color: var(--black);
+    padding: 0.25rem 2.5rem;
+    border: 1px solid var(--white-trans-light);
+    border-radius: 1rem;
+    background: var(--amber-grad);
+  }
+  & a {
+    font-size: var(--nm);
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--white-trans-light);
+    border-radius: 0.5rem;
+    background-color: var(--emerald);
+    transition: var(--transition);
+    &:hover {
+      background-color: var(--emerald-dark);
+      border-color: var(--white-trans-dark);
+    }
+  }
+}
+
+.user_blogs-wrapper {
+  width: 100%;
+  padding: 2.5rem 1rem;
+  border-block: 1px dashed var(--gray);
+
+  & ul {
+    width: 100%;
+    padding: 2.5rem;
+    border: 1px solid var(--white-trans-dark);
+    border-radius: 1rem;
+    background-color: var(--black-trans-dark);
+    backdrop-filter: blur(12px);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 1.25rem;
+
+    & h4 {
+      color: var(--blue);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    & li {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & .user-post__link {
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+          color: var(--blue);
+        }
+      }
+
+      & .user_post-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        & .edit-btn {
+          width: 80px;
+          height: 32px;
+          font-size: var(--sm);
+          font-weight: 600;
+          padding: 0.25rem 1rem;
+          border: 1px solid var(--white-trans-light);
+          border-radius: 0.25rem;
+          background-color: var(--gray);
+          cursor: pointer;
+          text-decoration: none;
+          text-align: center;
+          transition: var(--transition);
+          &:hover {
+            background-color: var(--gray-dark);
+            border-color: var(--white-trans-dark);
+          }
+        }
+        & form .delete-btn {
+          width: 80px;
+          height: 32px;
+          color: var(--white);
+          font-size: var(--sm);
+          font-weight: 600;
+          padding: 0.25rem 1rem;
+          border: 1px solid var(--white-trans-light);
+          border-radius: 0.25rem;
+          background-color: var(--red);
+          cursor: pointer;
+          transition: var(--transition);
+          &:hover {
+            background-color: var(--red-dark);
+            border-color: var(--white-trans-dark);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .dash-banner {
+    padding: 4rem 2.25rem;
+    margin-block: 2rem;
+  }
+
+  .add_post-wrapper {
+    padding: 0.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .user_blogs-wrapper {
+    padding: 2rem 1rem;
+    & ul {
+      padding: 2rem;
+      gap: 1rem;
+      & h4 {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dash-banner {
+    padding: 3rem 0.5rem;
+    margin-block: 1.5rem;
+  }
+
+  .add_post-wrapper {
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .user_blogs-wrapper {
+    padding: 1.5rem 0.75rem;
+    & ul {
+      padding: 2rem 1.5rem;
+      gap: 1rem;
+      & h4 {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dash-banner {
+    padding: 2rem 1rem;
+    margin-block: 1rem;
+  }
+
+  .add_post-wrapper {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    & p {
+      padding: 0.5rem 1rem;
+    }
+    & a {
+      font-size: var(--sm);
+      padding: 0.4rem 1rem;
+    }
+  }
+
+  .user_blogs-wrapper {
+    padding: 1rem 0.5rem;
+    & ul {
+      padding: 1.5rem 0.5rem;
+      gap: 1rem;
+      & h4 {
+        margin-bottom: 1rem;
+      }
+      & li .user_post-actions {
+        gap: 0.5rem;
+        & .edit-btn {
+          width: 60px;
+          height: 26px;
+          font-size: var(--xs);
+          padding: 0.25rem;
+        }
+        & form .delete-btn {
+          width: 60px;
+          height: 26px;
+          font-size: var(--xs);
+          padding: 0.25rem;
+        }
+      }
+    }
+  }
+}

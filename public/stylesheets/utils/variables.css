@@ -1,0 +1,72 @@
+:root {
+  /* font sizes */
+  --xs: 12px;
+  --sm: 14px;
+  --nm: 16px;
+  --md: 20px;
+  --lg: 24px;
+  --xl: 32px;
+  --2xl: 36px;
+  --3xl: 40px;
+  --4xl: 48px;
+
+  /* Font families */
+  --mw: 'Merriweather', serif;
+  --os: 'Open Sans', sans-serif;
+  --play: 'Play', sans-serif;
+
+  /* colors */
+  --white: hsl(0 0% 98%);
+  --white-I: hsl(240 4.8% 95.9%);
+  --white-II: hsl(240 5.9% 90%);
+  --black: hsl(240 10% 3.9%);
+  --black-I: hsl(240 5.9% 10%);
+  --black-II: hsl(240 5.3% 26.1%);
+  --slate: hsl(222.2 84% 4.9%);
+  --slate-light: hsl(222.2 47.4% 11.2%);
+  --gray-light: hsl(217.9 10.6% 64.9%);
+  --gray: hsl(220 8.9% 46.1%);
+  --gray-dark: hsl(215 13.8% 34.1%);
+  --red: hsl(0 72.2% 50.6%);
+  --red-dark: hsl(0 73.7% 41.8%);
+  --emerald: hsl(160.1 84.1% 39.4%);
+  --blue-light: hsl(213.1 93.9% 67.8%);
+  --blue: hsl(217.2 91.2% 59.8%);
+  --blue-dark: hsl(221.2 83.2% 53.3%);
+  --purple: hsl(270.7 91% 65.1%);
+  --amber-light: hsl(43.3 96.4% 56.3%);
+  --amber: hsl(37.7 92.1% 50.2%);
+  --amber-dark: hsl(32.1 94.6% 43.7%);
+  --sky: hsl(198.6 88.7% 48.4%);
+  --fuschia: hsl(292.2 84.1% 60.6%);
+  --pink: hsl(330.4 81.2% 60.4%);
+  --rose: hsl(346.8 77.2% 49.8%);
+
+  /* Gadients */
+  --gold-grad: linear-gradient(
+    to bottom,
+    hsl(51, 100%, 50%),
+    hsl(39, 100%, 50%),
+    hsl(33, 100%, 50%)
+  );
+
+  /* Utilitise */
+  --max-width: 1536px;
+  --transition: all 0.3s;
+  --trans-white-I: rgba(255, 255, 255, 0.1);
+  --trans-white-II: rgba(255, 255, 255, 0.15);
+  --shadow-box:
+    -2px 0 4px 0 var(--trans-white-I), 2px 0 4px 0 var(--trans-white-I),
+    0 2px 4px 0 var(--trans-white-I), 0 4px 10px 0 var(--trans-white-I);
+  --card-shadow:
+    -1px 0 2px 0 var(--trans-white-I), 1px 0 2px 0 var(--trans-white-I),
+    0 2px 4px 0 var(--trans-white-I), 0 4px 10px 0 var(--trans-white-I);
+  --card-hover-shadow:
+    -1px 0 2px 0 var(--trans-white-II), 1px 0 2px 0 var(--trans-white-II),
+    0 2px 4px 0 var(--trans-white-II), 0 4px 10px 0 var(--trans-white-II);
+  --shadow-red:
+    -2px 0 4px 0 var(--red-trans), 2px 0 4px 0 var(--red-trans),
+    0 2px 4px 0 var(--red-trans), 0 4px 10px 0 var(--red-trans);
+  --shadow-bottom:
+    0 2px 4px 0 var(--trans-white-I), 0 3px 8px 0 var(--trans-white-I);
+}

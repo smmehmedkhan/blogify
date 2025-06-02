@@ -1,0 +1,45 @@
+<main>
+  <%- include('../../partials/dash-banner.ejs') %>
+
+    <div class="user-add_post-wrapper">
+      <p>
+        What's on your mind today? wanna write a new post?
+      </p>
+      <a href="/users/dashboard/add">Add Post</a>
+    </div>
+
+    <div class="user_blogs-wrapper">
+      <ul>
+        <h4>Your recent posts</h4>
+        <% if (blogs.length===0) { %>
+          <li class="no-posts">No posts yet</li>
+          <% } %>
+            <% blogs.forEach(blog=> { %>
+              <li>
+                <a href="/blog/<%= blog._id %>" class="user-post__link">
+                  <%= blog.title %> &nearr;
+                </a>
+                <div class="user_post-actions">
+                  <a href="/users/dashboard/edit/<%= blog._id %>" class="edit-btn">Edit</a>
+                  <form action="/users/dashboard/delete/<%= blog._id %>?_method=DELETE" method="post">
+                    <input type="submit" value="Delete" class="delete-btn"
+                      onclick="return confirm('Are you sure you want to delete this post?')">
+                  </form>
+                </div>
+              </li>
+              <% }) %>
+      </ul>
+    </div>
+</main>
+
+<!-- Email verification alert -->
+<% if (!user.verified) { %>
+  <div>
+    <strong>Your email is not verified!</strong>
+    Please check your inbox for the verification link or
+    <a href="/auth/verify">click here</a> to resend the verification email.
+  </div>
+  <% } %>
+
+
+    <%- include('../../partials/footer.ejs') %>

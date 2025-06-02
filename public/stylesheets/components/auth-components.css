@@ -1,0 +1,193 @@
+.sign_in-wrapper,
+.sign_up-wrapper,
+.forgot_password-wrapper,
+.reset_password-wrapper {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  place-items: center;
+  place-content: center;
+
+  & .sign_in-box,
+  .sign_up-box,
+  .forgot_password-box,
+  .reset_password-box {
+    width: 100%;
+    max-width: 400px;
+    min-height: 480px;
+    padding: 3rem 1.5rem;
+    border: 1px solid var(--black-II);
+    border-radius: 0.5rem;
+    background-color: var(--slate-light);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-box);
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 0.75rem;
+    transform: translateY(-60px);
+    & h3 {
+      font-size: var(--lg);
+      font-weight: 600;
+      margin: 0;
+    }
+    & p.service-info {
+      color: var(--emerald);
+      font-weight: 600;
+      text-align: center;
+    }
+    & form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 0.25rem 0 1rem 0;
+      gap: 1rem;
+      & .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        & input {
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border: 1px solid var(--gray-light);
+          border-radius: 0.25rem;
+          font-size: var(--sm);
+          color: var(--white);
+          background-color: var(--gray-dark);
+          &:focus {
+            outline: 2px solid var(--blue-light);
+          }
+          &::placeholder {
+            color: var(--gray-light);
+            font-size: var(--sm);
+            font-weight: 500;
+          }
+        }
+        p {
+          font-size: var(--sm);
+          color: var(--red);
+          text-align: center;
+        }
+      }
+      & button {
+        width: 100%;
+        padding-block: 0.625rem;
+        border: none;
+        border-radius: 0.25rem;
+        margin-top: 1rem;
+        background-color: var(--blue);
+        color: var(--white);
+        font-size: var(--nm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        &:hover {
+          background-color: var(--blue-dark);
+        }
+      }
+    }
+    & .sign_up-link,
+    .sign_in-link,
+    .condition-links,
+    .forgot-password-link {
+      width: 100%;
+      text-align: center;
+      & a {
+        color: var(--blue);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        &:hover {
+          color: var(--blue-dark);
+        }
+      }
+    }
+  }
+}
+
+main.verify-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & .verification {
+    width: max-content;
+    min-width: 600px;
+    height: max-content;
+    padding: 2.5rem 1rem;
+    box-shadow: var(--shadow-box);
+    border-radius: 0.5rem;
+    background-color: var(--emerald);
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    transform: translateY(-60px);
+    & h4 {
+      margin-bottom: 2rem;
+    }
+    & p {
+      color: var(--white-II);
+    }
+    & .verify-actions {
+      width: max-content;
+      margin: 2rem auto;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      & .btn {
+        width: max-content;
+        height: 40px;
+        padding: 0.5rem 1.5rem;
+        border: 0;
+        border-radius: 0.25rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+      }
+      & .resend-btn {
+        color: var(--white);
+        background-color: var(--amber);
+        font-size: var(--nm);
+        & i {
+          font-size: var(--nm);
+          font-weight: 700;
+        }
+        &:hover {
+          color: var(--white-II);
+          background-color: var(--amber-dark);
+        }
+      }
+      & .home-btn {
+        color: var(--black);
+        background-color: var(--white);
+        &:hover {
+          color: var(--black-II);
+          background-color: var(--white-II);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sign_in-wrapper,
+  .sign_up-wrapper,
+  .forgot_password-wrapper,
+  .reset_password-wrapper {
+    & & .sign_in-box,
+    .sign_up-box,
+    .forgot_password-box,
+    .reset_password-box {
+      transform: translateY(0);
+    }
+  }
+  .verification {
+    min-width: 400px;
+  }
+}

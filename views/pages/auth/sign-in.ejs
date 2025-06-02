@@ -1,0 +1,32 @@
+<div class="sign_in-wrapper">
+  <div class="sign_in-box">
+    <h3>Sign In</h3>
+    <p>You can sign in with a signed up email.</p>
+
+    <form action="/auth/sign-in" method="post" id="SignInForm" autocomplete="on">
+      <div class="input-group">
+        <label for="email"><b>Email</b></label>
+        <input type="email" name="email" id="email" placeholder="example@mail.com" value="<%- email || null %>" />
+        <p id="signInEmailError"><%- emailError %></p>
+      </div>
+      <div class="input-group">
+        <label for="password"><b>Password</b></label>
+        <input type="password" name="password" id="password" placeholder="Enter your password"
+          value="<%- password || null %>" />
+        <p id="signInPassError"><%- notValidPassword %></p>
+      </div>
+      <button type="submit" id="signInSubmitBtn">Sign In</button>
+    </form>
+
+    <p class="forgot-password-link">
+      <a href="/auth/forgot-password">Forgot Password?</a>
+    </p>
+
+    <p class="sign_up-link">
+      Don't have an account?
+      <a href="/auth/sign-up">Sign up</a>
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript" src="/javascripts/auth/signInValidator.js"></script>
