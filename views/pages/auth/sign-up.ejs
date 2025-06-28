@@ -1,9 +1,10 @@
 <div class="sign_up-wrapper">
   <div class="sign_up-box">
-    <h3>Sign Up</h3>
+    <h5>Sign Up</h5>
     <p>Join and start your journey with us!</p>
 
     <form id="SignUpForm" action="/auth/sign-up" method="post" autocomplete="on">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <div class="input-group">
         <label for="username"><b>User name</b></label>
         <input type="text" name="username" id="username" placeholder="John Doe" value="<%- userName || null %>" />
@@ -46,4 +47,4 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/javascripts/auth/signUpValidator.js"></script>
+<script type="text/javascript" src="/javascripts/auth/signUpValidator.js" nonce="<%= nonce %>"></script>

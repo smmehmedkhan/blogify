@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
+import { NODE_ENV } from './env.js';
 
 dotenv.config();
 
@@ -15,12 +16,16 @@ const options = {
 const sessionConfig = {
   secret: options.sessionSecret,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: options.dbUrl,
+    touchAfter: 24 * 3600, // Only update session once per day
   }),
   cookie: {
     maxAge: options.cookiesAge,
+    httpOnly: true,
+    secure: NODE_ENV === 'production', // Only use secure in production
+    sameSite: 'strict',
   },
 };
 

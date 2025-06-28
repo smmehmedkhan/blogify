@@ -1,3 +1,5 @@
+import striptags from 'striptags';
+
 import handleError from '../utils/handleError.utils.js';
 import blogService from '../services/blog.service.js';
 import commentService from '../services/comment.service.js';
@@ -6,7 +8,8 @@ import commentService from '../services/comment.service.js';
  * Get all blogs with pagination
  */
 export async function findBlogs(req, res) {
-  const blogPerPage = 24;
+  const nonce = res.locals.nonce;
+  const blogPerPage = 18;
   const pageNumber = parseInt(req.query.page) || 1;
   const locals = {
     title: 'Blogify',
@@ -20,8 +23,15 @@ export async function findBlogs(req, res) {
       blogPerPage,
     );
 
+    // Strip HTML from descriptions
+    const sanitizedBlogs = blogs.map((blog) => ({
+      ...blog,
+      descriptions: striptags(blog.descriptions),
+    }));
+
     if (blogs.length === 0 && pageNumber === 1) {
       const bundle = {
+        nonce,
         locals,
         blogs: [],
         current: 1,
@@ -34,7 +44,7 @@ export async function findBlogs(req, res) {
 
     const bundle = {
       locals,
-      blogs,
+      blogs: sanitizedBlogs,
       current: pagination.currentPage,
       nextPage: pagination.nextPage,
       prevPage: pagination.prevPage,
@@ -53,6 +63,7 @@ export async function findBlogs(req, res) {
  */
 export async function findABlog(req, res) {
   const blogId = req.params.id;
+  const nonce = res.locals.nonce;
 
   try {
     const blog = await blogService.getBlogById(blogId);
@@ -61,7 +72,14 @@ export async function findABlog(req, res) {
     const userId = req.user ? req.user._id : null; // Check user sign-in
     const userLiked = userId ? blog.likes.includes(userId) : false;
     const userDisliked = userId ? blog.dislikes.includes(userId) : false;
+    const locals = {
+      title: blog.title,
+      description: blog.title,
+    };
+
     const bundle = {
+      nonce,
+      locals,
       blog,
       comments,
       userLiked,

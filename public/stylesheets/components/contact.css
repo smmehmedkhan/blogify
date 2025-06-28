@@ -1,0 +1,141 @@
+/* Contact page styles */
+.contact-page {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .contact-container {
+    flex-direction: row;
+  }
+  
+  .contact-info,
+  .contact-form-section {
+    flex: 1;
+  }
+}
+
+.contact-info {
+  padding: 1rem;
+}
+
+.contact-info h1 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.contact-guidance {
+  margin: 2rem 0;
+}
+
+.contact-guidance h3 {
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.contact-guidance ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-guidance li {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.contact-guidance i {
+  color: var(--primary-color);
+  margin-top: 0.25rem;
+}
+
+.response-time {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--light-bg);
+  border-radius: 0.5rem;
+}
+
+.response-time i {
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+.contact-form-section {
+  background-color: var(--light-bg);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.contact-form-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+
+.submit-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.error-message {
+  color: #e53935;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}

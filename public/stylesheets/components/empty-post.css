@@ -11,8 +11,7 @@
     border-radius: 12px;
     margin-block: 1.5rem;
     text-align: center;
-    background-color: var(--black-I);
-    box-shadow: var(--card-shadow);
+    /* background-color: var(--black-I); */
     & i {
       font-size: var(--4xl);
       margin-bottom: 2rem;
@@ -40,7 +39,7 @@
     }
 
     .create-btn:hover {
-      background-color: var(--blue-dark);
+      background-color: var(--emerald-dark);
     }
   }
 }

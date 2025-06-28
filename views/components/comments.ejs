@@ -1,0 +1,55 @@
+<div class="comments-section">
+  <h4>
+    <i class="fa-solid fa-comments"></i>
+    Comments
+    <span id="commentsCounter">
+      <%= comments?.length || 0 %>
+    </span>
+  </h4>
+
+  <form id="commentForm" class="comment-form <%= !userId && 'disable' %>">
+    <textarea id="commentContent" placeholder="Write a comment..." rows="2" required></textarea>
+    <button type="submit">
+      <i class="fa-solid fa-comment"></i>
+      Commit
+    </button>
+  </form>
+  <% if (!userId) { %>
+    <div class="login-prompt">
+      <p>Please <a href="/auth/sign-in">sign in</a> to leave a comment.</p>
+    </div>
+    <% } %>
+
+      <ul id="commentsList" class="comments-list">
+        <% if (comments && comments.length> 0) { %>
+          <% comments.forEach((comment)=> { %>
+            <li class="comment" data-comment-id="<%= comment._id %>">
+              <div class="comment-header">
+                <p class="comment-user">
+                  <i class="fa-solid fa-at"></i>
+                  <%= comment.userId.username %>
+                </p>
+                <span class="comment-date">
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <%= comment.createdAt.toLocaleDateString() %>
+                </span>
+              </div>
+              <p class="comment-content">
+                <%= comment.content %>
+              </p>
+              <% if (userId && comment.userId._id.toString()===userId.toString()) { %>
+                <button class="comment-delete-button">
+                  Delete
+                  <i class="fa-solid fa-delete-left"></i>
+                </button>
+                <% } %>
+            </li>
+            <% }); %>
+              <% } else { %>
+                <li>
+                  <p>No comments yet. Be the first to comment!</p>
+                </li>
+                <% } %>
+      </ul>
+</div>
+<script type="text/javascript" src="/javascripts/components/comments.js" nonce="<%= nonce %>"></script>

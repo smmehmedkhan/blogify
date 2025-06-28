@@ -1,7 +1,23 @@
 <header class="dash-banner">
-  <h2>Welcome <%= user.username || 'Guest' %>!</h2>
-  <p>
-    This is your dashboard. You can view all of your post. Also can delete or
-    modify those as you wish.
+  <div class="greeting">
+    <div class="avatar">
+      <i class="fa-solid fa-user-astronaut"></i>
+    </div>
+    <h2>Welcome back, <span>
+        <%= user.username || 'Guest' %>!
+      </span>
+    </h2>
+  </div>
+  <p class="help-text">
+    <i class="fa-solid fa-lightbulb"></i>
+    Manage your posts, track your progress, and share your stories with the world.
   </p>
+  <blockquote class="inspiration">
+    <i class="fa-solid fa-quote-left"></i>
+    <span>
+      The secret of getting ahead is getting started.
+    </span>
+    <i class="fa-solid fa-quote-right"></i>
+    <h6>— Mark Twain</h6>
+  </blockquote>
 </header>

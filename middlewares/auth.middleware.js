@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../.configs/env.js';
+import { JWT_SECRET } from '../config/env.js';
 import User from '../models/user.model.js';
 
 /**
@@ -10,6 +10,8 @@ export default async function auth(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
+    // Store the current URL in the session before redirecting
+    req.session.returnTo = req.originalUrl;
     return res.redirect(302, '/auth/sign-in');
   }
 
@@ -20,7 +22,9 @@ export default async function auth(req, res, next) {
     if (!user) {
       return res.redirect(302, '/auth/sign-in');
     }
+
     req.user = user;
+
     return next();
   } catch (error) {
     return next(error);

@@ -12,8 +12,10 @@ export async function createComment(req, res) {
   try {
     const comment = await commentService.createComment(content, blogId, userId);
 
+    req.flash('success', 'Comment created successfully');
     return res.status(201).json(comment);
   } catch (error) {
+    req.flash('error', error.message);
     handleError(res, error);
   }
 }
@@ -43,8 +45,10 @@ export async function deleteComment(req, res) {
   try {
     await commentService.deleteComment(commentId, userId);
 
+    req.flash('success', 'Comment deleted successfully');
     return res.status(200).json({ message: 'Comment deleted successfully' });
   } catch (error) {
+    req.flash('error', error.message);
     handleError(res, error);
   }
 }

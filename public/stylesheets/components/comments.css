@@ -1,0 +1,124 @@
+.comments-section {
+  width: 100%;
+  height: auto;
+  padding: 1.5rem 1rem;
+  border: 1px dashed var(--border);
+  margin-block: 1.5rem;
+  background-color: var(--accent);
+
+  & h4 {
+    font-size: var(--lg);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    & i {
+      color: var(--emerald);
+    }
+    & span {
+      color: var(--gray);
+    }
+  }
+  & form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    &.disable {
+      opacity: 0.5;
+      pointer-events: none;
+      position: relative;
+    }
+    & textarea {
+      width: 100%;
+      height: 5rem;
+      resize: none;
+      scroll-behavior: smooth;
+    }
+    & button {
+      width: max-content;
+      background-color: var(--warning);
+      &:hover {
+        background-color: var(--warning-popover);
+      }
+    }
+  }
+  & .login-prompt {
+    width: 100%;
+    padding: 0.625rem 1.25rem;
+    border: 0;
+    border-radius: var(--radius);
+    margin-block: 1rem;
+    text-align: center;
+    background-color: var(--blue-trans);
+    & p a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+  }
+  & .comments-list {
+    width: 100%;
+    height: max-content;
+    padding: 1.5rem 1rem;
+    border-block: 1px solid var(--border);
+    margin-block: 1rem;
+    list-style: none;
+    & .comment {
+      width: 100%;
+      padding: 1rem 2rem;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      & .comment-header {
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        & .comment-user {
+          font-weight: bold;
+          color: var(--purple);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          & i {
+            font-size: var(--md);
+          }
+        }
+        & .comment-date {
+          font-size: var(--xs);
+          color: var(--muted-foreground);
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          & i {
+            font-size: var(--xs);
+          }
+        }
+      }
+      & .comment-content {
+        width: 100%;
+        text-align: left;
+      }
+      & .comment-delete-button {
+        width: max-content;
+        padding: 0.625rem 1.25rem;
+        border: 0;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: var(--destructive);
+        cursor: pointer;
+        transition: var(--transition);
+        &:hover {
+          background-color: var(--destructive-popover);
+        }
+      }
+    }
+  }
+}

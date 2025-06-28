@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'CSRF-Token': document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute('content'),
         },
       };
 

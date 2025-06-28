@@ -5,6 +5,8 @@
       <div class="edit_post-card">
         <h4>Update post</h4>
         <form action="/users/dashboard/edit/<%= blog._id %>?_method=PUT" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
           <label for="title"><b>Title</b></label>
           <input type="text" name="title" value="<%= blog.title %>" placeholder="Enter blog title" />
 
@@ -14,37 +16,33 @@
               <img src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" width="200">
               <p>Current image</p>
             </div>
-          <% } %>
-          <input type="file" name="blogImage" accept="image/*" />
+            <% } %>
+              <input type="file" name="blogImage" accept="image/*" />
 
-          <label for="descriptions"><b>Content</b></label>
-          <textarea name="descriptions" id="editPostTextArea">
+              <label for="descriptions"><b>Content</b></label>
+              <textarea name="descriptions" id="editPostTextArea">
       <%= blog.descriptions %>
     </textarea>
-          <div class="edit_post-actions">
-            <button type="submit" class="update_btn">
-              <i class="fa-solid fa-check"></i>
-              Update
-            </button>
-            <form action="/users/dashboard/delete/<%= blog._id %>?_method=DELETE" method="post">
-              <button type="submit" class="delete_btn">
-                <i class="fa-solid fa-trash"></i>
-                Delete
-              </button>
-            </form>
-          </div>
+              <div class="edit_post-actions">
+                <button type="submit" class="update_btn">
+                  <i class="fa-solid fa-check"></i>
+                  Update
+                </button>
+                <form action="/users/dashboard/delete/<%= blog._id %>?_method=DELETE" method="post">
+                  <button type="submit" class="delete_btn">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                  </button>
+                </form>
+              </div>
         </form>
-        <script>
+        <script nonce="<%= nonce %>">
           tinymce.init({
             selector: '#editPostTextArea',
-            plugins: [
-              // Core editing features
-              'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-              // Your account includes a free trial of TinyMCE premium features
-              // Try the most popular premium features until Jun 13, 2025:
-              'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
-            ],
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
 
             // Configurations for image uploads
             images_upload_url: '/api/images/upload',

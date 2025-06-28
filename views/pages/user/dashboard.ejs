@@ -1,45 +1,105 @@
 <main>
   <%- include('../../partials/dash-banner.ejs') %>
 
-    <div class="user-add_post-wrapper">
-      <p>
-        What's on your mind today? wanna write a new post?
-      </p>
-      <a href="/users/dashboard/add">Add Post</a>
-    </div>
+    <section class="user_navigator">
+      <!-- User add post card -->
+      <div class="user_card add_post">
+        <div class="icon">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <div class="contents">
+          <h5>Share your thoughts!</h5>
+          <p>What's on your mind today? <br /> Start a new post and inspire others.</p>
+          <a href="/users/dashboard/add" class="btn">
+            <i class="fa-solid fa-pen"></i> Add New Post
+          </a>
+        </div>
+      </div>
 
-    <div class="user_blogs-wrapper">
-      <ul>
-        <h4>Your recent posts</h4>
-        <% if (blogs.length===0) { %>
-          <li class="no-posts">No posts yet</li>
-          <% } %>
+      <!-- Profile Card -->
+      <div class="user_card profile">
+        <div class="icon">
+          <i class="fa-regular fa-address-card"></i>
+        </div>
+        <div class="contents">
+          <h5>Your Profile</h5>
+          <p>View and update your personal information, avatar, and account settings to keep your profile up to date.
+          </p>
+          <a href="/users/dashboard/profile" class="btn">
+            <i class="fa-solid fa-user-gear"></i> Edit Profile
+          </a>
+        </div>
+      </div>
+
+      <!-- Guidelines Card -->
+      <div class="user_card guideline">
+        <div class="icon">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <div class="contents">
+          <h5>Posting Guidelines</h5>
+          <p>Before you post, please review our community guidelines and terms to ensure a positive experience for
+            everyone.
+          </p>
+          <a href="/guidelines" class="btn">
+            <i class="fa-solid fa-book-open"></i> Read Guidelines
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="user_blogs">
+      <div class="header">
+        <i class="fa-solid fa-fire-flame-curved"></i>
+        <h4>Your Creative Journey</h4>
+        <p>
+          <i class="fa-solid fa-table"></i>
+          All your posts in one place
+        </p>
+      </div>
+      <% if (blogs.length===0) { %>
+        <div class="empty-card">
+          <i class="fa-regular fa-face-smile-beam"></i>
+          <p>No posts yet. Start sharing your stories!</p>
+        </div>
+        <% }%>
+          <ul>
             <% blogs.forEach(blog=> { %>
               <li>
-                <a href="/blog/<%= blog._id %>" class="user-post__link">
-                  <%= blog.title %> &nearr;
-                </a>
-                <div class="user_post-actions">
-                  <a href="/users/dashboard/edit/<%= blog._id %>" class="edit-btn">Edit</a>
-                  <form action="/users/dashboard/delete/<%= blog._id %>?_method=DELETE" method="post">
-                    <input type="submit" value="Delete" class="delete-btn"
-                      onclick="return confirm('Are you sure you want to delete this post?')">
-                  </form>
-                </div>
+                <% if (blog.coverImage?.url) { %>
+                  <img class="image-content" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" loading="lazy">
+                  <% } else { %>
+                    <img class="image-content" src="/images/noise.png" alt="No cover image found" loading="lazy">
+                    <% } %>
+                      <h4>
+                        <a href="/blog/<%= blog._id %>" class="post__link">
+                          <%= blog.title %> &nearr;
+                        </a>
+                      </h4>
+                      <div class="action_buttons">
+                        <a href="/users/dashboard/edit/<%= blog._id %>" class="btn edit_post">
+                          <i class="fa-solid fa-pen-to-square"></i>
+                          <!-- Edit -->
+                        </a>
+                        <button id="deletePost" class="btn delete_post" data-blog-id="<%= blog._id %>" type="button">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
               </li>
               <% }) %>
-      </ul>
-    </div>
+          </ul>
+          </div>
 </main>
 
 <!-- Email verification alert -->
 <% if (!user.verified) { %>
-  <div>
+  <section class="verify_reminder">
     <strong>Your email is not verified!</strong>
     Please check your inbox for the verification link or
     <a href="/auth/verify">click here</a> to resend the verification email.
-  </div>
+  </section>
   <% } %>
 
-
     <%- include('../../partials/footer.ejs') %>
+
+      <script type="text/javascript" src="/javascripts/components/deletePost.js" nonce="<%= nonce %>"></script>

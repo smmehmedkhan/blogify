@@ -1,15 +1,13 @@
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
 import User from '../models/user.model.js';
 import createToken from '../utils/createToken.utils.js';
-import {
-  APP_URL,
-  EMAIL_FROM,
-  EMAIL_PASSWORD,
-  EMAIL_USERNAME,
-} from '../.configs/env.js';
+import { APP_URL, EMAIL_FROM, SENDGRID_API_KEY } from '../config/env.js';
+
+// Set API key
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 class AuthService {
   /**
@@ -45,44 +43,42 @@ class AuthService {
 
       // Set token & expiry time
       user.emailVerificationToken = verificationToken;
-      user.emailVerificationExpires = Date.now() + 1000 * 60 * 60; // 1 hours
+      user.emailVerificationExpires = Date.now() + 1000 * 60 * 60; // 1 hour
 
       await user.save();
-
-      // Create transporter
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: EMAIL_USERNAME,
-          pass: EMAIL_PASSWORD,
-        },
-      });
 
       // Create verification URL
       const verificationUrl = `${APP_URL}/auth/verify/${verificationToken}`;
 
       // Email options
-      const mailOptions = {
-        from: EMAIL_FROM,
+      const msg = {
         to: user.email,
+        from: EMAIL_FROM,
         subject: 'Email Verification - Blogify',
+        text: `Welcome to Blogify! Please verify your email address by clicking the link below:\n\n${verificationUrl}\n\nThis link will expire in 1 hour.\n\nIf you didn't create an account, please ignore this email.`,
         html: `
           <h1>Welcome to Blogify!</h1>
           <p>Thank you for signing up. Please verify your email address by clicking the link below:</p>
           <a href="${verificationUrl}">${verificationUrl}</a>
-          <p>This link will expire in 1 hours.</p>
+          <p>This link will expire in 1 hour.</p>
           <p>If you didn't create an account, please ignore this email.</p>
         `,
       };
 
       // Send email
-      await transporter.sendMail(mailOptions);
+      await sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Email sent');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
       return true;
     } catch (err) {
-      console.log('Error to sending verification email: ', err);
-      const error = new Error('Error to sending verification email');
-      throw error;
+      console.log('Error sending verification email: ', err);
+      throw new Error('Error sending verification email');
     }
   }
 
@@ -145,40 +141,37 @@ class AuthService {
    */
   async sendPasswordResetEmail(email, token) {
     try {
-      // Create transporter
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: EMAIL_USERNAME,
-          pass: EMAIL_PASSWORD,
-        },
-      });
-
       // Create reset URL
       const resetUrl = `${APP_URL}/auth/reset-password/${token}`;
 
       // Email options
-      const mailOptions = {
-        from: EMAIL_FROM,
+      const msg = {
         to: email,
+        from: EMAIL_FROM,
         subject: 'Password Reset Request',
         html: `
-        <p>You requested a password reset.</p>
-        <p>Click this link to reset your password:</p>
-        <a href="${resetUrl}">${resetUrl}</a>
-        <p>This link will expire in 1 hour.</p>
-        <p>If you didn't request this, please ignore this email.</p>
-      `,
+          <p>You requested a password reset.</p>
+          <p>Click this link to reset your password:</p>
+          <a href="${resetUrl}">${resetUrl}</a>
+          <p>This link will expire in 1 hour.</p>
+          <p>If you didn't request this, please ignore this email.</p>
+        `,
       };
 
       // Send email
-      await transporter.sendMail(mailOptions);
+      await sgMail
+        .send(msg)
+        .then(() => {
+          console.log('Password reset email sent');
+        })
+        .catch((error) => {
+          console.error('Error sending password reset email: ', error);
+        });
 
       return true;
-    } catch (err) {
-      console.log('Error to sending reset password email: ', err);
-      const error = new Error('Error to sending reset password email');
-      throw error;
+    } catch (error) {
+      console.log('Error sending reset password email: ', error);
+      throw new Error('Error sending reset password email');
     }
   }
 
@@ -210,6 +203,11 @@ class AuthService {
       throw error;
     }
 
+    if (user.passwordResetUsed) {
+      const error = new Error('This reset token has already been used');
+      throw error;
+    }
+
     // Hash new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -218,6 +216,7 @@ class AuthService {
     user.password = hashedPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
+    user.passwordResetUsed = true;
 
     await user.save();
 

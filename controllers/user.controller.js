@@ -1,3 +1,4 @@
+import sanitize from 'sanitize-html';
 import handleError from '../utils/handleError.utils.js';
 import userService from '../services/user.service.js';
 
@@ -6,6 +7,7 @@ import userService from '../services/user.service.js';
  * Render user panel page
  */
 export async function userPanel(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Profile',
     description: 'You can explore your content and account settings.',
@@ -13,6 +15,7 @@ export async function userPanel(req, res) {
 
   try {
     const bandle = {
+      nonce,
       locals,
       currentRoute: '/users',
       user: req.user,
@@ -28,6 +31,7 @@ export async function userPanel(req, res) {
  * Render user dashboard with their blogs
  */
 export async function userDashboard(req, res) {
+  const nonce = res.locals.nonce;
   const userId = req.user._id;
   const locals = {
     title: 'Blogify | Dashboard',
@@ -37,6 +41,7 @@ export async function userDashboard(req, res) {
   try {
     const blogs = await userService.getUserBlogs(userId);
     const bandle = {
+      nonce,
       locals,
       blogs,
       currentRoute: '/users/dashboard',
@@ -53,6 +58,7 @@ export async function userDashboard(req, res) {
  * Render add blog page
  */
 export async function addBlogPage(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Add Blog',
     descriptions: 'You can add new blog.',
@@ -60,6 +66,7 @@ export async function addBlogPage(req, res) {
 
   try {
     const bandle = {
+      nonce,
       locals,
       currentRoute: '/users/dashboard/add',
       user: req.user,
@@ -78,13 +85,58 @@ export async function addBlogPage(req, res) {
 export async function addABlog(req, res) {
   const { title, descriptions } = req.body;
   const userId = req.user._id;
+  const author = req.user.username;
 
   try {
+    // Senitize blog descriptions
+    const sanitizeContent = sanitize(descriptions, {
+      allowedTags: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'blockquote',
+        'p',
+        'a',
+        'ul',
+        'ol',
+        'nl',
+        'li',
+        'b',
+        'i',
+        'strong',
+        'em',
+        'strike',
+        'code',
+        'hr',
+        'br',
+        'div',
+        'table',
+        'thead',
+        'caption',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'pre',
+        'img',
+      ],
+      allowedAttributes: {
+        a: ['href', 'name', 'target'],
+        img: ['src', 'alt', 'width', 'height'],
+      },
+      // Restrict URLs to http, https, mailto
+      allowedSchemes: ['http', 'https', 'mailto'],
+    });
+
     // Create blog data object
     const blogData = {
       title,
-      descriptions,
+      descriptions: sanitizeContent,
       userId,
+      author,
     };
 
     // If an image was uploaded, add it to the blog data
@@ -109,6 +161,7 @@ export async function addABlog(req, res) {
  * Render update blog page
  */
 export async function updateBlogPage(req, res) {
+  const nonce = res.locals.nonce;
   const blogId = req.params.id;
   const locals = {
     title: 'Blogify | Edit Blog',
@@ -117,17 +170,19 @@ export async function updateBlogPage(req, res) {
 
   try {
     const blog = await userService.getBlogById(blogId);
-    const bandle = {
-      locals,
-      blog,
-      currentRoute: '/users/dashboard/edit',
-      user: req.user,
-    };
 
     if (!blog) {
       req.flash('error', 'Blog not found');
       return res.redirect('/users/dashboard');
     }
+
+    const bandle = {
+      nonce,
+      locals,
+      blog,
+      currentRoute: '/users/dashboard/edit',
+      user: req.user,
+    };
 
     return await res.render('pages/user/edit-post', bandle);
   } catch (error) {
@@ -193,6 +248,15 @@ export async function deleteBlog(req, res) {
     if (blog?.coverImage?.public_id) {
       // Optional: Delete the image from Cloudinary
       // await cloudinary.uploader.destroy(blog.image.public_id);
+    }
+
+    // Check if AJAX request
+    if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+      return res.json({
+        success: true,
+        message: 'Your post deleted successfully',
+        blogId,
+      });
     }
 
     req.flash('success', 'Your post deleted successfully');

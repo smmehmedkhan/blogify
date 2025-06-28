@@ -1,8 +1,53 @@
-<nav id="navbar">
-  <div class="navbar__contain-box">
+<nav id="navbar" areia-label="Navigation bar">
+  <div class="desktop">
+    <ul class="left">
+      <li>
+        <a href="/">
+          <img id="navBrandLogo" class="logo" src="/images/blogify-logo-light.png" alt="Blogify logo" height="32"
+            width="32">
+        </a>
+      </li>
+      <li>
+        <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          About
+        </a>
+      </li>
+      <li>
+        <a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">
+          <i class="fa-solid fa-envelope"></i>
+          Contact
+        </a>
+      </li>
+      <li>
+        <a href="/users/dashboard" class="<%= activeRoute ? activeRoute('/users/dashboard', path) : '' %>">
+          <i class="fa-solid fa-pen"></i>
+          Dashboard
+        </a>
+      </li>
+    </ul>
+    <ul class="right">
+      <li>
+        <button class="toggle-theme"></button>
+      </li>
+      <li>
+        <!-- Todo: Profile logo & name button component -->
+        Profile
+      </li>
+      <%- include('../components/auth-buttons.ejs') %>
+    </ul>
+  </div>
+  <div class="mobile">
     <%- include('../components/brand-logo.ejs') %>
-      <div class="navbar__desktop">
-        <ul class="navbar__links">
+      <div class="buttons">
+        <button class="toggle-theme"></button>
+        <button id="hamburger" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+      <menu id="navbarMenu" aria-hidden="true">
+        <ul>
           <li>
             <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">
               <i class="fa-solid fa-envelope-open-text"></i>
@@ -23,37 +68,8 @@
           </li>
           <%- include('../components/auth-buttons.ejs') %>
         </ul>
-      </div>
-      <div class="navbar__mobile">
-        <button id="hamburger" aria-label="Toggle navigation">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-
-        <div class="navbar__menu" id="navbarMenu" aria-hidden="true">
-          <ul class="navbar__links">
-            <li>
-              <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">
-                <i class="fa-solid fa-envelope-open-text"></i>
-                About
-              </a>
-            </li>
-            <li>
-              <a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">
-                <i class="fa-solid fa-envelope"></i>
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="/users/dashboard" class="<%= activeRoute ? activeRoute('/users', path) : '' %>">
-                <i class="fa-solid fa-pen"></i>
-                Dashboard
-              </a>
-            </li>
-            <%- include('../components/auth-buttons.ejs') %>
-          </ul>
-        </div>
-      </div>
+      </menu>
   </div>
 </nav>
-<script type="text/javascript" defer src="/javascripts/navigation/navbarDisappear.js"></script>
-<script type="text/javascript" defer src="/javascripts/navigation/toggleButton.js"></script>
+<script type="text/javascript" src="/javascripts/navigation/navbarDisappear.js" nonce="<%= nonce %>"></script>
+<script type="text/javascript" src="/javascripts/navigation/toggleButton.js" nonce="<%= nonce %>"></script>

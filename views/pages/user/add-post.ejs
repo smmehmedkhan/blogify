@@ -4,6 +4,8 @@
       <div class="add_post-card">
         <h4>Add new post</h4>
         <form action="/users/dashboard/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
           <label for="title"><b>Title</b></label>
           <input type="text" name="title" placeholder="Enter your post title here ..." />
 
@@ -17,17 +19,15 @@
             Add Post
           </button>
         </form>
-        <script>
+        <script nonce="<%= nonce %>">
           tinymce.init({
             selector: '#addPostTextArea',
-            plugins: [
-              // Core editing features
-              'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-              // Your account includes a free trial of TinyMCE premium features
-              // Try the most popular premium features until Jun 13, 2025:
-              'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown', 'importword', 'exportword', 'exportpdf'
-            ],
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            plugins:
+              'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar:
+              'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
 
             // Configurations for image uploads
             images_upload_url: '/api/images/upload',
@@ -40,7 +40,10 @@
               { value: 'First.Name', title: 'First Name' },
               { value: 'Email', title: 'Email' },
             ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+            ai_request: (request, respondWith) =>
+              respondWith.string(() =>
+                Promise.reject('See docs to implement AI Assistant'),
+              ),
           });
         </script>
       </div>

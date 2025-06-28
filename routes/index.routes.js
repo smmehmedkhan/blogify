@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { findBlogs, findABlog } from '../controllers/blog.controller.js';
+import { findBlogs } from '../controllers/blog.controller.js';
 
 const indexRouter = express.Router();
 

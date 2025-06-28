@@ -4,56 +4,42 @@ search {
 
   & .search_form {
     width: 100%;
-    height: fit-content;
-    border: 1px solid var(--black-II);
-    border-radius: 2rem;
+    height: max-content;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: var(--transition);
+    background-color: var(--input);
     &:hover {
-      background-color: var(--trans-white-I);
-    }
-
-    & input {
-      width: 100%;
-      height: max-content;
-      padding-block: 0.5rem;
-      padding-inline: 0.2rem 1rem;
-      border: 0;
-      outline: 0;
-      font-size: var(--sm);
-      color: var(--white);
-      background-color: transparent;
-      &::placeholder {
-        color: var(--gray);
-      }
+      color: var(--popover-foreground);
+      background-color: var(--popover);
     }
 
     & button {
-      width: fit-content;
-      height: fit-content;
-      padding: 0.5rem;
-      border: 0;
-      border-radius: 50%;
-      margin-left: 0.25rem;
-      font-size: var(--nm);
-      color: var(--gray);
+      width: 36px;
+      height: 36px;
+      padding: 0 0.2rem;
       background: transparent;
-      cursor: pointer;
-      transition: var(--transition);
       display: flex;
-      place-items: center;
+      align-items: center;
+      justify-content: center;
       &:hover {
-        color: var(--white);
-        background-color: var(--trans-white-II);
+        color: var(--popover-foreground);
+        background-color: var(--popover);
       }
     }
 
+    & input {
+      padding-inline: 0.5rem;
+      border: none;
+      outline: 0;
+      background-color: transparent;
+    }
+
     &:focus-within {
-      border-color: var(--blue);
-      outline: 2px solid rgba(0, 0, 255, 0.25);
-      background-color: var(--white-trans-dark);
+      outline: 2px solid var(--ring);
     }
   }
 }

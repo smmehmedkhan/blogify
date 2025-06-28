@@ -1,40 +1,46 @@
-<section class="latest_blogs">
+<section class="latest_blogs" id="latestPost">
 
   <div class="blogs_header">
-    <h2>Latest blogs</h2>
+    <h3>Latest blogs</h3>
     <%- include('../components/search.ejs') %>
   </div>
 
   <% if (blogs.length===0) { %>
     <%- include('../components/empty-post.ejs') %>
       <% } else { %>
-        <ul>
+        <ul id="blogsContainer">
           <% blogs.forEach(blog=> { %>
             <li>
               <a href="/blog/<%= blog._id %>">
-                <article>
-                  <h4>
+                <div class="blog_card">
+                  <h5>
                     <%= blog.title %>
-                  </h4>
-                  <span class="article_date">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <%= blog.createdAt.toDateString() %>
-                  </span>
-                  <% if (blog?.coverImage?.url) { %>
-                    <div class="blog-cover">
-                      <img src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" loading="lazy">
-                    </div>
-                    <% } else {%>
-                      <div class="blog-description">
-                        <%- blog.descriptions %>
-                      </div>
-                      <% } %>
-                </article>
+                  </h5>
+                  <div class="blog_credit-wrapper">
+                    <h6 class="blog_author">
+                      <i class="fa-solid fa-at"></i>
+                      <%= blog.author %>
+                    </h6>
+                    <span class="blog_date">
+                      <i class="fa-solid fa-calendar-days"></i>
+                      <%= blog.createdAt.toDateString() %>
+                    </span>
+                  </div>
+                  <div class="blog_card-contents">
+                    <% if (blog.coverImage?.url) { %>
+                      <img class="image-content" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>"
+                        loading="lazy">
+                      <% } else { %>
+                        <div class="text-content">
+                          <%- blog.descriptions %>
+                        </div>
+                        <% } %>
+                  </div>
+                </div>
               </a>
             </li>
             <% }) %>
         </ul>
-
         <%- include('../components/pagination.ejs')%>
           <% } %>
 </section>

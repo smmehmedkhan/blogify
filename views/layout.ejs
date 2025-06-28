@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="<%= locals.description %>" />
+  <meta name="csrf-token" content="<%= csrfToken || '' %>">
   <title>
     <%= locals.title %>
   </title>
@@ -19,16 +20,17 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="/stylesheets/styles.css" />
-  <script src="https://kit.fontawesome.com/64e3692e6c.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://kit.fontawesome.com/64e3692e6c.js" crossorigin="anonymous" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" nonce="<%= nonce %>"></script>
   <script src="https://cdn.tiny.cloud/1/4zioc8toqg7phub4kl9epcq8pk1mxnqminykctmqb5kvlnwy/tinymce/7/tinymce.min.js"
-    referrerpolicy="origin"></script>
+    referrerpolicy="origin" nonce="<%= nonce %>"></script>
 </head>
 
 <body>
   <%- include('./partials/navbar.ejs') %>
     <%- body %>
       <%- include('./components/toast.ejs') %>
+        <script src="/javascripts/navigation/theme.js" nonce="<%= nonce %>"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <main class="verify-wrapper">
   <div class="verification">
-    <h4>Email Verification</h4>
+    <h5>Email Verification</h5>
     <p>To access this feature, please verify your email address.</p>
     <p>We've sent a verification link to your email address.<br />Please check your inbox and click the link to verify.
     </p>
@@ -20,7 +20,7 @@
 
 <%- include('../../partials/footer.ejs') %>
 
-  <div id="resendMessage" class="mt-3" style="display: none;"></div>
+  <div id="resendMessage" style="display: none;"></div>
 
   <!-- Add varifiaction related Client side scripts -->
-  <script type="text/javascripts" defer src="/javascripts/auth/verification.js"></script>
+  <script type="text/javascript" defer src="/javascripts/auth/verification.js" nonce="<%= nonce %>"></script>

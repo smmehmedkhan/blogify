@@ -1,9 +1,10 @@
 <div class="sign_in-wrapper">
   <div class="sign_in-box">
-    <h3>Sign In</h3>
+    <h5>Sign In</h5>
     <p>You can sign in with a signed up email.</p>
 
     <form action="/auth/sign-in" method="post" id="SignInForm" autocomplete="on">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <div class="input-group">
         <label for="email"><b>Email</b></label>
         <input type="email" name="email" id="email" placeholder="example@mail.com" value="<%- email || null %>" />
@@ -29,4 +30,4 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/javascripts/auth/signInValidator.js"></script>
+<script type="text/javascript" src="/javascripts/auth/signInValidator.js" nonce="<%= nonce %>"></script>

@@ -1,9 +1,13 @@
 <main>
-  <h1><%= title %></h1>
-  <p><%= message %></p>
-  <% if (error.stack) { %>
-    <pre><%= error.stack %></pre>
-  <% } %>
+  <div>
+    <h1>
+      <%= title %>
+    </h1>
+    <p>
+      <%= message %>
+    </p>
+    <% if (error.stack) { %>
+      <pre><%= error.stack %></pre>
+      <% } %>
+  </div>
 </main>
-
-<%- include('../partials/footer.ejs') %>

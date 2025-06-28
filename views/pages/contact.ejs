@@ -1,6 +1,93 @@
-<main>
-  <h1>Contact Us</h1>
-  <p>If you have any questions or feedback, feel free to reach out!</p>
+<main class="contact-page">
+  <div class="contact-container">
+    <section class="contact-info">
+      <h1>Contact Us</h1>
+      <p>We value your feedback and are here to help with any questions you might have about Blogify.</p>
+
+      <div class="contact-guidance">
+        <h3>How We Can Help</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-question"></i> <strong>Technical Support:</strong> Having trouble with your
+            account or experiencing issues with the platform? Let us know!</li>
+          <li><i class="fa-solid fa-lightbulb"></i> <strong>Feature Suggestions:</strong> Share your ideas on how we can
+            improve Blogify.</li>
+          <li><i class="fa-solid fa-handshake"></i> <strong>Partnerships:</strong> Interested in collaborating with us?
+            We'd love to hear from you.</li>
+          <li><i class="fa-solid fa-comment"></i> <strong>Feedback:</strong> Your satisfaction matters! Tell us what you
+            love or what we could do better.</li>
+        </ul>
+      </div>
+
+      <div class="response-time">
+        <p><i class="fa-solid fa-clock"></i> We typically respond within 24-48 hours during business days.</p>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <h2>Send Us a Message</h2>
+      <form class="contact-form" action="/contact" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name"
+            value="<%= formData && formData.name || '' %>" required>
+          <% if (errors && errors.nameError) { %>
+            <div class="error-message">
+              <%= errors.nameError %>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Your email address"
+            value="<%= formData && formData.email || '' %>" required>
+          <% if (errors && errors.emailError) { %>
+            <div class="error-message">
+              <%= errors.emailError %>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="" disabled <%=!formData || !formData.subject ? 'selected' : '' %>>Select a
+              topic</option>
+            <option value="technical-support" <%=formData && formData.subject==='technical-support' ? 'selected' : '' %>
+              >Technical Support</option>
+            <option value="feature-suggestion" <%=formData && formData.subject==='feature-suggestion' ? 'selected' : ''
+              %>>Feature Suggestion</option>
+            <option value="partnership" <%=formData && formData.subject==='partnership' ? 'selected' : '' %>>Partnership
+              Inquiry</option>
+            <option value="feedback" <%=formData && formData.subject==='feedback' ? 'selected' : '' %>
+              >General Feedback</option>
+            <option value="other" <%=formData && formData.subject==='other' ? 'selected' : '' %>>Other
+            </option>
+          </select>
+          <% if (errors && errors.subjectError) { %>
+            <div class="error-message">
+              <%= errors.subjectError %>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Please describe your inquiry in detail..."
+            required><%= formData && formData.message || '' %></textarea>
+          <% if (errors && errors.messageError) { %>
+            <div class="error-message">
+              <%= errors.messageError %>
+            </div>
+            <% } %>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </section>
+  </div>
 </main>
 
 <%- include('../partials/footer.ejs') %>

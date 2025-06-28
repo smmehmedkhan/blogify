@@ -1,7 +1,7 @@
 .pagination_wrapper {
   width: 100%;
   padding: 0.5rem 1rem;
-  border-block: 1px dashed var(--black-II);
+  border-top: 1px dashed var(--border);
   margin-inline: auto;
   display: flex;
   justify-content: space-between;
@@ -9,29 +9,32 @@
 
   & .prev_link,
   .next_link {
+    color: var(--foreground);
+    font-size: var(--md);
+    padding: 0.375rem 1.25rem;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius);
     text-decoration: none;
-    padding: 0.25rem 1.25rem;
-    border: 1px solid var(--black-II);
-    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: var(--transition);
-    &.disabled {
-      color: var(--gray-dark);
-      border-color: var(--gray-dark);
-      cursor: not-allowed;
-      pointer-events: none;
-    }
     &:hover {
-      color: var(--rose);
-      border-color: var(--rose);
-    }
-
-    & i {
-      font-size: var(--md);
+      color: var(--popover-foreground);
+      background-color: var(--popover);
     }
   }
 
+  & .prev_link.disabled,
+  .next_link.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--muted-foreground);
+    border-color: var(--muted);
+  }
+
   & .page_num {
-    color: var(--gray-light);
+    color: var(--muted-foreground);
     font-size: var(--sm);
     font-weight: 600;
   }
@@ -42,7 +45,7 @@
     padding: 1.25rem 1rem;
     & .prev_link,
     .next_link {
-      padding: 0.225rem 1rem;
+      padding-inline: 1rem;
       & i {
         font-size: var(--md);
       }
@@ -54,7 +57,7 @@
     padding: 1rem 0.75rem;
     & .prev_link,
     .next_link {
-      padding: 0.2rem 0.75rem;
+      padding: 0.25rem 0.75rem;
       & i {
         font-size: var(--md);
       }
@@ -69,9 +72,25 @@
     padding: 0.75rem 0.5rem;
     & .prev_link,
     .next_link {
-      padding: 0.2rem 0.75rem;
+      padding-inline: 0.5rem;
       & i {
-        font-size: var(--xs);
+        font-size: var(--nm);
+      }
+    }
+    & .page_num {
+      font-size: var(--xs);
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .pagination_wrapper {
+    padding-inline: 0.25rem;
+    & .prev_link,
+    .next_link {
+      padding-inline: 0.25rem;
+      & i {
+        font-size: var(--sm);
       }
     }
     & .page_num {

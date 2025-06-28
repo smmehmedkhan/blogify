@@ -7,6 +7,7 @@ import User from '../models/user.model.js';
  * Handle user sign in
  */
 export async function signIn(req, res) {
+  const nonce = res.locals.nonce;
   const { email, password } = req.body;
   const locals = {
     title: 'Blogify | Sign In',
@@ -23,6 +24,7 @@ export async function signIn(req, res) {
     // If validation failed render sing-in page
     if (!isValid) {
       const bundle = {
+        nonce,
         locals,
         email,
         emailError: errors.emailError,
@@ -37,7 +39,11 @@ export async function signIn(req, res) {
     // Authenticate sign-in
     const { user, token } = await authService.userSignIn(email, password);
 
-    res.cookie('token', token, { httpOnly: true });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
     res.user = user;
     req.flash('success', 'You have successfully signed in!'); // Success message for toast
 
@@ -46,7 +52,10 @@ export async function signIn(req, res) {
       req.flash('warning', 'Please verify your email address!');
     }
 
-    return res.redirect('/users/dashboard');
+    // Redirect to the original URL or dashboard if none exists
+    const returnTo = req.session.returnTo || '/users/dashboard';
+    // delete req.session.returnTo;
+    return res.redirect(returnTo);
   } catch (error) {
     let emailError = '',
       notValidPassword = error.message;
@@ -70,6 +79,7 @@ export async function signIn(req, res) {
  * Render sign in page
  */
 export async function signInPage(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Sign In',
     description: 'You can sign in to your account here.',
@@ -77,6 +87,7 @@ export async function signInPage(req, res) {
 
   try {
     const bundle = {
+      nonce,
       locals,
       email: null,
       emailError: '',
@@ -109,6 +120,7 @@ export async function signOut(req, res) {
  * Handle user sign up
  */
 export async function signUp(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Sign Up',
     description: 'You can sign up an account by filling out this form',
@@ -127,6 +139,7 @@ export async function signUp(req, res) {
     // If validation failed render sing-up page
     if (!isValid) {
       const bundle = {
+        nonce,
         locals,
         userName: username,
         userNameError: errors.userNameError,
@@ -150,7 +163,11 @@ export async function signUp(req, res) {
     );
 
     res.user = user; // Add user info
-    res.cookie('token', token, { httpOnly: true }); // Add cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
     req.flash('success', 'You have successfully signed up!');
     req.flash('warning', 'Please verify your email address!');
     return res.redirect('/users/dashboard');
@@ -164,6 +181,7 @@ export async function signUp(req, res) {
  * Render sign up page
  */
 export async function signUpPage(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Sign Up',
     description: 'You can sign up an account by filling out this form',
@@ -171,6 +189,7 @@ export async function signUpPage(req, res) {
 
   try {
     const bundle = {
+      nonce,
       locals,
       userName: null,
       userNameError: '',
@@ -201,9 +220,12 @@ export async function verification(req, res) {
     if (req?.user?._id.toString() === user?._id.toString()) {
       return res.redirect('/users/dashboard'); // Signed in? redirect to dashboard
     }
+    // Clear any existing token to avoid redirect loop
+    res.clearCookie('token');
 
     req.flash('success', 'Your email verification succeeded');
-    return res.redirect('/auth/sign-in');
+
+    return res.redirect('/auth/sign-in?verified=true');
   } catch (error) {
     req.flash('error', error.message || 'Email verification failed');
     return res.redirect('/auth/sign-in?verified=false');
@@ -214,22 +236,33 @@ export async function verification(req, res) {
  * Render verification required page
  */
 export async function verificationPage(req, res) {
+  const nonce = res.locals.nonce;
+  const verified = req.user.verified;
+
   const locals = {
     title: 'Blogify | Email Verification',
     description: 'Please verify your email to continue.',
   };
 
-  try {
-    const bundle = {
-      locals,
-      currentRoute: '/auth/verify',
-      user: req.user,
-    };
+  if (!verified) {
+    try {
+      const bundle = {
+        nonce,
+        locals,
+        currentRoute: '/auth/verify',
+        user: req.user,
+      };
 
-    return res.render('pages/auth/verification', bundle);
-  } catch (error) {
-    handleError(res, error);
+      return res.render('pages/auth/verification', bundle);
+    } catch (error) {
+      handleError(res, error);
+    }
   }
+
+  // Redirect to the original URL or dashboard if none exists
+  const returnTo = req.session.returnTo || '/users/dashboard';
+  // delete req.session.returnTo;
+  return res.redirect(returnTo);
 }
 
 /**
@@ -249,10 +282,7 @@ export async function resendVerification(req, res) {
 
     await authService.sendVerificationEmail(user);
 
-    req.flash(
-      'success',
-      'Verification mail has send to your email address',
-    );
+    req.flash('success', 'Verification mail has send to your email address');
 
     return res.redirect('/auth/verify');
   } catch (error) {
@@ -265,6 +295,7 @@ export async function resendVerification(req, res) {
  * Render forgot password page
  */
 export async function forgotPasswordPage(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Forgot Password',
     description: 'Reset your password by submitting your email address.',
@@ -272,6 +303,7 @@ export async function forgotPasswordPage(req, res) {
 
   try {
     const bundle = {
+      nonce,
       locals,
       email: null,
       emailError: '',
@@ -289,6 +321,7 @@ export async function forgotPasswordPage(req, res) {
  * Handle forgot password request
  */
 export async function forgotPassword(req, res) {
+  const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Forgot Password',
     description: 'Reset your password by submitting your email address.',
@@ -301,6 +334,7 @@ export async function forgotPassword(req, res) {
 
     if (!emailValidation.isValid) {
       const bundle = {
+        nonce,
         locals,
         email,
         emailError: emailValidation.error,
@@ -315,6 +349,7 @@ export async function forgotPassword(req, res) {
     await authService.forgotPassword(email);
 
     const bundle = {
+      nonce,
       locals,
       email,
       emailError: '',
@@ -335,6 +370,7 @@ export async function forgotPassword(req, res) {
  * Render reset password page
  */
 export async function resetPasswordPage(req, res) {
+  const nonce = res.locals.nonce;
   const { token } = req.params;
   const locals = {
     title: 'Blogify | Reset Password',
@@ -350,6 +386,7 @@ export async function resetPasswordPage(req, res) {
     }
 
     const bundle = {
+      nonce,
       locals,
       token,
       password: null,
@@ -369,6 +406,7 @@ export async function resetPasswordPage(req, res) {
  * Handle password reset
  */
 export async function resetPassword(req, res) {
+  const nonce = res.locals.nonce;
   const { token } = req.params;
   const { password, confirmPassword } = req.body;
   const locals = {
@@ -385,6 +423,7 @@ export async function resetPassword(req, res) {
 
     if (!isValid) {
       const bundle = {
+        nonce,
         locals,
         token,
         password,

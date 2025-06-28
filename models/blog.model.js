@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import slugify from 'slugify';
 
 /**
  * Blog Models
@@ -12,6 +13,16 @@ const blogSchema = new Schema(
       required: true,
     },
     descriptions: {
+      type: String,
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    author: {
       type: String,
       required: true,
     },
@@ -53,6 +64,13 @@ const blogSchema = new Schema(
     timestamps: true,
   },
 );
+
+blogSchema.pre('validate', function (next) {
+  if (this.title && !this.slug) {
+    this.slug = slugify(this.title, { lower: true, strict: true });
+  }
+  next();
+});
 
 const Blog = mongoose.model('Blog', blogSchema);
 export default Blog;

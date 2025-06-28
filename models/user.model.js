@@ -35,11 +35,20 @@ const userSchema = new Schema(
         message: 'Password is not strong enough',
       },
     },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    },
     resetPasswordToken: {
       type: String,
     },
     resetPasswordExpires: {
       type: Date,
+    },
+    passwordResetUsed: {
+      type: Boolean,
+      default: false,
     },
     verified: {
       type: Boolean,

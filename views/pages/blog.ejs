@@ -1,109 +1,54 @@
-<main>
+<main class="blog_page">
   <a class="back_btn" href="/">
     <i class="fa-solid fa-left-long"></i>
     Back
   </a>
-  <div id="blog-container" class="blog-wrapper" data-blog-id="<%= blog._id %>" data-user-id="<%= userId || '' %>">
-    <article>
-      <h4 class="blog-title">
-        <%= blog.title %>
-      </h4>
+
+  <!-- Blog Section -->
+  <article id="blog-container" data-blog-id="<%= blog._id %>" data-user-id="<%= userId || '' %>">
+    <h4 class="blog-title">
+      <%= blog.title %>
+    </h4>
+    <div class="blog_credit-wrapper">
+      <span class="blog_author">
+        <i class="fa-solid fa-at"></i>
+        <%= blog.author %>
+      </span>
       <span class="blog_date">
         <i class="fa-solid fa-calendar-days"></i>
         <%= blog.createdAt.toDateString() %>
       </span>
-      <div class="blog_content">
-        <p>
-          <%= blog.descriptions %>
-        </p>
-      </div>
-
-      <!-- Blog Interactions Section -->
-      <div class="interactions-wrapper">
-        <div class="interaction-buttons">
-          <button id="like-button" class="like <%= userLiked ? 'active' : '' %>">
-            <i class="fa-solid fa-thumbs-up"></i>
-            <span id="like-count">
-              <%= blog.likes ? blog.likes.length : 0 %>
-            </span>
-          </button>
-          <button id="dislike-button" class="dislike <%= userDisliked ? 'active' : '' %>">
-            <i class="fa-solid fa-thumbs-down"></i>
-            <span id="dislike-count">
-              <%= blog.dislikes ? blog.dislikes.length : 0 %>
-            </span>
-          </button>
-        </div>
-
-        <div class="share-section">
-          <span>Share: </span>
-          <button class="share-button share-facebook" data-platform="facebook">
-            <i class="fa-brands fa-facebook"></i>
-          </button>
-          <button class="share-button share-twitter" data-platform="twitter">
-            <i class="fa-brands fa-twitter"></i>
-          </button>
-          <button class="share-button share-linkedin" data-platform="linkedin">
-            <i class="fa-brands fa-linkedin"></i>
-          </button>
-          <button class="share-button share-whatsapp" data-platform="whatsapp">
-            <i class="fa-brands fa-whatsapp"></i>
-          </button>
-          <span id="share-count">
-            <%= blog.shareCount || 0 %>
-          </span>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- Comments Section -->
-    <div class="comments-section">
-      <h3>Comments (<span id="comments-count">
-          <%= comments ? comments.length : 0 %>
-        </span>)</h3>
-
-      <% if (userId) { %>
-        <form id="comment-form" class="comment-form">
-          <textarea id="comment-content" placeholder="Write a comment..." required></textarea>
-          <button type="submit">Post Comment</button>
-          <div style="clear: both;"></div>
-        </form>
-        <% } else { %>
-          <div class="login-prompt">
-            <p>Please <a href="/auth/sign-in">sign in</a> to leave a comment.</p>
-          </div>
-          <% } %>
-
-            <div id="comments-list" class="comments-list">
-              <% if (comments && comments.length> 0) { %>
-                <% comments.forEach(function(comment) { %>
-                  <div class="comment" data-comment-id="<%= comment._id %>">
-                    <div class="comment-header">
-                      <span class="comment-user">
-                        <%= comment.userId.username %>
-                      </span>
-                      <span class="comment-date">
-                        <%= comment.createdAt.toLocaleDateString() %>
-                      </span>
-                    </div>
-                    <div class="comment-content">
-                      <%= comment.content %>
-                    </div>
-                    <% if (userId && comment.userId._id.toString()===userId.toString()) { %>
-                      <button class="delete-comment-button">Delete</button>
-                      <% } %>
-                  </div>
-                  <% }); %>
-                    <% } else { %>
-                      <p>No comments yet. Be the first to comment!</p>
-                      <% } %>
-            </div>
     </div>
-  </div>
+    <div class="blog_content">
+      <%- blog.descriptions %>
+    </div>
+
+    <!-- Blog Interactions Section -->
+    <div class="blog-interactions">
+      <button id="likeBtn" class="like <%= userLiked ? 'active' : '' %>">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <span id="likeCounter">
+          <%= blog?.likes?.length || 0 %>
+        </span>
+      </button>
+      <button id="dislikeBtn" class="dislike <%= userDisliked ? 'active' : '' %>">
+        <i class="fa-solid fa-thumbs-down"></i>
+        <span id="dislikeCounter">
+          <%= blog?.dislikes?.length || 0 %>
+        </span>
+      </button>
+      <button class="share" id="shareButton">
+        <i class="fa-solid fa-share"></i>
+        <span id="share-count">
+          <%= blog.shareCount || 0 %>
+        </span>
+      </button>
+    </div>
+    <script type="text/javascript" src="/javascripts/components/blogInteractions.js" nonce="<%= nonce %>"></script>
+  </article>
+
+  <!-- Comments Section -->
+  <%- include('../components/comments.ejs') %>
 </main>
 
 <%- include('../partials/footer.ejs') %>
-
-  <!-- Include blog interactions JavaScript -->
-  <script src="/javascripts/components/blog-interactions.js"></script>

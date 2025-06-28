@@ -16,21 +16,15 @@
     max-width: 400px;
     min-height: 480px;
     padding: 3rem 1.5rem;
-    border: 1px solid var(--black-II);
-    border-radius: 0.5rem;
-    background-color: var(--slate-light);
-    backdrop-filter: blur(12px);
-    box-shadow: var(--shadow-box);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--accent);
+    box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
     place-items: center;
     gap: 0.75rem;
     transform: translateY(-60px);
-    & h3 {
-      font-size: var(--lg);
-      font-weight: 600;
-      margin: 0;
-    }
     & p.service-info {
       color: var(--emerald);
       font-weight: 600;
@@ -47,43 +41,30 @@
         flex-direction: column;
         gap: 0.25rem;
 
-        & input {
-          width: 100%;
-          padding: 0.5rem 1rem;
-          border: 1px solid var(--gray-light);
-          border-radius: 0.25rem;
+        & label {
           font-size: var(--sm);
-          color: var(--white);
-          background-color: var(--gray-dark);
-          &:focus {
-            outline: 2px solid var(--blue-light);
-          }
-          &::placeholder {
-            color: var(--gray-light);
-            font-size: var(--sm);
-            font-weight: 500;
-          }
         }
-        p {
+
+        & p {
           font-size: var(--sm);
-          color: var(--red);
+          color: var(--destructive);
           text-align: center;
         }
       }
       & button {
         width: 100%;
         padding-block: 0.625rem;
-        border: none;
-        border-radius: 0.25rem;
+        border: var(--info-popover);
+        border-radius: var(--radius);
         margin-top: 1rem;
-        background-color: var(--blue);
-        color: var(--white);
-        font-size: var(--nm);
-        font-weight: 600;
+        font-size: var(--sm);
+        font-weight: 700;
+        color: var(--foreground);
+        background-color: var(--info);
         cursor: pointer;
-        transition: var(--transition);
+        transition: all 250ms ease-in-out;
         &:hover {
-          background-color: var(--blue-dark);
+          background-color: var(--info-popover);
         }
       }
     }
@@ -94,12 +75,12 @@
       width: 100%;
       text-align: center;
       & a {
-        color: var(--blue);
+        color: var(--info);
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 500;
         transition: var(--transition);
         &:hover {
-          color: var(--blue-dark);
+          color: var(--info-popover);
         }
       }
     }

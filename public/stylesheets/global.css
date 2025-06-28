@@ -1,10 +1,11 @@
 *,
 *::before,
 *::after {
-  scrollbar-width: thin;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  border-collapse: collapse;
+  -webkit-margin-collapse: collapse;
 }
 
 html,
@@ -16,17 +17,20 @@ body {
 body {
   width: 100%;
   min-height: 100dvh;
-  color: var(--white);
-  background-color: var(--black);
   font-size: var(--nm);
   font-family: var(--os);
   font-weight: 400;
-  line-height: 1.5;
   overflow-x: hidden;
+  color: var(--foreground);
+  background-color: var(--background);
+  transition: all 1000ms ease-out;
+  &.dark nav {
+    background-color: oklch(0.2 0 0 / 75%);
+  }
 }
 
 a {
-  color: var(--white);
+  color: var(--foreground);
   &:active {
     color: var(--purple);
   }
@@ -56,6 +60,14 @@ h4 {
   font-size: var(--xl);
   font-weight: 600;
 }
+h5 {
+  font-size: var(--lg);
+  font-weight: 500;
+}
+h6 {
+  font-size: var(--md);
+  font-weight: 400;
+}
 
 input,
 select,
@@ -63,35 +75,95 @@ textarea {
   display: block;
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid var(--black-II);
-  color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   font-size: var(--sm);
-  font-family: var(--os);
+  color: var(--foreground);
+  background-color: var(--input);
+  transition: var(--transition);
+  &::placeholder {
+    color: var(--muted-foreground);
+    font-size: var(--sm);
+    font-weight: 500;
+  }
+  &:hover {
+    color: var(--popover-foreground);
+    background-color: var(--popover);
+  }
+  &:focus {
+    outline: 2px solid var(--ring);
+  }
+}
+
+button {
+  font-size: var(--sm);
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--foreground);
+  background-color: var(--primary);
+  cursor: pointer;
+  transition: var(--transition);
+  &:hover {
+    color: var(--popover-foreground);
+    background-color: var(--popover);
+  }
 }
 
 main {
   width: 100%;
   max-width: var(--max-width);
   min-height: 100dvh;
-  border-inline: 1px dashed var(--black-II);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
+  gap: 5rem;
+  box-sizing: content-box;
 }
 
-.success-toast {
-  color: var(--white);
-  background-color: var(--emerald);
+@media screen and (max-width: 1536px) {
+  main {
+    gap: 4rem;
+  }
 }
-.warning-toast {
-  color: var(--white);
-  background-color: var(--amber);
+
+@media screen and (max-width: 1024px) {
+  main {
+    gap: 3.5rem;
+  }
+  /* h1 {
+    font-size: var(--4xl);
+    font-weight: 900;
+  }
+  h2 {
+    font-size: var(--3xl);
+    font-weight: 800;
+  }
+  h3 {
+    font-size: var(--2xl);
+    font-weight: 700;
+  }
+  h4 {
+    font-size: var(--xl);
+    font-weight: 600;
+  }
+  h5 {
+    font-size: var(--lg);
+    font-weight: 500;
+  }
+  h6 {
+    font-size: var(--md);
+    font-weight: 400;
+  } */
 }
-.error-toast {
-  color: var(--white);
-  background-color: var(--red);
+@media screen and (max-width: 768px) {
+  main {
+    gap: 3rem;
+  }
 }
-.info-toast {
-  color: var(--white);
-  background-color: var(--blue);
+@media screen and (max-width: 480px) {
+  main {
+    gap: 1.5rem;
+  }
 }

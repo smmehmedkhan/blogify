@@ -1,5 +1,5 @@
 <% if (toast && toast.success && toast.success.length> 0) { %>
-  <script>
+  <script nonce="<%= nonce %>">
     document.addEventListener('DOMContentLoaded', () => {
       Toastify({
         text: "<%= toast.success[0] %>",
@@ -19,7 +19,7 @@
   <% } %>
 
     <% if (toast && toast.error && toast.error.length> 0) { %>
-      <script>
+      <script nonce="<%= nonce %>">
         document.addEventListener('DOMContentLoaded', () => {
           Toastify({
             text: "<%= toast.error[0] %>",
@@ -39,7 +39,7 @@
       <% } %>
 
         <% if (toast && toast.warning && toast.warning.length> 0) { %>
-          <script>
+          <script nonce="<%= nonce %>">
             document.addEventListener('DOMContentLoaded', () => {
               Toastify({
                 text: "<%= toast.warning[0] %>",
@@ -59,7 +59,7 @@
           <% } %>
 
             <% if (toast && toast.info && toast.info.length> 0) { %>
-              <script>
+              <script nonce="<%= nonce %>">
                 document.addEventListener('DOMContentLoaded', () => {
                   Toastify({
                     text: "<%= toast.info[0] %>",

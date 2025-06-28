@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../.configs/env.js';
+import { JWT_SECRET } from '../config/env.js';
 
 /**
  * Sign In Checker
@@ -13,7 +13,11 @@ export default function singInChecker(req, res, next) {
       // Verify the token
       const decoded = jwt.verify(token, JWT_SECRET);
       req.user = { _id: decoded._id };
-      return res.redirect('/users/dashboard');
+
+      // Use session for redirect to previous URL.
+      const returnTo = req.session.returnTo || '/users/dashboard';
+      delete req.session.returnTo;
+      return res.redirect(returnTo);
     } catch (err) {
       return next(err);
     }
