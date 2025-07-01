@@ -19,6 +19,7 @@ import authStatus from './middlewares/authStatus.middleware.js';
 import pathMiddleware from './middlewares/path.middleware.js';
 import toastMiddleware from './middlewares/toast.middleware.js';
 import { generateToken, verifyToken } from './middlewares/csrf.middleware.js';
+import helmetMiddleware from './middlewares/helmet.middleware.js';
 
 // Helpers
 import isActiveRoute from './helpers/routes.helper.js';
@@ -35,7 +36,7 @@ import aboutRouter from './routes/about.routes.js';
 import contactRouter from './routes/contact.routes.js';
 import blogRouter from './routes/blog.routes.js';
 import imageRouter from './routes/image.routes.js';
-import helmetMiddleware from './middlewares/helmet.middleware.js';
+import tagRoutes from './routes/tag.routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -89,6 +90,7 @@ app.use('/users', usersRouter);
 app.use('/search', verifyToken, searchRouter);
 app.use('/blog', verifyToken, blogRouter);
 app.use('/api/images', imageRouter);
+app.use('/api/tags', tagRoutes);
 
 // Error handler
 app.use(errorHandler);

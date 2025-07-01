@@ -110,17 +110,24 @@ article {
 }
 
 @media screen and (max-width: 1024px) {
+  main.blog_page {
+    gap: 1.25rem;
+  }
   article {
-    width: calc(100% - 1rem);
+    width: calc(100% - 0.75rem);
     padding: 4rem 2rem;
     border-radius: 0.75rem;
     margin-inline: auto;
+    line-height: 1.5;
   }
 }
 
 @media screen and (max-width: 768px) {
+  main.blog_page {
+    gap: 1rem;
+  }
   article {
-    width: calc(100% - 1rem);
+    width: calc(100% - 0.5rem);
     padding: 3rem 1.5rem;
     border-radius: 0.75rem;
     margin-inline: auto;
@@ -128,8 +135,11 @@ article {
     & .blog_credit-wrapper {
       padding-inline: 0.25rem;
     }
-    & .blog_content img {
-      margin: 1rem 0;
+    & .blog_content {
+      font-size: var(--sm);
+      & img {
+        margin: 0.75rem 0.5rem;
+      }
     }
     & .blog-interactions button i {
       font-size: var(--md);
@@ -139,8 +149,7 @@ article {
 
 @media screen and (max-width: 480px) {
   article {
-    width: calc(100% - 1rem);
-    padding: 2.5rem 0.5rem;
+    padding: 2.5rem 1rem;
     border-radius: 0.5rem;
     margin-inline: auto;
     gap: 0.5rem;
@@ -151,8 +160,13 @@ article {
         padding: 0.1rem 0.25rem;
       }
     }
-    & .blog_content img {
-      margin: 1rem 0;
+    & .blog_content {
+      font-size: var(--sm);
+      letter-spacing: normal;
+      line-height: 1.5;
+      & img {
+        margin: 0.5rem 0.25rem;
+      }
     }
     & .blog-interactions {
       gap: 0.5rem;

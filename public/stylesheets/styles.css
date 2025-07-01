@@ -11,8 +11,7 @@
 @import url('./components/blog.css');
 @import url('./components/auth-components.css');
 @import url('./components/dashboard.css');
-@import url('./components/add-post.css');
-@import url('./components/edit-post.css');
+@import url('./components/posts-page.css');
 @import url('./components/banner.css');
 @import url('./components/dash-banner.css');
 @import url('./components/back-btn.css');

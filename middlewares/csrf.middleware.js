@@ -33,18 +33,28 @@ export function generateToken(req, res, next) {
  * Verify CSRF token from request against cookie
  */
 export function verifyToken(req, res, next) {
-  // Skip for GET, HEAD, OPTIONS requests (they don't modify state)
+  // Skip for safe methods
   if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
     return next();
   }
 
   const cookieToken = req.cookies._csrf;
-  const bodyToken = req.body._csrf;
+  const bodyToken = req.body?._csrf;
   const headerToken =
     req.headers['x-csrf-token'] || req.headers['x-xsrf-token'];
   const requestToken = bodyToken || headerToken;
 
+  // If tokens are missing or don't match, handle error
   if (!cookieToken || !requestToken || cookieToken !== requestToken) {
+    // If AJAX/fetch (accepts JSON), send JSON error
+    if (
+      req.xhr ||
+      req.headers.accept?.includes('application/json') ||
+      req.headers['content-type'] === 'application/json'
+    ) {
+      return res.status(403).json({ message: 'CSRF token validation failed' });
+    }
+    // Otherwise, render error page
     return res.status(403).render('pages/error', {
       title: 403,
       message: 'CSRF token validation failed',

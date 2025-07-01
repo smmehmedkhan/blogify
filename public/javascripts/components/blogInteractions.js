@@ -2,8 +2,11 @@
  * Blog Interactions JavaScript
  * Handles client-side interactions for likes, dislikes, comments, and shares
  */
-document.addEventListener('DOMContentLoaded', function () {
-  const blogId = document.getElementById('blog-container').dataset.blogId;
+document.addEventListener('DOMContentLoaded', () => {
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    ?.getAttribute('content');
+  const blogId = document.getElementById('blogContainer').dataset.blogId;
   const likeButton = document.getElementById('likeBtn');
   const likeCounter = document.getElementById('likeCounter');
   const dislikeButton = document.getElementById('dislikeBtn');
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
         },
       });
 
@@ -50,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
         },
       });
 
@@ -95,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken,
               },
             });
 

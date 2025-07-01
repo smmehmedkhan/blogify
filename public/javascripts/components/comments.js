@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const commentForm = document.getElementById('commentForm');
   const commentsList = document.getElementById('commentsList');
-  const blogContainer = document.getElementById('blog-container');
+  const blogContainer = document.getElementById('blogContainer');
   const blogId = blogContainer?.dataset.blogId;
   const currentUserId = blogContainer?.dataset.userId;
+  const csrfInput = document.querySelector('input[name="_csrf"]');
+  const csrfToken = csrfInput ? csrfInput.value : '';
 
   if (!commentForm || !commentsList) return;
 
@@ -20,7 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch(`/blog/${blogId}/comments`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+        },
         body: JSON.stringify({ content: commentContent }),
       });
 
@@ -75,18 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch(`/blog/${blogId}/comments/${commentId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
+        },
       });
 
       if (response.ok) {
         document.querySelector(`[data-comment-id="${commentId}"]`)?.remove();
+        window.location.reload();
       }
     } catch (error) {
       console.error('Error:', error);
     }
   }
 
-  // Load all comments
-  async function loadComments() {
+  // Load & Initialize all comments
+  (async function loadComments() {
     try {
       const response = await fetch(`/blog/${blogId}/comments`);
 
@@ -98,8 +108,5 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error('Error:', error);
     }
-  }
-
-  // Initialize comments
-  loadComments();
+  })();
 });

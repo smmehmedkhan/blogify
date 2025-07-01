@@ -74,7 +74,7 @@ export async function findABlog(req, res) {
     const userDisliked = userId ? blog.dislikes.includes(userId) : false;
     const locals = {
       title: blog.title,
-      description: blog.title,
+      description: striptags(blog.descriptions),
     };
 
     const bundle = {

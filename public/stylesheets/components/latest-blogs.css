@@ -74,11 +74,11 @@ section.latest_blogs {
             }
             & .blog_author {
               color: var(--fuschia);
-              background: var(--trans-fuschia);
+              background: var(--fuschia-trans);
             }
             & .blog_date {
               color: var(--blue);
-              background: var(--trans-blue);
+              background: var(--blue-trans);
             }
           }
 

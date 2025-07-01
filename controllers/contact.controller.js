@@ -63,7 +63,7 @@ export async function submitContactForm(req, res) {
     };
 
     // Save contact message to database
-    const savedMessage = await contactService.saveContactMessage(contactData);
+    await contactService.saveContactMessage(contactData);
 
     // Send email notification to admin (non-blocking)
     emailService

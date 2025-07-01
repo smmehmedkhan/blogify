@@ -1,53 +1,78 @@
-<main>
+<main class="add__post--page">
   <%- include('../../components/back-btn.ejs') %>
-    <div class="add_post-wrapper">
-      <div class="add_post-card">
-        <h4>Add new post</h4>
-        <form action="/users/dashboard/add" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-          <label for="title"><b>Title</b></label>
-          <input type="text" name="title" placeholder="Enter your post title here ..." />
+    <section class="add__post">
+      <!-- Header/Intro -->
+      <div class="add__post--header">
+        <h4>Add a New Blog Post</h4>
+        <p class="add__post--help">
+          Share your thoughts with the world! Fill out the form below to publish a new blog post.<br>
+          <span class="add__post--tip">Tip: Use relevant tags and a descriptive title to reach more readers.</span>
+        </p>
+      </div>
 
-          <label for="blogImage"><b>Cover Image</b><small>(Optional)</small></label>
-          <input type="file" name="blogImage" accept="image/*" />
+      <!-- Main Form -->
+      <form class="add__post--form" action="/users/dashboard/add" method="post" enctype="multipart/form-data"
+        autocomplete="true">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-          <label for="descriptions"><b>Contents</b></label>
-          <textarea name="descriptions" id="addPostTextArea" placeholder="Enter your post contents here ..."></textarea>
-          <button type="submit">
+        <!-- Left inputs group -->
+        <div class="form__group left">
+          <!-- Title -->
+          <div class="textbox">
+            <label for="addPostTitle"><b>Title</b></label>
+            <input type="text" id="addPostTitle" name="addPostTitle" placeholder="Enter your post title" required />
+          </div>
+
+          <!-- Tags -->
+          <div class="textbox">
+            <label for="addPostTags"><b>Categories</b></label>
+            <input type="text" name="addPostTags" id="addPostTags"
+              placeholder="Add tags or keywords relavent to your post" required />
+            <small>You can select multiple tags from suggestions list or type to add new tags.</small>
+          </div>
+
+          <!-- Cover Image -->
+          <div class="textbox">
+            <label for="addPostCoverImage"><b>Cover Image</b> (Optional)</label>
+            <input type="file" id="addPostCoverImage" name="addPostCoverImage" accept="image/*" />
+            <small>Please select a web-supported image file (JPG, JPEG, PNG, or WEBP).</small>
+          </div>
+
+          <!-- Preview box -->
+          <div class="image__preview--box">
+            <img id="addPostImagePreview" src="/icons/image.svg" alt="Cover Preview" />
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="add__post--button">
             <i class="fa-solid fa-plus"></i>
             Add Post
           </button>
-        </form>
-        <script nonce="<%= nonce %>">
-          tinymce.init({
-            selector: '#addPostTextArea',
-            skin: 'oxide-dark',
-            content_css: 'dark',
-            plugins:
-              'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar:
-              'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        </div>
 
-            // Configurations for image uploads
-            images_upload_url: '/api/images/upload',
-            images_upload_credentials: true,
-            images_reuse_filename: true,
+        <!-- Right inputs group -->
+        <div class="form__group right">
+          <!-- TinyMCE text area -->
+          <label for="addPostTextArea"><b>Contents</b></label>
+          <textarea name="addPostTextArea" id="addPostTextArea"></textarea>
+        </div>
+      </form>
 
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [
-              { value: 'First.Name', title: 'First Name' },
-              { value: 'Email', title: 'Email' },
-            ],
-            ai_request: (request, respondWith) =>
-              respondWith.string(() =>
-                Promise.reject('See docs to implement AI Assistant'),
-              ),
-          });
-        </script>
+      <!-- Footer/Help -->
+      <div class="add__post--footer">
+        <h6>Need Help?</h6>
+        <ul>
+          <li>Read our <a href="/help/writing-tips" target="_blank">blog writing tips</a> for inspiration.</li>
+          <li>Check the <a href="/help/formatting" target="_blank">formatting guide</a> for content styling.</li>
+          <li>Contact <a href="/support" target="_blank">support</a> if you have any issues.</li>
+        </ul>
       </div>
-    </div>
+    </section>
 </main>
 
 <%- include('../../partials/footer.ejs') %>
+  <script type="text/javascript" src="/javascripts/components/addPostTagify.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/addPostLivePreview.js" nonce="<%= nonce %>"></script>
+  <script type="application/javascript" src="/javascripts/components/addPostTinymceConfig.js"
+    nonce="<%= nonce %>"></script>

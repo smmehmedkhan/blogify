@@ -1,13 +1,14 @@
 <div class="comments-section">
-  <h4>
+  <h5>
     <i class="fa-solid fa-comments"></i>
     Comments
     <span id="commentsCounter">
       <%= comments?.length || 0 %>
     </span>
-  </h4>
+  </h5>
 
   <form id="commentForm" class="comment-form <%= !userId && 'disable' %>">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <textarea id="commentContent" placeholder="Write a comment..." rows="2" required></textarea>
     <button type="submit">
       <i class="fa-solid fa-comment"></i>

@@ -12,6 +12,13 @@ const blogSchema = new Schema(
       type: String,
       required: true,
     },
+    tags: [
+      {
+        type: String,
+        trim: true,
+        lowercase: true,
+      },
+    ],
     descriptions: {
       type: String,
       required: true,
@@ -65,9 +72,19 @@ const blogSchema = new Schema(
   },
 );
 
-blogSchema.pre('validate', function (next) {
+// Pre-validate hook to ensure unique slug
+blogSchema.pre('validate', async function (next) {
   if (this.title && !this.slug) {
-    this.slug = slugify(this.title, { lower: true, strict: true });
+    let baseSlug = slugify(this.title, { lower: true, strict: true });
+    let slug = baseSlug;
+    let count = 1;
+
+    // Check for existing slugs and append suffix if needed
+    while (await mongoose.models.Blog.exists({ slug })) {
+      slug = `${baseSlug}-${count++}`;
+    }
+
+    this.slug = slug;
   }
   next();
 });

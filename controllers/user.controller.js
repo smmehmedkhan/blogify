@@ -1,6 +1,8 @@
 import sanitize from 'sanitize-html';
-import handleError from '../utils/handleError.utils.js';
+import { addTags } from './tag.controller.js';
+import tagService from '../services/tag.service.js';
 import userService from '../services/user.service.js';
+import handleError from '../utils/handleError.utils.js';
 
 /**
  * User Panel
@@ -58,6 +60,7 @@ export async function userDashboard(req, res) {
  * Render add blog page
  */
 export async function addBlogPage(req, res) {
+  const user = req.user;
   const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Add Blog',
@@ -65,11 +68,13 @@ export async function addBlogPage(req, res) {
   };
 
   try {
+    const tags = await tagService.getAllTags();
     const bandle = {
       nonce,
       locals,
       currentRoute: '/users/dashboard/add',
-      user: req.user,
+      user,
+      tags,
     };
 
     return await res.render('pages/user/add-post', bandle);
@@ -83,7 +88,7 @@ export async function addBlogPage(req, res) {
  * Handle adding a new blog
  */
 export async function addABlog(req, res) {
-  const { title, descriptions } = req.body;
+  let { title, descriptions, tags, ...rest } = req.body;
   const userId = req.user._id;
   const author = req.user.username;
 
@@ -131,12 +136,23 @@ export async function addABlog(req, res) {
       allowedSchemes: ['http', 'https', 'mailto'],
     });
 
+    if (typeof tags === 'string') {
+      tags = tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
+    }
+
+    await tagService.addTagNames(tags);
+
     // Create blog data object
     const blogData = {
       title,
       descriptions: sanitizeContent,
       userId,
       author,
+      tags,
+      ...rest,
     };
 
     // If an image was uploaded, add it to the blog data
@@ -149,6 +165,7 @@ export async function addABlog(req, res) {
 
     // Create the blog with the image data
     await userService.createBlog(blogData);
+
     req.flash('success', 'Your post added successfully');
     return res.redirect('/users/dashboard');
   } catch (error) {
@@ -176,10 +193,13 @@ export async function updateBlogPage(req, res) {
       return res.redirect('/users/dashboard');
     }
 
+    const tags = await tagService.getAllTags();
+
     const bandle = {
       nonce,
       locals,
       blog,
+      tags,
       currentRoute: '/users/dashboard/edit',
       user: req.user,
     };
@@ -197,20 +217,33 @@ export async function updateBlogPage(req, res) {
  */
 export async function updateABlog(req, res) {
   const blogId = req.params.id;
-  const { title, descriptions } = req.body;
+  const { title, descriptions, tags, ...rest } = req.body;
 
   try {
+    // Convert tags to array of strings
+    if (typeof tags === 'string') {
+      tags = tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
+    }
+
+    // Ensure tags exist in Tag collection
+    await tagService.addTagNames(tags);
+
     // Create update data object
     const updateData = {
       title,
       descriptions,
+      tags,
+      ...rest,
     };
 
     // If a new image was uploaded, update the image data
     if (req.file) {
       const existingBlog = await userService.getBlogById(blogId);
       if (existingBlog?.coverImage?.public_id) {
-        // Optional: Delete the old image from Cloudinary
+        // Todo: Delete the old image from Cloudinary
         // await cloudinary.uploader.destroy(existingBlog.image.public_id);
       }
 
@@ -246,7 +279,7 @@ export async function deleteBlog(req, res) {
 
     // If the blog had an image, delete it from Cloudinary
     if (blog?.coverImage?.public_id) {
-      // Optional: Delete the image from Cloudinary
+      // Todo: Delete the image from Cloudinary
       // await cloudinary.uploader.destroy(blog.image.public_id);
     }
 

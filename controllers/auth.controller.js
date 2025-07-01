@@ -78,7 +78,7 @@ export async function signIn(req, res) {
 /**
  * Render sign in page
  */
-export async function signInPage(req, res) {
+export async function signInPage(_req, res) {
   const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Sign In',

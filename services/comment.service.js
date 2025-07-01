@@ -34,7 +34,7 @@ class CommentService {
       throw new Error('Comment not found');
     }
 
-    if (comment.userId.toString() !== userId) {
+    if (comment.userId.toString() !== userId.toString()) {
       throw new Error('Unauthorized to delete this comment');
     }
 

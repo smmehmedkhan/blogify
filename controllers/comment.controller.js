@@ -7,7 +7,7 @@ import commentService from '../services/comment.service.js';
 export async function createComment(req, res) {
   const { content } = req.body;
   const blogId = req.params.id;
-  const userId = req.user.id;
+  const userId = req.user._id;
 
   try {
     const comment = await commentService.createComment(content, blogId, userId);
@@ -39,8 +39,15 @@ export async function getComments(req, res) {
  * Delete a comment
  */
 export async function deleteComment(req, res) {
+  console.log('req.params:', req.params);
+  console.log('req.user:', req.user);
+
+  const userId = req.user._id;
   const commentId = req.params.commentId;
-  const userId = req.user.id;
+
+  if (!req.user) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
   try {
     await commentService.deleteComment(commentId, userId);
