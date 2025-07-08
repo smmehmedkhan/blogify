@@ -4,7 +4,7 @@ class BlogService {
   /**
    * Get blogs with pagination
    */
-  async getBlogs(page = 1, limit = 18) {
+  async getBlogs(page = 1, limit = 12) {
     const totalBlogs = await Blog.countDocuments();
     const totalPages = Math.ceil(totalBlogs / limit);
     const currentPage = Math.min(Math.max(1, page), totalPages || 1);

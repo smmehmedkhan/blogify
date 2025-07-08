@@ -9,7 +9,7 @@ import commentService from '../services/comment.service.js';
  */
 export async function findBlogs(req, res) {
   const nonce = res.locals.nonce;
-  const blogPerPage = 18;
+  const blogPerPage = 12;
   const pageNumber = parseInt(req.query.page) || 1;
   const locals = {
     title: 'Blogify',

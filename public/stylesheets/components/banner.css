@@ -88,7 +88,6 @@
 
       & a {
         padding: 0.4rem 1.25rem;
-        border-radius: 2.5rem;
         gap: 0.4rem;
       }
     }
@@ -118,7 +117,6 @@
 
       & a {
         padding: 0.4rem 1.25rem;
-        border-radius: 2.5rem;
         gap: 0.4rem;
       }
     }
@@ -145,7 +143,6 @@
 
       & a {
         padding: 0.4rem 1.25rem;
-        border-radius: 2.5rem;
         gap: 0.4rem;
       }
     }
@@ -157,12 +154,11 @@
     padding: 2.5rem 0.5rem;
     margin-top: 1.5rem;
     & .banner-heading {
-      font-size: var(--xl);
       font-weight: 700;
       margin-bottom: 1rem;
     }
     & .banner-sub_heading {
-      font-size: var(--nm);
+      font-size: var(--sm);
       font-weight: 400;
       line-height: 1.5;
     }
@@ -174,7 +170,6 @@
         width: 140px;
         font-size: var(--sm);
         padding: 0.25rem 1rem;
-        border-radius: 2rem;
         gap: 0.25rem;
       }
     }

@@ -1,0 +1,258 @@
+<main>
+  <section class="profile">
+
+    <!-- Left | User profile informations -->
+    <header class="profile--info">
+
+      <!-- Profile picture -->
+      <div class="avatar__box">
+        <img src='<%=user.photo?.url || ' /images/user.png' %>' alt="<%= user.name || 'User avatar' %>" />
+      </div>
+
+      <!-- User names -->
+      <div class="profile__names">
+        <% if (user?.name) { %>
+          <h2>
+            <%= user?.name %>
+          </h2>
+          <% } %>
+            <h5>
+              @<%= user.username %>
+            </h5>
+      </div>
+
+      <!-- User bio -->
+      <div class="profile__bio">
+        <% if (user?.bio) { %>
+          <p>
+            <%= user?.bio %>
+          </p>
+          <% } %>
+      </div>
+
+      <!-- User stats -->
+      <div class="profile__stats">
+        <% if (user.verified) { %>
+          <div class="badge verified">
+            <strong>&#10004;</strong>
+            <span>Verified</span>
+          </div>
+          <% } else { %>
+            <div class="badge unverified">
+              <strong>&#10060;</strong>
+              <span>Unverified</span>
+            </div>
+            <% }%>
+
+              <div class="badge">
+                <strong>
+                  <%= user?.posts?.length %>
+                </strong>
+                <span>Posts</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.followers?.length %>
+                </strong>
+                <span>Followers</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.following?.length %>
+                </strong>
+                <span>Following</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.readingList?.length %>
+                </strong>
+                <span>Views</span>
+              </div>
+      </div>
+
+      <!-- About User -->
+      <div class="profile__about">
+        <h6>About</h6>
+        <div class="rows">
+          <i class="fa-solid fa-user"></i>
+          <p class="user-role">
+            <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+          </p>
+        </div>
+        <% if (user?.profession) { %>
+          <div class="rows">
+            <i class="fa-solid fa-briefcase"></i>
+            <p class="user__profession">
+              <%= user?.profession %>
+            </p>
+          </div>
+          <% } %>
+            <% if (user?.location) { %>
+              <div class="rows">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>
+                  <span>
+                    <%= user?.location?.city %>
+                  </span>,
+                  <span>
+                    <%= user?.location?.state %>
+                  </span>,
+                  <span>
+                    <%= user?.location?.country %>
+                  </span>
+                </p>
+              </div>
+              <% } %>
+      </div>
+
+      <!-- Socials -->
+      <div class="profile__Socials">
+        <h6>Socials</h6>
+        <div class="user__mail">
+          <i class="fa-solid fa-envelope"></i>
+          <p class="user-email">
+            <%= user.email %>
+          </p>
+        </div>
+        <ul class="social__links">
+          <% if (user?.socials?.facebook) { %>
+            <li>
+              <i class="fa-brands fa-square-facebook"></i>
+              <a href="<%= user?.socials?.facebook %>">
+                <%= user?.socials?.facebook %>
+              </a>
+            </li>
+            <% } %>
+              <% if (user?.socials?.instagram) { %>
+                <li>
+                  <i class="fa-brands fa-square-instagram"></i>
+                  <a href="<%= user?.socials?.instagram %>">
+                    <%= user?.socials?.instagram %>
+                  </a>
+                </li>
+                <% } %>
+                  <% if (user?.socials?.twitter) { %>
+                    <li>
+                      <i class="fa-brands fa-square-x-twitter"></i>
+                      <a href="<%= user?.socials?.twitter %>">
+                        <%= user?.socials?.twitter %>
+                      </a>
+                    </li>
+                    <% } %>
+                      <% if (user?.socials?.linkedin) { %>
+                        <li>
+                          <i class="fa-brands fa-linkedin"></i>
+                          <a href="<%= user?.socials?.linkedin %>">
+                            <%= user?.socials?.linkedin %>
+                          </a>
+                        </li>
+                        <% } %>
+                          <% if (user?.socials?.website) { %>
+                            <li>
+                              <i class="fa-solid fa-globe"></i>
+                              <a href="<%= user?.socials?.website %>">
+                                <%= user?.socials?.website %>
+                              </a>
+                            </li>
+                            <% } %>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Divider -->
+    <div class="profile--divider"></div>
+
+    <!-- Right | Users actions & posts -->
+    <div class="profile--data">
+
+      <!-- Top | user action cards -->
+      <div class="profile--top">
+
+        <!-- Account settings -->
+        <div class="profile--card settings">
+          <div class="icon">
+            <i class="fa-solid fa-user-gear"></i>
+          </div>
+          <div class="content">
+            <h5>Account settings</h5>
+            <p>Update your personal info and keep your account secure.</p>
+            <div class="buttons__box">
+              <a href="/users/edit/<%= user._id %>" class="profile--action__btn edit">
+                <i class="fa-solid fa-user-pen"></i>
+                Edit Profile
+              </a>
+              <a href="/auth/forgot-password" class="profile--action__btn change__password">
+                <i class="fa-solid fa-key"></i>
+                Change Password
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="profile--card dashboard">
+          <div class="icon">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+          <div class="content">
+            <h5>Go to Dashboard</h5>
+            <p>Write contents, Manage your posts and Keep updated with your followers.</p>
+            <div class="buttons__box">
+              <a href="/users/dashboard" class="btn">
+                <i class="fa-solid fa-table-columns"></i>
+                Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr />
+
+      <!-- Bottom | User top posts -->
+      <div class="profile--bottom">
+        <h5>Your top posts</h5>
+        <% if (posts?.length===0) { %>
+          <%- include('../../components/empty-post.ejs') %>
+            <% } else { %>
+              <ul class="profile--posts">
+                <% posts.forEach(post=> { %>
+                  <li>
+                    <a href="/blog/<%= post._id %>">
+                      <div class="post__card">
+                        <h6>
+                          <%= post.title %>
+                        </h6>
+                        <div class="post__date">
+                          <i class="fa-solid fa-calendar-days"></i>
+                          <% if (post.createdAt) { %>
+                            <span>
+                              <%= new Date(post.createdAt).toDateString() %>
+                            </span>
+                            <% } else { %>
+                              <span>Unknown date</span>
+                              <% } %>
+                        </div>
+                        <div class="post__contents">
+                          <% if (post.coverImage?.url) { %>
+                            <img class="image__content" src="<%= post.coverImage?.url %>" alt="<%= post.title %>"
+                              loading="lazy">
+                            <% } else { %>
+                              <div class="text__content">
+                                <%- post.descriptions %>
+                              </div>
+                              <% } %>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <% }) %>
+              </ul>
+              <% } %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer.ejs') %>

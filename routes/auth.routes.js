@@ -23,7 +23,7 @@ authRouter
   .post(auth, loginLimiter, ac.resendVerification);
 authRouter
   .route('/forgot-password')
-  .get(signInChecker, ac.forgotPasswordPage)
+  .get(ac.forgotPasswordPage)
   .post(loginLimiter, ac.forgotPassword);
 authRouter
   .route('/reset-password/:token')

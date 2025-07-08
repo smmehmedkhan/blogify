@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
-import User from '../models/user.model.js';
+import userService from '../services/user.service.js';
 
 /**
  * Authenticator Middleware
@@ -10,21 +10,19 @@ export default async function auth(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
-    // Store the current URL in the session before redirecting
-    req.session.returnTo = req.originalUrl;
+    req.session.returnTo = req.originalUrl; // Store prev req path in a var
     return res.redirect(302, '/auth/sign-in');
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    // Fetch complete user information
-    const user = await User.findById(decoded._id);
+    const user = await userService.getUserDetails(decoded._id); // Fetch user info by decoded ID
+
     if (!user) {
       return res.redirect(302, '/auth/sign-in');
     }
 
-    req.user = user;
-
+    req.user = user; // Append user info
     return next();
   } catch (error) {
     return next(error);

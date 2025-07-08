@@ -25,7 +25,7 @@
           <h5>Your Profile</h5>
           <p>View and update your personal information, avatar, and account settings to keep your profile up to date.
           </p>
-          <a href="/users/dashboard/profile" class="btn">
+          <a href="/users" class="btn">
             <i class="fa-solid fa-user-gear"></i> Edit Profile
           </a>
         </div>
@@ -89,17 +89,9 @@
               <% }) %>
           </ul>
           </div>
+    </section>
 </main>
 
-<!-- Email verification alert -->
-<% if (!user.verified) { %>
-  <section class="verify_reminder">
-    <strong>Your email is not verified!</strong>
-    Please check your inbox for the verification link or
-    <a href="/auth/verify">click here</a> to resend the verification email.
-  </section>
-  <% } %>
+<%- include('../../partials/footer.ejs') %>
 
-    <%- include('../../partials/footer.ejs') %>
-
-      <script type="text/javascript" src="/javascripts/components/deletePost.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/deletePost.js" nonce="<%= nonce %>"></script>

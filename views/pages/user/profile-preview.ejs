@@ -1,0 +1,231 @@
+<main>
+  <section class="profile">
+
+    <!-- Left | User profile informations -->
+    <header class="profile--info">
+
+      <!-- Profile picture -->
+      <div class="avatar__box">
+        <img src='<%=user.photo?.url || ' /images/user.png' %>' alt="<%= user.name || 'User avatar' %>" />
+      </div>
+
+      <!-- User names -->
+      <div class="profile__names--wrapper">
+        <div class="profile__names">
+          <% if (user?.name) { %>
+            <h4>
+              <%= user?.name %>
+            </h4>
+            <% } %>
+              <h5>
+                @<%= user.username %>
+              </h5>
+        </div>
+        <div class="follow__buttons">
+          <% if (!currentUser) { %>
+            <button id="followBtn" class="follow"><i class="fa-solid fa-plus"></i><span>Follow</span></button>
+            <% } else if (currentUser._id !==user._id) { %>
+              <% if (isFollowing) { %>
+                <button id="unfollowBtn" class="unfollow"><i
+                    class="fa-solid fa-xmark"></i><span>Unfollow</span></button>
+                <% } else { %>
+                  <button id="followBtn" class="follow"><i class="fa-solid fa-plus"></i><span>Follow</span></button>
+                  <% } %>
+                    <% } %>
+        </div>
+      </div>
+
+      <!-- User bio -->
+      <div class="profile__bio">
+        <% if (user?.bio) { %>
+          <p>
+            <%= user?.bio %>
+          </p>
+          <% } %>
+      </div>
+
+      <!-- User stats -->
+      <div class="profile__stats">
+        <% if (user.verified) { %>
+          <div class="badge verified">
+            <strong>&#10004;</strong>
+            <span>Verified</span>
+          </div>
+          <% } else { %>
+            <div class="badge unverified">
+              <strong>&#10060;</strong>
+              <span>Unverified</span>
+            </div>
+            <% }%>
+
+              <div class="badge">
+                <strong>
+                  <%= user?.posts?.length %>
+                </strong>
+                <span>Posts</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.followers?.length %>
+                </strong>
+                <span>Followers</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.following?.length %>
+                </strong>
+                <span>Following</span>
+              </div>
+              <div class="badge">
+                <strong>
+                  <%= user?.readingList?.length %>
+                </strong>
+                <span>Views</span>
+              </div>
+      </div>
+
+      <!-- About User -->
+      <div class="profile__about">
+        <h6>About</h6>
+        <div class="rows">
+          <i class="fa-solid fa-user"></i>
+          <p class="user-role">
+            <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+          </p>
+        </div>
+        <% if (user?.profession) { %>
+          <div class="rows">
+            <i class="fa-solid fa-briefcase"></i>
+            <p class="user__profession">
+              <%= user?.profession %>
+            </p>
+          </div>
+          <% } %>
+            <% if (user?.location) { %>
+              <div class="rows">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>
+                  <span>
+                    <%= user?.location?.city %>
+                  </span>,
+                  <span>
+                    <%= user?.location?.state %>
+                  </span>,
+                  <span>
+                    <%= user?.location?.country %>
+                  </span>
+                </p>
+              </div>
+              <% } %>
+      </div>
+
+      <!-- Socials -->
+      <div class="profile__Socials">
+        <h6>Socials</h6>
+        <div class="user__mail">
+          <i class="fa-solid fa-envelope"></i>
+          <p class="user-email">
+            <%= user.email %>
+          </p>
+        </div>
+        <ul class="social__links">
+          <% if (user?.socials?.facebook) { %>
+            <li>
+              <i class="fa-brands fa-square-facebook"></i>
+              <a href="<%= user?.socials?.facebook %>">
+                <%= user?.socials?.facebook %>
+              </a>
+            </li>
+            <% } %>
+              <% if (user?.socials?.instagram) { %>
+                <li>
+                  <i class="fa-brands fa-square-instagram"></i>
+                  <a href="<%= user?.socials?.instagram %>">
+                    <%= user?.socials?.instagram %>
+                  </a>
+                </li>
+                <% } %>
+                  <% if (user?.socials?.twitter) { %>
+                    <li>
+                      <i class="fa-brands fa-square-x-twitter"></i>
+                      <a href="<%= user?.socials?.twitter %>">
+                        <%= user?.socials?.twitter %>
+                      </a>
+                    </li>
+                    <% } %>
+                      <% if (user?.socials?.linkedin) { %>
+                        <li>
+                          <i class="fa-brands fa-linkedin"></i>
+                          <a href="<%= user?.socials?.linkedin %>">
+                            <%= user?.socials?.linkedin %>
+                          </a>
+                        </li>
+                        <% } %>
+                          <% if (user?.socials?.website) { %>
+                            <li>
+                              <i class="fa-solid fa-globe"></i>
+                              <a href="<%= user?.socials?.website %>">
+                                <%= user?.socials?.website %>
+                              </a>
+                            </li>
+                            <% } %>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Divider -->
+    <div class="profile--divider"></div>
+
+    <!-- Right | Users actions & posts -->
+    <div class="profile--data">
+
+      <!-- Bottom | User top posts -->
+      <div class="profile--bottom">
+        <h5>
+          <%= user.name || user.username %>'s top posts
+        </h5>
+        <% if (posts?.length===0) { %>
+          <%- include('../../components/empty-post.ejs') %>
+            <% } else { %>
+              <ul class="profile--posts">
+                <% posts.forEach(post=> { %>
+                  <li>
+                    <a href="/blog/<%= post._id %>">
+                      <div class="post__card">
+                        <h6>
+                          <%= post.title %>
+                        </h6>
+                        <div class="post__date">
+                          <i class="fa-solid fa-calendar-days"></i>
+                          <% if (post.createdAt) { %>
+                            <span>
+                              <%= new Date(post.createdAt).toDateString() %>
+                            </span>
+                            <% } else { %>
+                              <span>Unknown date</span>
+                              <% } %>
+                        </div>
+                        <div class="post__contents">
+                          <% if (post.coverImage?.url) { %>
+                            <img class="image__content" src="<%= post.coverImage?.url %>" alt="<%= post.title %>"
+                              loading="lazy">
+                            <% } else { %>
+                              <div class="text__content">
+                                <%- post.descriptions %>
+                              </div>
+                              <% } %>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <% }) %>
+              </ul>
+              <% } %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer.ejs') %>
+
+  <script src="/javascripts/components/followHandler.js" nonce="<%= nonce %>"></script>

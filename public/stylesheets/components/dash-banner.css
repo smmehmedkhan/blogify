@@ -18,7 +18,7 @@
     & .avatar {
       width: 64px;
       height: 64px;
-      background: var(--popover);
+      background: var(--secondary);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -28,8 +28,7 @@
       font-size: 2rem;
       color: var(--sky);
     }
-    & h2 {
-      font-size: var(--2xl);
+    & h3 {
       font-weight: 800;
       margin-bottom: 0.5rem;
       & span {
@@ -41,9 +40,9 @@
     font-size: var(--md);
     margin: 1rem 0 2rem 0;
     color: var(--info);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.5rem;
   }
   & .inspiration {
@@ -94,6 +93,7 @@
     }
   }
 }
+
 @media screen and (max-width: 1280px) {
   .dash-banner {
     width: calc(100% - 1rem);
@@ -163,11 +163,27 @@
       height: 40px;
       font-size: 1.25rem;
     }
+    & .help-text {
+      gap: 0.25rem;
+      align-items: flex-start;
+      & i {
+        font-size: var(--nm);
+        margin: 0;
+      }
+      & p {
+        font-size: var(--nm);
+        padding: 0;
+      }
+    }
     & .inspiration {
+      font-size: var(--sm);
       max-width: 400px;
       padding: 0.5rem 1rem;
       & i {
         margin-inline: 0.25rem;
+      }
+      & h6 {
+        font-size: var(--xs);
       }
     }
   }

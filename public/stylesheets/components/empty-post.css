@@ -5,13 +5,13 @@
 
   & .empty_post-card {
     width: 100%;
-    max-width: 600px;
-    padding: 2rem;
-    border: 1px solid var(--black-II);
-    border-radius: 12px;
+    max-width: 480px;
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     margin-block: 1.5rem;
+    margin-inline: auto;
     text-align: center;
-    /* background-color: var(--black-I); */
     & i {
       font-size: var(--4xl);
       margin-bottom: 2rem;
@@ -23,23 +23,60 @@
     }
 
     & p {
-      color: var(--gray-light);
+      color: var(--muted-foreground);
       margin-bottom: 2rem;
     }
 
-    & .create-btn {
-      display: inline-block;
-      padding: 0.7rem 1.4rem;
-      background-color: var(--emerald);
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
+    & .empty_post--btn {
+      width: max-content;
+      height: initial;
+      font-size: var(--sm);
+      font-weight: 600;
+      padding: 0.625rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-inline: auto;
+      background-color: var(--warning);
       text-decoration: none;
       transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      &:hover {
+        color: var(--popover-foreground);
+        background-color: var(--warning-popover);
+      }
+      & i {
+        font-size: var(--sm);
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .empty_post-wrapper .empty_post-card {
+    padding: 1rem 0.25rem;
+    margin-block: 1rem;
+    margin-inline: 0.25rem;
+    & i {
+      margin-bottom: 1rem;
     }
 
-    .create-btn:hover {
-      background-color: var(--emerald-dark);
+    & h4 {
+      margin-bottom: 0.5rem;
+    }
+
+    & p {
+      margin-bottom: 1rem;
+    }
+
+    & .empty_post--btn {
+      font-size: var(--xs);
+      padding: 0.35rem 0.75rem;
+      & i {
+        font-size: var(--xs);
+      }
     }
   }
 }

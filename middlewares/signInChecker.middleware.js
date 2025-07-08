@@ -14,12 +14,10 @@ export default function singInChecker(req, res, next) {
       const decoded = jwt.verify(token, JWT_SECRET);
       req.user = { _id: decoded._id };
 
-      // Use session for redirect to previous URL.
-      const returnTo = req.session.returnTo || '/users/dashboard';
-      delete req.session.returnTo;
-      return res.redirect(returnTo);
-    } catch (err) {
-      return next(err);
+      // Send user to a safe route
+      return res.redirect('/users');
+    } catch (error) {
+      return next(error);
     }
   } else {
     res.clearCookie('token');

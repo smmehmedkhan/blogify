@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       reader.readAsDataURL(file);
-    } else {
-      previewImg.src = '/images/noise.png';
     }
   });
 });

@@ -45,16 +45,15 @@ export async function signIn(req, res) {
       sameSite: 'strict',
     });
     res.user = user;
-    req.flash('success', 'You have successfully signed in!'); // Success message for toast
+    req.flash('success', 'You have successfully signed in!');
 
     // Check user verification
     if (!user.verified) {
       req.flash('warning', 'Please verify your email address!');
     }
 
-    // Redirect to the original URL or dashboard if none exists
-    const returnTo = req.session.returnTo || '/users/dashboard';
-    // delete req.session.returnTo;
+    const returnTo = req.session.returnTo || '/users';
+
     return res.redirect(returnTo);
   } catch (error) {
     let emailError = '',
@@ -169,8 +168,12 @@ export async function signUp(req, res) {
       sameSite: 'strict',
     });
     req.flash('success', 'You have successfully signed up!');
-    req.flash('warning', 'Please verify your email address!');
-    return res.redirect('/users/dashboard');
+
+    const returnTo = req.session.returnTo || '/users';
+
+    console.log('User signed up, user data: ' + req.user);
+
+    return res.redirect(returnTo);
   } catch (error) {
     req.flash('error', error.message);
     handleError(res, error);
@@ -212,13 +215,14 @@ export async function signUpPage(req, res) {
  */
 export async function verification(req, res) {
   const { token } = req.params;
+  const returnTo = req.session.returnTo || '/users/dashboard';
 
   try {
     const user = await authService.verifyEmail(token);
 
     // Check if user already signed in
     if (req?.user?._id.toString() === user?._id.toString()) {
-      return res.redirect('/users/dashboard'); // Signed in? redirect to dashboard
+      return res.redirect(returnTo); // Signed in? redirect to previews page
     }
     // Clear any existing token to avoid redirect loop
     res.clearCookie('token');
@@ -236,8 +240,9 @@ export async function verification(req, res) {
  * Render verification required page
  */
 export async function verificationPage(req, res) {
-  const nonce = res.locals.nonce;
+  const returnTo = req.session.returnTo || '/users/dashboard';
   const verified = req.user.verified;
+  const nonce = res.locals.nonce;
 
   const locals = {
     title: 'Blogify | Email Verification',
@@ -259,9 +264,6 @@ export async function verificationPage(req, res) {
     }
   }
 
-  // Redirect to the original URL or dashboard if none exists
-  const returnTo = req.session.returnTo || '/users/dashboard';
-  // delete req.session.returnTo;
   return res.redirect(returnTo);
 }
 
@@ -269,7 +271,13 @@ export async function verificationPage(req, res) {
  * Resend verification email
  */
 export async function resendVerification(req, res) {
+  const returnTo = req.session.returnTo || '/users/dashboard';
   const userId = req.user._id;
+  const nonce = res.locals.nonce;
+  const locals = {
+    title: 'Blogify | Email Verification',
+    description: 'Please verify your email to continue.',
+  };
 
   try {
     const user = await User.findById(userId);
@@ -277,14 +285,21 @@ export async function resendVerification(req, res) {
     // Check if email already verified
     if (user.verified) {
       req.flash('info', 'Your email is already verified');
-      return res.redirect('/users/dashboard');
+      return res.redirect(returnTo);
     }
 
     await authService.sendVerificationEmail(user);
 
     req.flash('success', 'Verification mail has send to your email address');
 
-    return res.redirect('/auth/verify');
+    const bundle = {
+      nonce,
+      locals,
+      currentRoute: '/auth/verify',
+      user: req.user,
+    };
+
+    return res.render('pages/auth/verification', bundle);
   } catch (error) {
     req.flash('error', error.message || 'Failed to send verification email');
     handleError(res, error);
@@ -294,7 +309,7 @@ export async function resendVerification(req, res) {
 /**
  * Render forgot password page
  */
-export async function forgotPasswordPage(req, res) {
+export async function forgotPasswordPage(_req, res) {
   const nonce = res.locals.nonce;
   const locals = {
     title: 'Blogify | Forgot Password',
@@ -353,8 +368,7 @@ export async function forgotPassword(req, res) {
       locals,
       email,
       emailError: '',
-      message:
-        'If your email exists in our system, you will receive an email with password reset link.',
+      message: `We've send a verification link to your email address. Please check your inbox or junk/spam folder.`,
       currentRoute: '/auth/forgot-password',
     };
 
@@ -382,6 +396,7 @@ export async function resetPasswordPage(req, res) {
     const isValidToken = await authService.validateResetToken(token);
 
     if (!isValidToken) {
+      req.flash('warning', 'Verification token is not valid');
       return res.redirect('/auth/forgot-password');
     }
 
@@ -439,7 +454,7 @@ export async function resetPassword(req, res) {
     // Reset password
     await authService.resetPassword(token, password);
 
-    req.flash('success', 'Password reset successfullyy');
+    req.flash('success', 'Password reseted successfully');
     return res.redirect('/auth/sign-in');
   } catch (error) {
     req.flash('error', error.message);

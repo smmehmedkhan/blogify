@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const blogImageInput = document.getElementById('addPostCoverImage');
-  const previewImg = document.getElementById('addPostImagePreview');
+  const blogImageInput = document.getElementById('photo');
+  const previewImg = document.getElementById('photoPreview');
 
   blogImageInput.addEventListener('change', function () {
     const file = this.files && this.files[0];

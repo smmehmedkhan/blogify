@@ -4,6 +4,14 @@
 
 ---
 
+## 📅 2025-07-03 – route order matters
+
+- **Issue**: '/user/dashboard' route get hanging on every request after adding two new routes path in user routes file.
+- **Diagnosis**: /users/dashboard route is shadowed by the /:id route. So it get hanging on every request.
+- **Fix**: Always define most specific routes (like /dashboard, /dashboard/add, etc.) before any generic parameter routes (like /:id). To avoid request hanging. Route order matters in express.
+
+---
+
 ## 📅 2025-06-22 – CSP Nonce Issue with Helmet + EJS
 
 - **Issue**: Inline `<script>` tags were blocked even after configuring Helmet’s CSP.

@@ -32,7 +32,9 @@
       </li>
       <li>
         <!-- Todo: Profile logo & name button component -->
-        Profile
+        <a href="/users" class="<%= activeRoute ? activeRoute('/users/dashboard', path) : '' %>">
+          Profile
+        </a>
       </li>
       <%- include('../components/auth-buttons.ejs') %>
     </ul>
