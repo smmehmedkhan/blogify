@@ -58,6 +58,9 @@ nav {
             }
           }
         }
+        &.sign-out a {
+          font-size: var(--md);
+        }
         & a {
           text-decoration: none;
           text-transform: capitalize;
@@ -86,6 +89,32 @@ nav {
           & svg {
             width: 20px;
             height: 20px;
+          }
+        }
+        & .profile-badge {
+          width: initial;
+          padding-left: 1rem;
+          border: 0;
+          border-radius: 3rem;
+          outline: 2px solid var(--blue);
+          background-color: var(--blue-trans);
+          & a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            & span {
+              font-size: var(--xs);
+              font-weight: 500;
+            }
+            & img {
+              width: 32px;
+              height: 32px;
+              border: 1px solid var(--blue);
+              border-radius: 50%;
+              object-fit: cover;
+              background-position: center center;
+            }
           }
         }
       }

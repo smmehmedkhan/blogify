@@ -7,7 +7,7 @@ import userService from '../services/user.service.js';
  * Checks token in request cookies, !token redirect to sign-in page || add user id in request user.
  */
 export default async function auth(req, res, next) {
-  const token = req.cookies.token;
+  const { token } = req.cookies;
 
   if (!token) {
     req.session.returnTo = req.originalUrl; // Store prev req path in a var
@@ -22,7 +22,17 @@ export default async function auth(req, res, next) {
       return res.redirect(302, '/auth/sign-in');
     }
 
-    req.user = user; // Append user info
+    // Append user info
+    req.user = {
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      photo: {
+        url: user.photo.url,
+      },
+      verified: user.verified,
+    };
+
     return next();
   } catch (error) {
     return next(error);

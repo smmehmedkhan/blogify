@@ -44,7 +44,18 @@ export async function signIn(req, res) {
       secure: true,
       sameSite: 'strict',
     });
-    res.user = user;
+
+    // Append user info
+    req.user = {
+      _id: user._id,
+      name: user.name,
+      username: user.username,
+      photo: {
+        url: user.photo.url,
+      },
+      verified: user.verified,
+    };
+
     req.flash('success', 'You have successfully signed in!');
 
     // Check user verification
@@ -52,7 +63,7 @@ export async function signIn(req, res) {
       req.flash('warning', 'Please verify your email address!');
     }
 
-    const returnTo = req.session.returnTo || '/users';
+    const returnTo = req.session.returnTo || '/users/dashboard';
 
     return res.redirect(returnTo);
   } catch (error) {
