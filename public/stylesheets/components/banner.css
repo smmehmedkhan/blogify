@@ -2,7 +2,6 @@
   width: 100%;
   padding: 5rem 0;
   border: 1px dashed var(--border);
-  margin-top: 2.5rem;
   background-color: var(--accent);
   box-shadow: var(--shadow-full);
   display: flex;
@@ -23,11 +22,11 @@
   & .banner-sub_heading {
     font-size: var(--lg);
     font-weight: 600;
+    margin-bottom: 2.5rem;
   }
 
   & .banner_buttons {
     width: fit-content;
-    margin-top: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -68,7 +67,6 @@
 @media screen and (max-width: 1536px) {
   .banner {
     padding: 4rem 1rem;
-    margin-top: 2.25rem;
     & .banner-heading {
       font-size: var(--3xl);
       font-weight: 800;
@@ -97,7 +95,6 @@
 @media screen and (max-width: 1024px) {
   .banner {
     padding: 4rem 1rem;
-    margin-top: 2rem;
     & .banner-heading {
       font-size: var(--3xl);
       font-weight: 800;
@@ -126,7 +123,6 @@
 @media screen and (max-width: 768px) {
   .banner {
     padding: 3rem 1rem;
-    margin-top: 1.75rem;
     & .banner-heading {
       font-size: var(--2xl);
       font-weight: 800;
@@ -152,7 +148,6 @@
 @media screen and (max-width: 480px) {
   .banner {
     padding: 2.5rem 0.5rem;
-    margin-top: 1.5rem;
     & .banner-heading {
       font-weight: 700;
       margin-bottom: 1rem;

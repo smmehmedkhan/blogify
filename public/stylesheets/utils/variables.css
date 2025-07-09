@@ -78,7 +78,6 @@
     var(--amber) 60%,
     var(--orange)
   );
-  --skambar: linear-gradient(120deg, var(--sky), var(--amber) 80%);
   --skyfall: linear-gradient(
     to bottom,
     oklch(0.9 0.06 231) 0%,
@@ -100,6 +99,7 @@
     var(--fuschia) 50%,
     var(--purple) 100%
   );
+  --titan: linear-gradient(to bottom, var(--purple) 0%, var(--violet) 100%);
 
   /* Utilitise */
   --max-width: 1536px;

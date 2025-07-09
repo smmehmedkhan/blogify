@@ -115,6 +115,8 @@ main {
   width: 100%;
   max-width: var(--max-width);
   min-height: 100dvh;
+  margin-top: 2.5rem;
+  margin-bottom: 5rem;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
@@ -124,48 +126,48 @@ main {
 
 @media screen and (max-width: 1536px) {
   main {
+    gap: 4.5rem;
+    margin-top: 2.25rem;
+    margin-bottom: 4.5rem;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  main {
     gap: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
   }
 }
 
 @media screen and (max-width: 1024px) {
   main {
     gap: 3.5rem;
+    margin-top: 1.75rem;
+    margin-bottom: 3.5rem;
   }
-  /* h1 {
-    font-size: var(--4xl);
-    font-weight: 900;
-  }
-  h2 {
-    font-size: var(--3xl);
-    font-weight: 800;
-  }
-  h3 {
-    font-size: var(--2xl);
-    font-weight: 700;
-  }
-  h4 {
-    font-size: var(--xl);
-    font-weight: 600;
-  }
-  h5 {
-    font-size: var(--lg);
-    font-weight: 500;
-  }
-  h6 {
-    font-size: var(--md);
-    font-weight: 400;
-  } */
 }
 
 @media screen and (max-width: 768px) {
   main {
     gap: 3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   main {
-    gap: 1.5rem;
+    gap: 2.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    gap: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
 }
