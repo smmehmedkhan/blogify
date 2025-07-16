@@ -1,44 +1,24 @@
 .brand-logo {
   cursor: pointer;
-  transition: var(--transition);
+  transition: opacity 250ms ease;
   &:hover {
     opacity: 0.75;
   }
 
   & a {
-    color: var(--foreground);
-    font-size: var(--xl);
-    font-family: var(--play);
+    font-size: var(--font-xl);
+    font-family: var(--font-brand);
     font-weight: 700;
-    text-decoration: none;
     display: flex;
     place-items: center;
     gap: 0.25rem;
 
     & .logo {
-      width: 32px;
-      height: 32px;
+      width: clamp(1.5rem, 2vw, 2rem);
+      height: clamp(1.5rem, 2vw, 2rem);
     }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .brand-logo a {
-    font-size: var(--lg);
-
-    & .logo {
-      width: 30px;
-      height: 30px;
-    }
-  }
-}
-@media screen and (max-width: 480px) {
-  .brand-logo a {
-    font-size: var(--md);
-
-    & .logo {
-      width: 24px;
-      height: 24px;
+    &:hover {
+      color: var(--fg);
     }
   }
 }

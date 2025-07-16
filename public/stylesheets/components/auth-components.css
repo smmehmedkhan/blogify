@@ -1,174 +1,116 @@
-.sign_in-wrapper,
-.sign_up-wrapper,
-.forgot_password-wrapper,
-.reset_password-wrapper {
-  width: 100%;
-  height: 100dvh;
-  display: flex;
-  place-items: center;
-  place-content: center;
+.auth__wrapper {
+  min-height: calc(100dvh - 53px);
+  margin-block: 0;
+  justify-content: center;
 
-  & .sign_in-box,
-  .sign_up-box,
-  .forgot_password-box,
-  .reset_password-box {
-    width: 100%;
-    max-width: 400px;
-    min-height: 480px;
-    padding: 3rem 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background-color: var(--accent);
-    box-shadow: var(--card-shadow);
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    gap: 0.75rem;
-    transform: translateY(-60px);
-    & p.service-info {
-      color: var(--emerald);
-      font-weight: 600;
-      text-align: center;
-    }
-    & form {
+  & .sign__in,
+  .sign__up,
+  .forgot__password,
+  .reset__password,
+  .verification {
+    max-width: 480px;
+    padding-inline: clamp(0.5rem, 2vw, 1.5rem);
+    background-color: var(--color-accent);
+
+    & .auth__header {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      margin: 0.25rem 0 1rem 0;
-      gap: 1rem;
-      & .input-group {
-        display: flex;
-        flex-direction: column;
+      & p {
+        color: var(--fg-muted);
+      }
+      & p.service-info {
+        color: var(--color-success);
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+
+    & form {
+      align-items: normal;
+      & .form__group {
+        align-items: flex-start;
         gap: 0.25rem;
 
         & label {
-          font-size: var(--sm);
+          font-size: var(--font-sm);
         }
 
         & p {
-          font-size: var(--sm);
-          color: var(--destructive);
+          width: 100%;
+          font-size: var(--font-sm);
+          color: var(--color-error);
           text-align: center;
         }
-      }
-      & button {
-        width: 100%;
-        padding-block: 0.625rem;
-        border: var(--info-popover);
-        border-radius: var(--radius);
-        margin-top: 1rem;
-        font-size: var(--sm);
-        font-weight: 700;
-        color: var(--foreground);
-        background-color: var(--info);
-        cursor: pointer;
-        transition: all 250ms ease-in-out;
-        &:hover {
-          background-color: var(--info-popover);
+
+        & button {
+          width: 100%;
+          background-color: var(--color-info);
+          &:hover {
+            background-color: var(--info-popover);
+          }
         }
       }
     }
-    & .sign_up-link,
-    .sign_in-link,
-    .condition-links,
-    .forgot-password-link {
+    & .auth__footer {
       width: 100%;
-      text-align: center;
-      & a {
-        color: var(--info);
-        text-decoration: none;
-        font-weight: 500;
-        transition: var(--transition);
-        &:hover {
-          color: var(--info-popover);
+      & .sign__up-link,
+      .sign__in-link,
+      .condition-links,
+      .forgot__password-link {
+        width: 100%;
+        text-align: center;
+        & a {
+          color: var(--color-info);
+          text-decoration: none;
+          font-weight: 500;
+          transition: var(--transition);
+          &:hover {
+            color: var(--info-popover);
+          }
         }
       }
     }
   }
-}
-
-main.verify-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
   & .verification {
-    width: max-content;
-    min-width: 600px;
-    height: max-content;
-    padding: 2.5rem 1rem;
-    box-shadow: var(--shadow-box);
-    border-radius: 0.5rem;
-    background-color: var(--emerald);
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    transform: translateY(-60px);
-    & h4 {
-      margin-bottom: 2rem;
-    }
     & p {
-      color: var(--white-II);
+      color: var(--fg-muted);
+      &.verify__inform {
+        color: var(--color-info);
+      }
     }
     & .verify-actions {
-      width: max-content;
-      margin: 2rem auto;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      & .btn {
-        width: max-content;
-        height: 40px;
-        padding: 0.5rem 1.5rem;
-        border: 0;
-        border-radius: 0.25rem;
-        font-weight: 700;
-        text-decoration: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: var(--transition);
-      }
-      & .resend-btn {
-        color: var(--white);
-        background-color: var(--amber);
-        font-size: var(--nm);
-        & i {
-          font-size: var(--nm);
-          font-weight: 700;
-        }
+      width: 100%;
+      justify-content: center;
+      gap: clamp(1rem, 2vw, 2.5rem);
+
+      & .resend__btn {
+        background-color: var(--color-warning);
         &:hover {
-          color: var(--white-II);
-          background-color: var(--amber-dark);
+          background-color: var(--warning-popover);
         }
       }
-      & .home-btn {
-        color: var(--black);
-        background-color: var(--white);
+
+      & .home__btn {
+        color: var(--fg-inverse);
+        background-color: var(--color-primary);
+        transition: opacity 250ms ease;
         &:hover {
-          color: var(--black-II);
-          background-color: var(--white-II);
+          opacity: 0.75;
         }
       }
     }
   }
 }
 
-@media screen and (max-width: 768px) {
-  .sign_in-wrapper,
-  .sign_up-wrapper,
-  .forgot_password-wrapper,
-  .reset_password-wrapper {
-    & & .sign_in-box,
-    .sign_up-box,
-    .forgot_password-box,
-    .reset_password-box {
-      transform: translateY(0);
+@media screen and (max-width: 480px) {
+  .auth__wrapper {
+    & .sign__in,
+    .sign__up,
+    .forgot__password,
+    .reset__password,
+    .verification {
+      width: calc(100vw - 4vw);
+      margin-inline: auto;
     }
-  }
-  .verification {
-    min-width: 400px;
   }
 }

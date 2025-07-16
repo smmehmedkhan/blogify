@@ -1,23 +1,23 @@
-<header class="dash-banner">
-  <div class="greeting">
-    <div class="avatar">
+<header class="container dashboard__banner">
+  <div class="fluid greeting">
+    <div class="flex avatar">
       <i class="fa-solid fa-user-astronaut"></i>
     </div>
-    <h3>Welcome back, <span>
-        <%= user.username || 'Guest' %>!
+    <h4>Welcome back, <span>
+        <%= user.name || user.username %>!
       </span>
-    </h3>
+    </h4>
   </div>
-  <div class="help-text">
+  <div class="inline__container help__text">
     <i class="fa-solid fa-lightbulb"></i>
     <p>Manage your posts, track your progress, and share your stories with the world.</p>
   </div>
-  <blockquote class="inspiration">
-    <i class="fa-solid fa-quote-left"></i>
-    <span>
-      The secret of getting ahead is getting started.
-    </span>
-    <i class="fa-solid fa-quote-right"></i>
+  <blockquote class="card inspiration">
+    <p>
+      <i class="fa-solid fa-quote-left"></i>
+      <span>The secret of getting ahead is getting started.</span>
+      <i class="fa-solid fa-quote-right"></i>
+    </p>
     <h6>— Mark Twain</h6>
   </blockquote>
 </header>

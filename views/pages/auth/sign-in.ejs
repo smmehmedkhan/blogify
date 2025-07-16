@@ -1,33 +1,52 @@
-<div class="sign_in-wrapper">
-  <div class="sign_in-box">
-    <h5>Sign In</h5>
-    <p>You can sign in with a signed up email.</p>
+<!-- Auth cards wrapper -->
+<main class="fluid auth__wrapper">
 
-    <form action="/auth/sign-in" method="post" id="SignInForm" autocomplete="on">
+  <!-- Form Card -->
+  <div class="container sign__in">
+
+    <!-- Card header -->
+    <div class="auth__header">
+      <h5>Sign In</h5>
+      <p>You can sign in with a signed up email.</p>
+    </div>
+
+    <!-- Main Form -->
+    <form class="fluid" action="/auth/sign-in" method="post" id="SignInForm" autocomplete="on">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <div class="input-group">
+
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="email"><b>Email</b></label>
         <input type="email" name="email" id="email" placeholder="example@mail.com" value="<%- email || null %>" />
         <p id="signInEmailError"><%- emailError %></p>
       </div>
-      <div class="input-group">
+
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="password"><b>Password</b></label>
         <input type="password" name="password" id="password" placeholder="Enter your password"
           value="<%- password || null %>" />
         <p id="signInPassError"><%- notValidPassword %></p>
       </div>
-      <button type="submit" id="signInSubmitBtn">Sign In</button>
+
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
+        <button type="submit" id="signInSubmitBtn">Sign In</button>
+      </div>
     </form>
 
-    <p class="forgot-password-link">
-      <a href="/auth/forgot-password">Forgot Password?</a>
-    </p>
+    <!-- Card Footer -->
+    <div class="fluid auth__footer">
+      <p class="forgot__password-link">
+        <a href="/auth/forgot-password">Forgot Password?</a>
+      </p>
 
-    <p class="sign_up-link">
-      Don't have an account?
-      <a href="/auth/sign-up">Sign up</a>
-    </p>
+      <p class="sign__up-link">
+        <span>Don't have an account?</span>
+        <a href="/auth/sign-up">Sign up</a>
+      </p>
+    </div>
   </div>
-</div>
+  </div>
 
-<script type="text/javascript" src="/javascripts/auth/signInValidator.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/auth/signInValidator.js" nonce="<%= nonce %>"></script>

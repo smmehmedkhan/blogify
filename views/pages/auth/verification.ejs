@@ -1,26 +1,28 @@
-<main class="verify-wrapper">
-  <div class="verification">
+<!-- Auth cards wrapper -->
+<main class="fluid auth__wrapper">
+
+  <!-- Card -->
+  <div class="container verification">
     <h5>Email Verification</h5>
     <p>To access this feature, please verify your email address.</p>
-    <p>We've sent a verification link to your email address.<br />Please check your inbox and click the link to verify.
+    <p class="verify__inform">We've sent a verification link to your email address.<br />Please check your inbox and
+      click the link to verify.
     </p>
 
-    <div class="verify-actions">
-      <button id="resendBtn" class="btn resend-btn">
+    <div class="flex verify-actions">
+      <button id="resendBtn" class="resend__btn">
         <i class="fa-solid fa-envelope"></i>
-        Resend
+        <span>Resend</span>
       </button>
-      <a href="/" class="btn home-btn">
+      <a href="/" class="link__btn home__btn">
         <i class="fa-solid fa-house"></i>
-        Home
+        <span>Home</span>
       </a>
     </div>
   </div>
 </main>
 
-<%- include('../../partials/footer.ejs') %>
+<div id="resendMessage" style="display: none;"></div>
 
-  <div id="resendMessage" style="display: none;"></div>
-
-  <!-- Add varifiaction related Client side scripts -->
-  <script type="text/javascript" defer src="/javascripts/auth/verification.js" nonce="<%= nonce %>"></script>
+<!-- Add varifiaction related Client side scripts -->
+<script type="text/javascript" defer src="/javascripts/auth/verification.js" nonce="<%= nonce %>"></script>

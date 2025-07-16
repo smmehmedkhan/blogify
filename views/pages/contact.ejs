@@ -1,20 +1,46 @@
-<main class="contact-page">
-  <div class="contact-container">
-    <section class="contact-info">
-      <h1>Contact Us</h1>
-      <p>We value your feedback and are here to help with any questions you might have about Blogify.</p>
-
-      <div class="contact-guidance">
-        <h3>How We Can Help</h3>
-        <ul>
-          <li><i class="fa-solid fa-circle-question"></i> <strong>Technical Support:</strong> Having trouble with your
-            account or experiencing issues with the platform? Let us know!</li>
-          <li><i class="fa-solid fa-lightbulb"></i> <strong>Feature Suggestions:</strong> Share your ideas on how we can
-            improve Blogify.</li>
-          <li><i class="fa-solid fa-handshake"></i> <strong>Partnerships:</strong> Interested in collaborating with us?
-            We'd love to hear from you.</li>
-          <li><i class="fa-solid fa-comment"></i> <strong>Feedback:</strong> Your satisfaction matters! Tell us what you
-            love or what we could do better.</li>
+<main class="contact">
+  <div class="container wrapper">
+    <section class="fluid contact__info">
+      <div class="contact__header">
+        <h3>Contact Us</h3>
+        <p>We value your feedback and are here to help with any questions you might have about Blogify.</p>
+      </div>
+      <div class="contact__guidance">
+        <h4>How We Can Help</h4>
+        <ul class="fluid">
+          <li class="fluid">
+            <p class="inline__container topics">
+              <i class="fa-solid fa-circle-question"></i>
+              <strong>Technical Support:</strong>
+            </p>
+            <p>Having trouble with your account or experiencing issues with the platform? Let us know!</p>
+          </li>
+          <li class="fluid">
+            <p class="inline__container topics">
+              <i class="fa-solid fa-lightbulb"></i>
+              <strong>Feature Suggestions:</strong>
+            </p>
+            <p>
+              Share your ideas on how we canimprove Blogify.
+            </p>
+          </li>
+          <li class="fluid">
+            <p class="inline__container topics">
+              <i class="fa-solid fa-handshake"></i>
+              <strong>Partnerships:</strong>
+            </p>
+            <p>
+              Interested in collaborating with us? We'd love to hear from you.
+            </p>
+          </li>
+          <li class="fluid">
+            <p class="inline__container topics">
+              <i class="fa-solid fa-comment"></i> <strong>Feedback:</strong>
+            </p>
+            <p>
+              Your satisfaction matters! Tell us what you love or what we could do better.
+            </p>
+          </li>
         </ul>
       </div>
 
@@ -23,12 +49,12 @@
       </div>
     </section>
 
-    <section class="contact-form-section">
-      <h2>Send Us a Message</h2>
-      <form class="contact-form" action="/contact" method="POST">
+    <section class="fluid contact__form-wrapper">
+      <h4>Send Us a Message</h4>
+      <form class="fluid contact__form" action="/contact" method="POST">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-        <div class="form-group">
+        <div class="fluid form__group">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" placeholder="Your name"
             value="<%= formData && formData.name || '' %>" required>
@@ -39,7 +65,7 @@
             <% } %>
         </div>
 
-        <div class="form-group">
+        <div class="fluid form__group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Your email address"
             value="<%= formData && formData.email || '' %>" required>
@@ -50,7 +76,7 @@
             <% } %>
         </div>
 
-        <div class="form-group">
+        <div class="fluid form__group">
           <label for="subject">Subject</label>
           <select id="subject" name="subject" required>
             <option value="" disabled <%=!formData || !formData.subject ? 'selected' : '' %>>Select a
@@ -73,9 +99,9 @@
             <% } %>
         </div>
 
-        <div class="form-group">
+        <div class="fluid form__group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" rows="6" placeholder="Please describe your inquiry in detail..."
+          <textarea id="message" name="message" rows="10" placeholder="Please describe your inquiry in detail..."
             required><%= formData && formData.message || '' %></textarea>
           <% if (errors && errors.messageError) { %>
             <div class="error-message">
@@ -84,7 +110,12 @@
             <% } %>
         </div>
 
-        <button type="submit" class="submit-btn">Send Message</button>
+        <div class="fluid form__group">
+          <button type="submit" class="inline__container submit__btn">
+            <span>Send Message</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
       </form>
     </section>
   </div>

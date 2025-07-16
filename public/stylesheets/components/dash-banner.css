@@ -1,190 +1,50 @@
-.dash-banner {
-  width: 100%;
-  padding: 3rem 2rem;
-  border: 1px dashed var(--border);
-  margin-top: 2.5rem;
-  margin-inline: auto;
-  text-align: center;
-  color: var(--foreground);
-  background-color: var(--accent);
-  box-shadow: var(--shadow-full);
+.dashboard__banner {
+  background-color: var(--bg-blue);
   position: relative;
   overflow: hidden;
   & .greeting {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    gap: clamp(0.25rem, 0.4vw, 0.5rem);
     & .avatar {
-      width: 64px;
-      height: 64px;
-      background: var(--secondary);
+      width: clamp(2.5rem, 3vw, 4rem);
+      height: clamp(2.5rem, 3vw, 4rem);
+      padding: clamp(1rem, 1.2vw, 1.5rem);
+      border: var(--border);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
+      font-size: var(--font-xl);
+      color: var(--blue);
+      background: var(--color-primary);
+      box-shadow: var(--shadow-sm);
       justify-content: center;
-      margin-bottom: 0.5rem;
-      box-shadow: 0 2px 8px var(--shadow-color);
-      font-size: 2rem;
-      color: var(--sky);
     }
-    & h3 {
-      font-weight: 800;
-      margin-bottom: 0.5rem;
+    & h4 {
+      margin: 0;
       & span {
         color: var(--purple);
       }
     }
   }
-  .help-text {
-    font-size: var(--md);
-    margin: 1rem 0 2rem 0;
-    color: var(--info);
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem;
+  & .help__text {
+    font-size: var(--font-md);
+    color: var(--color-info);
+    gap: clamp(0.25rem, 0.4vw, 0.5rem);
   }
   & .inspiration {
-    max-width: 480px;
+    max-width: 520px;
     margin-inline: auto;
     font-style: italic;
-    background: var(--skambar);
-    border-left: 4px solid var(--purple);
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    color: var(--purple);
-    box-shadow: 0 2px 8px var(--shadow-color);
+    background-color: var(--bg-fuchsia);
+    border-left: 10px solid var(--purple);
+    box-shadow: var(--shadow-sm);
     position: relative;
     & i {
-      color: var(--foreground);
       margin-inline: 0.5rem;
       transform: translateY(-8px);
     }
-    & span {
-      color: var(--foreground);
-    }
     & h6 {
-      display: block;
-      margin-top: 0.5rem;
-      color: var(--gray);
-      font-size: var(--sm);
+      color: var(--fg-muted);
+      font-size: var(--font-sm);
       font-style: normal;
       text-align: right;
-    }
-  }
-}
-
-@media screen and (max-width: 1536px) {
-  .dash-banner {
-    width: calc(100% - 1rem);
-    padding: 2.5rem 1.75rem;
-    margin-top: 2.25rem;
-    & .greeting .avatar {
-      width: 60px;
-      height: 60px;
-    }
-    & .inspiration {
-      max-width: 460px;
-      padding: 0.875rem 1.25rem;
-      & i {
-        margin-inline: 0.4rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .dash-banner {
-    width: calc(100% - 1rem);
-    padding: 2.5rem 1.75rem;
-    margin-top: 2.25rem;
-    & .greeting .avatar {
-      width: 60px;
-      height: 60px;
-    }
-    & .inspiration {
-      max-width: 460px;
-      padding: 0.875rem 1.25rem;
-      & i {
-        margin-inline: 0.4rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .dash-banner {
-    width: calc(100% - 0.75rem);
-    padding: 2.5rem 1.75rem;
-    margin-top: 2rem;
-    & .greeting .avatar {
-      width: 56px;
-      height: 56px;
-      font-size: 1.75rem;
-    }
-    & .inspiration {
-      max-width: 460px;
-      padding: 0.875rem 1.25rem;
-      & i {
-        margin-inline: 0.4rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .dash-banner {
-    width: calc(100% - 0.5rem);
-    padding: 2.25rem 1.5rem;
-    margin-top: 1.75rem;
-    & .greeting .avatar {
-      width: 48px;
-      height: 48px;
-      font-size: 1.5rem;
-    }
-    & .inspiration {
-      max-width: 440px;
-      padding: 0.75rem 1.2rem;
-      & i {
-        margin-inline: 0.35rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .dash-banner {
-    width: calc(100% - 0.5rem);
-    padding: 1rem 0.5rem;
-    margin-top: 1.5rem;
-    & .greeting .avatar {
-      width: 40px;
-      height: 40px;
-      font-size: 1.25rem;
-    }
-    & .help-text {
-      gap: 0.25rem;
-      align-items: flex-start;
-      & i {
-        font-size: var(--nm);
-        margin: 0;
-      }
-      & p {
-        font-size: var(--nm);
-        padding: 0;
-      }
-    }
-    & .inspiration {
-      font-size: var(--sm);
-      max-width: 400px;
-      padding: 0.5rem 1rem;
-      & i {
-        margin-inline: 0.25rem;
-      }
-      & h6 {
-        font-size: var(--xs);
-      }
     }
   }
 }

@@ -1,87 +1,107 @@
 <main>
+  <!-- Dashboard Banner -->
   <%- include('../../partials/dash-banner.ejs') %>
 
-    <section class="user_navigator">
+    <!-- Page recommendations -->
+    <section class="container recommendations">
       <!-- User add post card -->
-      <div class="user_card add_post">
-        <div class="icon">
+      <div class="card dash__card add__post--card">
+        <div class="flex icon">
           <i class="fa-solid fa-pen-to-square"></i>
         </div>
-        <div class="contents">
+        <div class="fluid contents">
           <h5>Share your thoughts!</h5>
           <p>What's on your mind today? <br /> Start a new post and inspire others.</p>
-          <a href="/users/dashboard/add" class="btn">
+          <a href="/users/dashboard/add" class="inline__container link__btn card__btn">
             <i class="fa-solid fa-pen"></i> Add New Post
           </a>
         </div>
       </div>
 
       <!-- Profile Card -->
-      <div class="user_card profile">
-        <div class="icon">
+      <div class="card dash__card profile">
+        <div class="flex icon">
           <i class="fa-regular fa-address-card"></i>
         </div>
-        <div class="contents">
+        <div class="fluid contents">
           <h5>Your Profile</h5>
           <p>View and update your personal information, avatar, and account settings to keep your profile up to date.
           </p>
-          <a href="/users" class="btn">
+          <a href="/users" class="inline__container link__btn card__btn">
             <i class="fa-solid fa-user-gear"></i> Edit Profile
           </a>
         </div>
       </div>
 
       <!-- Guidelines Card -->
-      <div class="user_card guideline">
-        <div class="icon">
+      <div class="card dash__card guideline">
+        <div class="flex icon">
           <i class="fa-solid fa-scale-balanced"></i>
         </div>
-        <div class="contents">
+        <div class="fluid contents">
           <h5>Posting Guidelines</h5>
           <p>Before you post, please review our community guidelines and terms to ensure a positive experience for
             everyone.
           </p>
-          <a href="/guidelines" class="btn">
+          <a href="/guidelines" class="inline__container link__btn card__btn">
             <i class="fa-solid fa-book-open"></i> Read Guidelines
           </a>
         </div>
       </div>
     </section>
 
-    <section class="user_blogs">
-      <div class="header">
+    <!-- Users recent post -->
+    <section class="container user__posts">
+
+      <!-- Header -->
+      <div class="fluid user__posts--header">
         <i class="fa-solid fa-fire-flame-curved"></i>
         <h4>Your Creative Journey</h4>
-        <p>
+        <p class="inline__container">
           <i class="fa-solid fa-table"></i>
           All your posts in one place
         </p>
       </div>
+
+      <!-- Empty post -->
       <% if (blogs.length===0) { %>
-        <div class="empty-card">
+        <div class="fluid empty__posts">
           <i class="fa-regular fa-face-smile-beam"></i>
           <p>No posts yet. Start sharing your stories!</p>
         </div>
         <% }%>
-          <ul>
+
+          <!-- Post wrapper -->
+          <ul class="fluid">
             <% blogs.forEach(blog=> { %>
-              <li>
+
+              <!-- Post card -->
+              <li class="card">
+
+                <!-- Cover Image -->
                 <% if (blog.coverImage?.url) { %>
                   <img class="image-content" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" loading="lazy">
                   <% } else { %>
-                    <img class="image-content" src="/images/noise.png" alt="No cover image found" loading="lazy">
+                    <img class="image-content" src="/icons/image.svg" alt="No cover image found" loading="lazy">
                     <% } %>
-                      <h4>
+
+                      <!-- Post Title -->
+                      <h6>
                         <a href="/blog/<%= blog._id %>" class="post__link">
                           <%= blog.title %> &nearr;
                         </a>
-                      </h4>
-                      <div class="action_buttons">
-                        <a href="/users/dashboard/edit/<%= blog._id %>" class="btn edit_post">
+                      </h6>
+
+                      <!-- Post action buttons -->
+                      <div class="flex action__buttons">
+
+                        <!-- Edit post button -->
+                        <a href="/users/dashboard/edit/<%= blog._id %>" class="link__btn edit__post--btn">
                           <i class="fa-solid fa-pen-to-square"></i>
-                          <!-- Edit -->
                         </a>
-                        <button id="deletePost" class="btn delete_post" data-blog-id="<%= blog._id %>" type="button">
+
+                        <!-- Delete post button -->
+                        <button id="deletePost" class="delete__post--btn" data-blog-id="<%= blog._id %>" type="button">
                           <i class="fa-solid fa-trash"></i>
                         </button>
                       </div>

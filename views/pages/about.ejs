@@ -1,10 +1,10 @@
 <main class="about">
 
   <!-- Hero Section -->
-  <section class="about-hero">
-    <div class="container">
+  <section class="container about-hero">
+    <div class="fluid wrapper">
       <img src="/images/blogify-logo-light.png" alt="Blogify" class="logo" />
-      <h1 class="logo-typography">Blogify</h1>
+      <h3 class="logo-typography">Blogify</h3>
       <p class="hero-tagline">
         Your go-to space for exploring ideas, stories, and insights in everyday life. Built with
         enterprise-grade security and modern web technologies, Blogify connects writers and readers through meaningful
@@ -15,49 +15,49 @@
   </section>
 
   <!-- Mission Statement -->
-  <section class="about-mission">
-    <div class="container">
-      <h2>Our Mission</h2>
+  <section class="container about-mission">
+    <div class="fluid wrapper">
+      <h3>Our Mission</h3>
       <p class="mission-text">We believe every story deserves to be told. Blogify provides a professional-grade platform
         where writers can create, share, and connect through the power of storytelling.</p>
     </div>
   </section>
 
   <!-- Features Grid -->
-  <section class="about-features">
-    <div class="container">
-      <h2>Why Choose Blogify?</h2>
+  <section class="container about-features">
+    <div class="fluid wrapper">
+      <h3>Why Choose Blogify?</h3>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">🔐</div>
-          <h3>Enterprise Security</h3>
+          <h4>Enterprise Security</h4>
           <p>Multi-layer authentication, CSRF protection, and comprehensive security measures to keep your content safe.
           </p>
         </div>
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">✍️</div>
-          <h3>Rich Writing Experience</h3>
+          <h4>Rich Writing Experience</h4>
           <p>TinyMCE editor with live preview, image management, and seamless content creation tools.</p>
         </div>
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">👥</div>
-          <h3>Community Driven</h3>
+          <h4>Community Driven</h4>
           <p>Connect with readers through comments, likes, follows, and discover amazing content from fellow writers.
           </p>
         </div>
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">🚀</div>
-          <h3>SEO Optimized</h3>
+          <h4>SEO Optimized</h4>
           <p>Built-in SEO features, meta tags, and search-friendly URLs to help your content reach more readers.</p>
         </div>
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">📱</div>
-          <h3>Mobile First</h3>
+          <h4>Mobile First</h4>
           <p>Responsive design with dark/light themes, ensuring great experience across all devices.</p>
         </div>
-        <div class="feature-card">
+        <div class="card feature-card">
           <div class="feature-icon">⚡</div>
-          <h3>High Performance</h3>
+          <h4>High Performance</h4>
           <p>Optimized database queries, CDN integration, and caching for lightning-fast loading times.</p>
         </div>
       </div>
@@ -65,31 +65,31 @@
   </section>
 
   <!-- Technology Stack -->
-  <section class="about-tech">
-    <div class="container">
-      <h2>Built with Modern Technology</h2>
+  <section class="container about-tech">
+    <div class="wrapper">
+      <h3>Built with Modern Technology</h3>
       <div class="tech-categories">
-        <div class="tech-category">
-          <h3>Backend</h3>
-          <div class="tech-tags">
+        <div class="fluid tech-category">
+          <h4>Backend</h4>
+          <div class="flex tech-tags">
             <span class="tech-tag">Node.js</span>
             <span class="tech-tag">Express.js</span>
             <span class="tech-tag">MongoDB</span>
             <span class="tech-tag">JWT</span>
           </div>
         </div>
-        <div class="tech-category">
-          <h3>Security</h3>
-          <div class="tech-tags">
+        <div class="fluid tech-category">
+          <h4>Security</h4>
+          <div class="flex tech-tags">
             <span class="tech-tag">bcrypt</span>
             <span class="tech-tag">Helmet</span>
             <span class="tech-tag">CSRF Protection</span>
             <span class="tech-tag">Rate Limiting</span>
           </div>
         </div>
-        <div class="tech-category">
-          <h3>Frontend</h3>
-          <div class="tech-tags">
+        <div class="fluid tech-category">
+          <h4>Frontend</h4>
+          <div class="flex tech-tags">
             <span class="tech-tag">EJS</span>
             <span class="tech-tag">CSS3</span>
             <span class="tech-tag">TinyMCE</span>
@@ -101,22 +101,22 @@
   </section>
 
   <!-- Statistics -->
-  <section class="about-stats">
-    <div class="container">
+  <section class="container about-stats">
+    <div class="flex wrapper">
       <div class="stats-grid">
-        <div class="stat-item">
+        <div class="fluid stat-item">
           <div class="stat-number">100%</div>
           <div class="stat-label">Secure</div>
         </div>
-        <div class="stat-item">
+        <div class="fluid stat-item">
           <div class="stat-number">24/7</div>
           <div class="stat-label">Available</div>
         </div>
-        <div class="stat-item">
+        <div class="fluid stat-item">
           <div class="stat-number">∞</div>
           <div class="stat-label">Stories</div>
         </div>
-        <div class="stat-item">
+        <div class="fluid stat-item">
           <div class="stat-number">0</div>
           <div class="stat-label">Limits</div>
         </div>
@@ -125,27 +125,27 @@
   </section>
 
   <!-- Call to Action -->
-  <section class="about-cta">
-    <div class="container">
-      <h2>Ready to Share Your Story?</h2>
+  <section class="container about-cta">
+    <div class="fluid wrapper">
+      <h3>Ready to Share Your Story?</h3>
       <p class="cta-content">Join thousands of writers who trust Blogify to share their thoughts, ideas, and stories
         with the world.</p>
-      <div class="cta-buttons">
+      <div class="inline__container cta-buttons">
         <% if (signedIn) { %>
-          <a href="/users/dashboard" class="btn btn-primary">
+          <a href="/users/dashboard" class="inline__container link__btn primary">
             <i class="fa-solid fa-gauge"></i>
-            <span>Go to Dashboard</span>
+            <span>Dashboard</span>
           </a>
-          <a href="/users/dashboard/add" class="btn btn-secondary">
+          <a href="/users/dashboard/add" class="inline__container link__btn secondary">
             <i class="fa-solid fa-pen-to-square"></i>
             <span>Write a Post</span>
           </a>
           <% } else { %>
-            <a href="/auth/sign-up" class="btn btn-primary">
+            <a href="/auth/sign-up" class="inline__container link__btn primary">
               <i class="fa-solid fa-rocket"></i>
               <span>Get Started</span>
             </a>
-            <a href="/auth/sign-in" class="btn btn-secondary">
+            <a href="/auth/sign-in" class="inline__container link__btn secondary">
               <i class="fa-solid fa-right-to-bracket"></i>
               <span>Sign In</span>
             </a>
@@ -155,25 +155,25 @@
   </section>
 
   <!-- Architecture Overview -->
-  <section class="about-architecture">
-    <div class="container">
-      <h2>Clean Architecture</h2>
+  <section class="container about-architecture">
+    <div class="fluid wrapper">
+      <h3>Clean Architecture</h3>
       <p class="architecture-intro">Built with industry best practices and clean MVC architecture for scalability and
         maintainability.</p>
       <div class="architecture-layers">
-        <div class="layer-card">
+        <div class="fluid layer-card">
           <h4>🎨 Presentation Layer</h4>
           <p>EJS templates with responsive design and component architecture</p>
         </div>
-        <div class="layer-card">
+        <div class="fluid layer-card">
           <h4>🎮 Controller Layer</h4>
           <p>Request handling, validation, and response coordination</p>
         </div>
-        <div class="layer-card">
+        <div class="fluid layer-card">
           <h4>⚙️ Service Layer</h4>
           <p>Business logic, data processing, and external integrations</p>
         </div>
-        <div class="layer-card">
+        <div class="fluid layer-card">
           <h4>🎯 Data Layer</h4>
           <p>MongoDB with Mongoose ODM and optimized queries</p>
         </div>

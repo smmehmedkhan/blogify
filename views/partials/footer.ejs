@@ -1,8 +1,8 @@
 <footer>
-  <section class="contents-wrapper">
-    <div class="group-1">
-      <div class="contents-box">
-        <div class="devs-intro">
+  <main class="footer__contents">
+    <div class="flex group-1">
+      <div class="fluid contents">
+        <div class="fluid devs-intro">
           <p>Hi👋, I'm <b>Mehmed Khan</b>.</p>
 
           <p>Full-Stack Engineer 🪄| Web Developer 👨‍💻</p>
@@ -11,7 +11,7 @@
             source code is available on GitHub.</p>
         </div>
         <h5>Get in touch</h5>
-        <div class="media-links">
+        <div class="flex media-links">
           <a href="https://github.com/smmehmedkhan" target="_blank">
             <i class="fa-brands fa-github"></i>
           </a>
@@ -29,9 +29,9 @@
           </a>
         </div>
       </div>
-      <div class="contents-box">
+      <div class="fluid contents">
         <h5>Quick links</h5>
-        <ul class="footer-links">
+        <ul class="fluid footer-links">
           <li><a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">About</a></li>
           <li><a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">Contact</a></li>
           <li><a href="/privacy" class="<%= activeRoute ? activeRoute('/privacy', path) : '' %>">Privacy Policy</a></li>
@@ -39,8 +39,8 @@
         </ul>
       </div>
     </div>
-    <div class="group-2">
-      <div class="contents-box">
+    <div class="flex group-2">
+      <div class="fluid contents">
         <p>
           Blogify is your go-to space for exploring ideas, stories, and insights
           in everyday life. We aim to inspire, inform, and connect with readers
@@ -49,16 +49,16 @@
         <p>Stay curious, stay inspired, and keep exploring with Blogify!</p>
         <%- include('../components/brand-logo.ejs') %>
       </div>
-      <div class="contents-box">
+      <div class="fluid contents">
         <h5>Subscribe to our newsletter</h5>
         <p>Stay updated with our latest posts and news.</p>
-        <form class="nl-form" action="#" method="POST" autocomplete="true">
+        <form class="fluid nl-form" action="#" method="POST" autocomplete="true">
           <input type="email" name="email" placeholder="Your email address" autocomplete="true" required />
-          <button type="submit">Subscribe</button>
+          <button type="submit" class="subscribe">Subscribe</button>
         </form>
       </div>
     </div>
-  </section>
+  </main>
   <hr class="divider" />
   <!-- Copyright -->
   <div class="copyright">

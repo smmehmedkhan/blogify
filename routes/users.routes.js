@@ -6,6 +6,7 @@ import * as uc from '../controllers/user.controller.js';
 import emailVerification from '../middlewares/emailVerification.middleware.js';
 import upload from '../middlewares/upload.middleware.js';
 import { verifyToken } from '../middlewares/csrf.middleware.js';
+import authStatus from '../middlewares/authStatus.middleware.js';
 
 const userRouter = express.Router();
 
@@ -48,7 +49,7 @@ userRouter
 
 userRouter.delete('/dashboard/delete/:id', auth, loginLimiter, uc.deleteBlog);
 
-userRouter.get('/:username', uc.userProfilePreview);
+userRouter.get('/:username', authStatus, uc.userProfilePreview);
 userRouter.post('/:username/follow', auth, uc.followUser);
 userRouter.post('/:username/unfollow', auth, uc.unfollowUser);
 

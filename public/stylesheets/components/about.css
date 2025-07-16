@@ -1,121 +1,97 @@
-main.about {
+.about {
   & section {
-    width: 100%;
-    padding: 5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    & .container {
-      width: 100%;
+    & .wrapper {
       margin-inline: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      gap: 0;
       & h1,
       h2 {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(0.75rem, 1.5vw, 1.5rem);
       }
       & .mission-text,
       .hero-tagline,
       .cta-content,
       .architecture-intro {
-        max-width: 820px;
-        margin-bottom: 2.5rem;
-        font-size: var(--md);
+        max-width: 880px;
+        margin-bottom: clamp(1rem, 2.5vw, 2.5rem);
+        font-size: var(--font-md);
         line-height: 1.8rem;
         text-align: center;
       }
     }
 
-    &.about-hero .container {
-      gap: 0.5rem;
-      & img {
-        width: 160px;
-        height: initial;
-      }
-      & h1.logo-typography {
-        font-family: var(--play);
-      }
-      & .hero-tagline {
-        color: var(--slate);
-        font-size: var(--md);
-        line-height: 1.8rem;
+    &.about-hero {
+      border: none;
+      box-shadow: none;
+      & .wrapper {
+        & img {
+          width: clamp(5rem, 10vw, 10rem);
+          height: initial;
+        }
+        & .logo-typography {
+          font-family: var(--font-brand);
+        }
+        & .hero-tagline {
+          color: var(--fg-muted);
+          line-height: 1.8rem;
+        }
       }
     }
 
     &.about-mission {
-      background: var(--titan);
-      & .container {
-        & h2 {
-          margin-bottom: 1.5rem;
-        }
-        & p {
-          color: var(--foreground);
-          margin-bottom: 0 !important;
-        }
+      background: var(--bg-blue);
+      & .wrapper .mission-text {
+        margin-bottom: 0;
       }
     }
 
-    &.about-features .container {
-      gap: 5rem;
-      & .features-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(300px, 1fr));
-        gap: 2.5rem;
+    &.about-features {
+      background-color: var(--color-accent);
+      & .wrapper {
+        & .features-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(300px, 1fr));
+          gap: clamp(1rem, 2vw, 2.5rem);
 
-        & .feature-card {
-          background: var(--accent);
-          padding: 2.5rem 1rem;
-          border: 2px solid var(--border);
-          border-radius: var(--radius);
-          box-shadow: var(--shadow-full);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 1rem;
-          & .feature-icon {
-            font-size: 2.5rem;
-          }
-          & h3 {
-            color: var(--purple);
-          }
-          & p {
-            text-align: center;
+          & .feature-card {
+            border: none;
+            background-color: var(--bg-card);
+            box-shadow: var(--shadow-md);
+            & .feature-icon {
+              font-size: 2.5rem;
+            }
+            & h4 {
+              color: var(--purple);
+            }
           }
         }
       }
     }
 
     &.about-tech {
-      background: var(--primary);
-      & .container {
-        & h2 {
-          color: var(--primary-foreground);
+      background: var(--color-primary);
+      & .wrapper {
+        & h3 {
+          color: var(--fg-inverse);
         }
         & .tech-categories {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 2.5rem;
+          gap: clamp(0.5rem, 2vw, 2.5rem);
           & .tech-category {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            & h3 {
+            & h4 {
               color: var(--purple);
             }
             & .tech-tags {
-              display: flex;
               flex-wrap: wrap;
               justify-content: center;
-              gap: 0.5rem;
               & .tech-tag {
+                color: var(--fg-inverse);
                 background: var(--purple);
-                padding: 0.625rem 1rem;
+                padding: clamp(0.375rem, 0.6vw, 0.625rem);
                 border-radius: var(--radius);
-                font-size: var(--sm);
+                font-size: var(--font-sm);
+                line-height: 1;
                 font-weight: 600;
               }
             }
@@ -126,64 +102,49 @@ main.about {
 
     &.about-stats {
       background-color: var(--purple);
-      & .container .stats-grid {
+      & .wrapper .stats-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(250px, 1fr));
-        gap: 2.5rem;
-        text-align: center;
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+        gap: clamp(1rem, 2vw, 2.5rem);
         & .stat-item {
-          width: 100%;
           margin-inline: auto;
-          gap: 0.5rem;
+          gap: clamp(0.25rem, 0.4vw, 0.5rem);
           & .stat-number {
-            font-size: var(--3xl);
+            font-size: var(--font-2xl);
             font-weight: 900;
           }
           & .stat-label {
-            font-size: var(--md);
-            opacity: 0.9;
+            color: var(--fg-inverse);
+            font-size: var(--font-md);
+            font-weight: 700;
           }
         }
       }
     }
 
-    &.about-cta .container {
-      & h2 {
-        color: var(--purple);
-      }
-      & .cta-buttons {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-
-        & .btn {
-          width: 100%;
-          max-width: 200px;
-          padding: 0.625rem 1.25rem;
-          border-radius: var(--radius);
-          font-weight: 600;
-          text-decoration: none;
-          transition: var(--transition);
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          &.btn-primary {
-            background-color: var(--purple);
-            border: 2px solid var(--purple);
+    &.about-cta {
+      background-color: var(--bg-blue);
+      & .wrapper {
+        & .cta-buttons {
+          flex-wrap: wrap;
+          gap: clamp(1rem, 2vw, 2.5rem);
+          & .primary,
+          .secondary {
+            width: clamp(10rem, 12vw, 12rem);
+          }
+          & .primary {
+            background-color: var(--blue);
+            border: 2px solid var(--blue);
             &:hover {
-              color: var(--purple);
-              background-color: var(--purple-trans);
+              color: var(--blue);
+              background-color: var(--bg-blue);
             }
           }
-          &.btn-secondary {
-            color: var(--purple);
-            border: 2px solid var(--purple);
+          & .secondary {
+            color: var(--blue);
+            border: 2px solid var(--blue);
             &:hover {
-              background-color: var(--purple-trans);
+              background-color: var(--bg-blue);
             }
           }
         }
@@ -191,309 +152,95 @@ main.about {
     }
 
     &.about-architecture {
-      padding-inline: 1.5rem;
-      background: var(--primary);
-      & .container {
-        & h2 {
-          color: var(--primary-foreground);
+      background: var(--color-primary);
+      & .wrapper {
+        & h3 {
+          color: var(--fg-inverse);
         }
         & .architecture-intro {
-          color: var(--slate);
+          color: var(--fg-muted);
         }
         & .architecture-layers {
           display: grid;
-          grid-template-columns: repeat(4, minmax(250px, 1fr));
+          grid-template-columns: repeat(4, minmax(300px, 1fr));
           justify-content: center;
           & .layer-card {
-            padding: 1.5rem 1rem;
+            padding-block: clamp(0.75rem, 1.2vw, 1.5rem);
+            padding-block: clamp(0.5rem, 0.9vw, 1rem);
             border-left: 10px solid var(--purple);
-            border-radius: var(--radius);
+            border-top-left-radius: var(--radius);
+            border-bottom-left-radius: var(--radius);
             & h4,
             p {
-              color: var(--primary-foreground);
+              color: var(--fg-inverse);
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .about {
+    & section {
+      &.about-features .wrapper .features-grid {
+        grid-template-columns: repeat(2, minmax(350px, 1fr));
+      }
+
+      &.about-architecture .wrapper .architecture-layers {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(1rem, 1.2vw, 1.5rem);
       }
     }
   }
 }
 
 @media screen and (max-width: 768px) {
-  main.about {
+  .about {
     & section {
-      padding: 3rem 0;
-      & .container {
-        width: calc(100% - 0.75rem);
-        & h1,
-        h2 {
-          margin-bottom: 1.25rem;
-        }
-        & .mission-text,
-        .hero-tagline,
-        .cta-content,
-        .architecture-intro {
-          max-width: 720px;
-          margin-bottom: 1.5rem;
-        }
-      }
-
-      &.about-hero .container {
-        gap: 0.5rem;
-        & img {
-          width: 120px;
-        }
-      }
-
-      &.about-mission .container h2 {
-        margin-bottom: 1.25rem;
-      }
-
-      &.about-features .container .features-grid {
+      &.about-features .wrapper .features-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-
-        & .feature-card {
-          padding: 2rem 0.5rem;
-          gap: 1rem;
-          & .feature-icon {
-            font-size: 2rem;
-          }
-        }
       }
 
-      &.about-tech .container .tech-categories {
-        gap: 1rem;
-        & .tech-category {
-          gap: 1rem;
-        }
+      &.about-stats .wrapper .stats-grid {
+        grid-template-columns: repeat(4, minmax(120px, 1fr));
       }
 
-      &.about-stats .container .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2.5rem;
-      }
-
-      &.about-architecture {
-        padding-inline: 1rem;
-        & .container .architecture-layers {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1rem;
-        }
+      &.about-architecture .wrapper .architecture-layers {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   }
 }
 
 @media screen and (max-width: 480px) {
-  main.about {
+  .about {
     & section {
-      padding: 2.5rem 0;
-      & .container {
-        width: calc(100% - 0.5rem);
-        & h1,
-        h2 {
-          margin-bottom: 1rem;
-        }
+      & .wrapper {
         & .mission-text,
         .hero-tagline,
         .cta-content,
         .architecture-intro {
-          max-width: 440px;
-          margin-bottom: 1.25rem;
-          font-size: var(--nm);
+          font-size: var(--font-base);
           line-height: 1.5rem;
         }
       }
 
-      &.about-hero .container {
-        & img {
-          width: 120px;
-          height: initial;
-        }
-        & .hero-tagline {
-          font-size: var(--nm);
-          line-height: 1.5rem;
-        }
-      }
-
-      &.about-mission .container {
-        font-size: var(--sm);
-        & h2 {
-          margin-bottom: 1rem;
-        }
-      }
-
-      &.about-features .container {
-        gap: 2.5rem;
-        & .features-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1rem;
-
-          & .feature-card {
-            padding: 1.5rem 1rem;
-            gap: 1rem;
-            & .feature-icon {
-              font-size: 2rem;
-            }
-            & p {
-              font-size: var(--sm);
-            }
-          }
-        }
-      }
-
-      &.about-tech .container .tech-categories {
+      &.about-features .wrapper .features-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
-        & .tech-category {
-          gap: 1rem;
-          & .tech-tags .tech-tag {
-            font-size: var(--sm);
-            padding: 0.5rem 1rem;
-          }
-        }
       }
 
-      &.about-stats .container .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        & .stat-item {
-          gap: 0.5rem;
-          & .stat-number {
-            font-size: var(--2xl);
-          }
-          & .stat-label {
-            font-size: var(--nm);
-          }
-        }
+      &.about-tech .wrapper .tech-categories {
+        grid-template-columns: 1fr;
       }
 
-      &.about-cta .container .cta-buttons {
-        gap: 1rem;
-        & .btn {
-          max-width: 200px;
-          padding: 0.5rem 1rem;
-          font-size: var(--sm);
-          font-weight: 500;
-        }
+      &.about-stats .wrapper .stats-grid {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
       }
-
-      &.about-architecture {
-        padding-inline: 1rem;
-        & .container .architecture-layers {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-          & .layer-card {
-            padding: 1.5rem 1rem;
-            & p {
-              font-size: var(--sm);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 320px) {
-  main.about {
-    & section {
-      padding: 2rem 0;
-      & .container {
-        width: calc(100% - 0.25rem);
-        & h1,
-        h2 {
-          margin-bottom: 0.75rem;
-        }
-        & h1 {
-          font-size: var(--xl);
-        }
-        & h2 {
-          font-size: var(--lg);
-        }
-        & .mission-text,
-        .hero-tagline,
-        .cta-content,
-        .architecture-intro {
-          max-width: 300px;
-          margin-bottom: 1rem;
-          font-size: var(--sm);
-          line-height: 1.25rem;
-        }
-      }
-
-      &.about-hero .container {
-        & img {
-          width: 80px;
-        }
-        & .hero-tagline {
-          font-size: var(--sm);
-          line-height: 1.25rem;
-        }
-      }
-
-      &.about-mission .container {
-        font-size: var(--xs);
-        & h2 {
-          margin-bottom: 0.75rem;
-        }
-      }
-
-      &.about-features .container {
-        gap: 2rem;
-        & .features-grid {
-          gap: 0.75rem;
-
-          & .feature-card {
-            padding: 1.25rem 0.75rem;
-            gap: 1rem;
-            & .feature-icon {
-              font-size: 1.25rem;
-            }
-            & h3 {
-              font-size: var(--md);
-            }
-            & p {
-              font-size: var(--xs);
-            }
-          }
-        }
-      }
-
-      &.about-tech .container .tech-categories {
-        gap: 0.75rem;
-        & .tech-category {
-          gap: 0.75rem;
-          & h3 {
-            font-size: var(--md);
-          }
-          & .tech-tags .tech-tag {
-            font-size: var(--xs);
-            font-weight: 500;
-            padding: 0.25rem 0.75rem !important;
-          }
-        }
-      }
-
-      &.about-cta .container .cta-buttons {
-        gap: 0.75rem;
-      }
-
-      &.about-architecture {
-        padding-inline: 0.5rem;
-        & .container .architecture-layers {
-          gap: 0.75rem;
-          & .layer-card {
-            padding: 1.25rem 0.75rem;
-            & h4 {
-              font-size: var(--md);
-            }
-            & p {
-              font-size: var(--xs);
-            }
-          }
-        }
+      &.about-architecture .wrapper .architecture-layers {
+        grid-template-columns: 1fr;
+        gap: clamp(1rem, 1.2vw, 1.5rem);
       }
     }
   }

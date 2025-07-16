@@ -1,116 +1,132 @@
-<main class="edit__profile--page">
+<main>
 
   <!-- Back button -->
-  <a class="back_btn" href="/users">
-    <i class="fa-solid fa-left-long"></i>
-    Back
-  </a>
+  <div class="inline__container back__btn">
+    <a class="link__btn" href="/users">
+      <i class="fa-solid fa-left-long"></i>
+      Back
+    </a>
+  </div>
 
   <!-- Update profile form -->
-  <section class="edit__profile">
+  <section class="container edit__profile">
 
     <!-- Header section -->
-    <div class="edit__profile--header">
+    <div class="fluid edit__profile--header">
       <h4>Update Profile</h4>
-      <p>
+      <p class="inline__container">
         <i class="fa-solid fa-lightbulb"></i>
         <span>Enhance your profile by updating your public informations.</span>
       </p>
     </div>
 
     <!-- Main form -->
-    <form class="edit__profile--form" action="/users/edit/<%= user._id %>" method="post" enctype="multipart/form-data">
+    <form class="fluid edit__profile--form" action="/users/edit/<%= user._id %>" method="post"
+      enctype="multipart/form-data">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
       <!-- Left | Profile main informations -->
-      <div class="form__group left">
-        <div class="profile__photo">
-          <div class="textbox">
+      <div class="fluid form__group--left">
+        <h5>Necessary</h5>
+
+        <!-- Profile Container -->
+        <div class="fluid profile__photo">
+          <div class="fluid textbox">
             <label for="photo">Profile avatar</label>
             <input type="file" id="photo" name="photo" accept="image/*">
             <small>Upload a square (1:1 aspect ratio) image in JPG, JPEG, PNG, or WEBP format for optimal
               display.</small>
           </div>
 
-          <div class="image__preview--box">
+          <div class="fluid image__preview">
             <img id="photoPreview" src="<%= user.photo?.url || '/images/user.png' %>" alt="Profile Preview">
           </div>
         </div>
 
-        <div class="textbox">
+        <!-- Name -->
+        <div class="fluid textbox">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" placeholder="Enter your full name" value="<%= user.name || '' %>"
             maxlength="20">
         </div>
 
-        <div class="textbox">
+        <!-- Username -->
+        <div class="fluid textbox">
           <label for="username">Username</label>
           <input type="text" id="username" name="username" placeholder="Enter username" value="<%= user.username %>"
             required minlength="3" maxlength="20">
         </div>
 
-        <div class="textbox">
+        <!-- Profile Bio -->
+        <div class="fluid textbox">
           <label for="bio">Bio</label>
           <textarea id="bio" name="bio" placeholder="Tell us about yourself" maxlength="160"
             rows="5"><%= user.bio || '' %></textarea>
           <small>Maximum 160 characters supports.</small>
         </div>
-      </div>
 
-      <div class="form__group right">
-        <div class="textbox">
+        <!-- Profession -->
+        <div class="fluid textbox">
           <label for="profession">Profession</label>
           <input type="text" id="profession" name="profession" placeholder="Your profession"
             value="<%= user.profession || '' %>" maxlength="20">
         </div>
+      </div>
 
-        <div class="locations">
+      <!-- Divider -->
+      <div class="edit__profile--divider"></div>
+
+      <!-- Right | Profile Extra informations -->
+      <div class="fluid form__group--right">
+        <h5>Additional</h5>
+
+        <div class="fluid locations">
           <h6>Location</h6>
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="city">City</label>
             <input type="text" id="city" name="city" placeholder="Your city" value="<%= user.location?.city || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="state">State</label>
             <input type="text" id="state" name="state" placeholder="Your state"
               value="<%= user.location?.state || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="country">Country</label>
             <input type="text" id="country" name="country" placeholder="Your country"
               value="<%= user.location?.country || '' %>">
           </div>
         </div>
 
-        <div class="socials">
+        <div class="fluid socials">
           <h6>Social Links</h6>
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="facebook">Facebook</label>
             <input type="url" id="facebook" name="facebook" placeholder="Facebook profile URL"
               value="<%= user.socials?.facebook || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="instagram">Instagram</label>
             <input type="url" id="instagram" name="instagram" placeholder="Instagram profile URL"
               value="<%= user.socials?.instagram || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="twitter">Twitter</label>
             <input type="url" id="twitter" name="twitter" placeholder="Twitter profile URL"
               value="<%= user.socials?.twitter || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="linkedin">LinkedIn</label>
             <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn profile URL"
               value="<%= user.socials?.linkedin || '' %>">
           </div>
 
-          <div class="textbox">
+          <div class="fluid textbox">
             <label for="website">Website</label>
             <input type="url" id="website" name="website" placeholder="Personal website URL"
               value="<%= user.socials?.website || '' %>">

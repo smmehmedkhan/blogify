@@ -1,92 +1,65 @@
-section.latest_blogs {
-  width: 100%;
-  height: fit-content;
-  border: 1px dashed var(--border);
+section.latest__blogs {
   overflow: hidden;
-  background-color: var(--accent);
-  box-shadow: var(--shadow-full);
+  border: var(--border);
+  background-color: var(--color-accent);
+  box-shadow: var(--shadow-lg);
 
-  & .blogs_header {
+  & .blogs__header {
     width: 100%;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px dashed var(--border);
-    display: flex;
-    align-items: center;
     justify-content: space-between;
   }
 
   & ul {
     width: 100%;
-    min-height: 700px;
-    padding: 1.5rem 1rem;
+    min-height: 752px;
+    padding-block: 1.5rem;
+    border-block: var(--border);
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    grid-template-columns: repeat(3, minmax(480px, 1fr));
     gap: 1.5rem;
 
     & li {
+      overflow: hidden;
       width: 100%;
       height: fit-content;
-      border: 1px solid var(--border);
+      border: var(--border);
       border-radius: var(--radius);
-      transition: all 250ms ease-in-out;
-      overflow: hidden;
+      transition: var(--transition-bg-color);
       &:hover {
-        color: var(--popover-foreground);
-        background-color: var(--popover);
+        background-color: var(--bg-popover);
       }
       & a {
-        cursor: pointer;
-        text-decoration: none;
-        & .blog_card {
-          width: 100%;
-          height: fit-content;
-          padding: 1.5rem 1rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 1rem;
-
-          & h5 {
+        &:hover {
+          color: var(--fg);
+        }
+        & .post__card {
+          align-items: flex-start;
+          & .headline {
             display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
           }
 
-          & .blog_credit-wrapper {
+          & .credit__container {
             width: 100%;
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            & .blog_date,
-            .blog_author {
-              width: max-content;
-              padding: 0.15rem 0.5rem;
-              border-radius: 0.25rem;
-              font-size: var(--xs);
-              font-weight: 600;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 0.25rem;
+            & .blog__author {
+              color: var(--fuchsia);
+              background-color: var(--bg-fuchsia);
             }
-            & .blog_author {
-              color: var(--fuschia);
-              background: var(--fuschia-trans);
-            }
-            & .blog_date {
+            & .blog__date {
               color: var(--blue);
-              background: var(--blue-trans);
+              background-color: var(--bg-blue);
             }
           }
 
-          & .blog_card-contents {
+          & .contents__container {
             width: 100%;
             height: max-content;
 
-            & .image-content {
+            & .cover__img {
               width: 100%;
               height: 194px;
               object-fit: cover;
@@ -95,7 +68,7 @@ section.latest_blogs {
               display: block;
             }
 
-            & .text-content {
+            & .text__content {
               width: 100%;
               height: 194px;
               display: -webkit-box;
@@ -104,7 +77,7 @@ section.latest_blogs {
               -webkit-box-orient: vertical;
               overflow: hidden;
               text-overflow: ellipsis;
-              font-size: var(--nm);
+              font-size: var(--font-base);
               line-height: 1.5;
               background: none;
               box-sizing: border-box;
@@ -117,24 +90,25 @@ section.latest_blogs {
 }
 
 @media screen and (max-width: 1536px) {
-  section.latest_blogs ul {
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  section.latest__blogs ul {
+    grid-template-columns: repeat(3, minmax(400px, 1fr));
   }
 }
 
 @media screen and (max-width: 1280px) {
-  section.latest_blogs ul {
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  section.latest__blogs ul {
+    grid-template-columns: repeat(3, minmax(360px, 1fr));
   }
 }
 
 @media screen and (max-width: 1024px) {
-  section.latest_blogs ul {
+  section.latest__blogs ul {
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
     min-height: 520px;
-    padding: 1.25rem 0.85rem;
+    padding-block: 1.25rem;
     gap: 1.25rem;
 
-    & li a .blog_card {
+    & li a .post__card {
       padding: 1.25rem 0.85rem;
       gap: 0.85rem;
     }
@@ -142,8 +116,9 @@ section.latest_blogs {
 }
 
 @media screen and (max-width: 768px) {
-  section.latest_blogs {
-    & .blogs_header {
+  section.latest__blogs {
+    padding-inline: 1rem;
+    & .blogs__header {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -151,12 +126,12 @@ section.latest_blogs {
       gap: 1rem;
     }
     & ul {
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
       min-height: 520px;
-      padding: 1rem 0.75rem;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      padding-block: 1rem;
       gap: 1rem;
 
-      & li a .blog_card {
+      & li a .post__card {
         padding: 1rem 0.75rem;
         gap: 0.75rem;
       }
@@ -165,17 +140,20 @@ section.latest_blogs {
 }
 
 @media screen and (max-width: 480px) {
-  section.latest_blogs ul {
-    min-height: 520px;
-    padding: 1rem 0.75rem;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+  section.latest__blogs {
+    padding-inline: 0.5rem;
+    & ul {
+      min-height: 520px;
+      padding: 1rem 0rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
 
-    & li a .blog_card {
-      padding: 1rem 0.75rem;
-      gap: 0.75rem;
-      & .blog_card-contents .text-content {
-        font-size: var(--sm);
+      & li a .post__card {
+        padding: 1rem 0.75rem;
+        gap: 0.75rem;
+        & .contents__container .text__content {
+          font-size: var(--font-sm);
+        }
       }
     }
   }

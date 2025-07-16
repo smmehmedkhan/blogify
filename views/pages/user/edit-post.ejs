@@ -1,87 +1,93 @@
-<main class="edit__post--page">
-  <%- include('../../components/back-btn.ejs') %>
+<main>
+  <!-- Back button -->
+  <div class="inline__container back__btn">
+    <a class="link__btn" href="/users/dashboard">
+      <i class="fa-solid fa-left-long"></i>
+      Back
+    </a>
+  </div>
 
-    <section class="edit__post">
-      <!-- Header/Intro -->
-      <div class="edit__post--header">
-        <h4>Update your Blog Post</h4>
-        <p class="edit__post--help">
-          Make changes to your post below. Update the content, tags, or cover image as needed.<br>
-          <span class="edit__post--tip">Tip: Keep your content fresh and relevant for your readers.</span>
-        </p>
-      </div>
+  <section class="container edit__post">
+    <!-- Header/Intro -->
+    <div class="fluid edit__post--header">
+      <h4>Update your Blog Post</h4>
+      <p class="edit__post--help">
+        Make changes to your post below. Update the content, tags, or cover image as needed.<br>
+        <span class="edit__post--tips">Tip: Keep your content fresh and relevant for your readers.</span>
+      </p>
+    </div>
 
-      <!-- Main Form -->
-      <form class="edit__post--form" action="/users/dashboard/edit/<%= blog._id %>?_method=PUT" method="post"
-        enctype="multipart/form-data" autocomplete="true">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <!-- Main Form -->
+    <form class="flex edit__post--form" action="/users/dashboard/edit/<%= blog._id %>?_method=PUT" method="post"
+      enctype="multipart/form-data" autocomplete="true">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-        <!-- Left inputs group -->
-        <div class="form__group left">
-          <!-- Title -->
-          <div class="textbox">
-            <label for="editPostTitle"><b>Title</b></label>
-            <input type="text" id="editPostTitle" name="editPostTitle" value="<%= blog.title %>"
-              placeholder="Enter your post title" />
-          </div>
-
-          <!-- Tags -->
-          <div class="textbox">
-            <label for="editPostTags"><b>Categories</b></label>
-            <input type="text" name="editPostTags" id="editPostTags"
-              data-initial-tags='<%- JSON.stringify(blog.tags || []) %>'
-              data-all-tags='<%- JSON.stringify(tags || []) %>' placeholder="Add tags..." required />
-            <small>You can select multiple tags from suggestions list or type to add new tags.</small>
-          </div>
-
-          <!-- Cover Image -->
-          <div class="textbox">
-            <label for="editPostCoverImage"><b>Cover Image</b> (Optional)</label>
-            <input type="file" id="editPostCoverImage" name="editPostCoverImage" accept="image/*" />
-            <small>Please select a web-supported image file (JPG, JPEG, PNG, or WEBP).</small>
-          </div>
-
-          <!-- Preview box -->
-
-          <div class="image__preview--box">
-            <% if (blog?.coverImage?.url) { %>
-              <img id="editPostImagePreview" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>">
-              <% } else { %>
-                <img id="editPostImagePreview" src="/icons/image.svg" alt="Cover image preview" />
-                <% } %>
-          </div>
-
-          <!-- Actions (Update/Delete) -->
-          <div class="edit__post--actions">
-            <button type="submit" class="update_btn">
-              <i class="fa-solid fa-check"></i>
-              Update
-            </button>
-            <button type="button" class="delete_btn" id="deletePost" data-blog-id="<%= blog._id %>">
-              <i class="fa-solid fa-trash"></i>
-              Delete
-            </button>
-          </div>
+      <!-- Left inputs group -->
+      <div class="fluid form__group left">
+        <!-- Title -->
+        <div class="fluid textbox">
+          <label for="editPostTitle"><b>Title</b></label>
+          <input type="text" id="editPostTitle" name="editPostTitle" value="<%= blog.title %>"
+            placeholder="Enter your post title" />
         </div>
 
-        <!-- Right inputs group -->
-        <div class="form__group right">
-          <!-- TinyMCE text area -->
-          <label for="editPostTextArea"><b>Content</b></label>
-          <textarea name="editPostTextArea" id="editPostTextArea"><%= blog.descriptions %></textarea>
+        <!-- Tags -->
+        <div class="fluid textbox">
+          <label for="editPostTags"><b>Categories</b></label>
+          <input type="text" name="editPostTags" id="editPostTags"
+            data-initial-tags='<%- JSON.stringify(blog.tags || []) %>' data-all-tags='<%- JSON.stringify(tags || []) %>'
+            placeholder="Add tags..." required />
+          <small>You can select multiple tags from suggestions list or type to add new tags.</small>
         </div>
-      </form>
 
-      <!-- Footer/Help -->
-      <div class="edit__post--footer">
-        <h6>Need Help?</h6>
-        <ul>
-          <li>Review our <a href="/help/editing-tips" target="_blank">editing tips</a> for best practices.</li>
-          <li>Check the <a href="/help/formatting" target="_blank">formatting guide</a> for content styling.</li>
-          <li>Contact <a href="/support" target="_blank">support</a> if you have any issues.</li>
-        </ul>
+        <!-- Cover Image -->
+        <div class="fluid textbox">
+          <label for="editPostCoverImage"><b>Cover Image</b> (Optional)</label>
+          <input type="file" id="editPostCoverImage" name="editPostCoverImage" accept="image/*" />
+          <small>Please select a web-supported image file (JPG, JPEG, PNG, or WEBP).</small>
+        </div>
+
+        <!-- Preview box -->
+
+        <div class="fluid image__preview--box">
+          <% if (blog?.coverImage?.url) { %>
+            <img id="editPostImagePreview" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>">
+            <% } else { %>
+              <img id="editPostImagePreview" src="/icons/image.svg" alt="Cover image preview" />
+              <% } %>
+        </div>
+
+        <!-- Actions (Update/Delete) -->
+        <div class="flex edit__post--actions">
+          <button type="submit" class="inline__container update__btn">
+            <i class="fa-solid fa-check"></i>
+            <span>Update</span>
+          </button>
+          <button type="button" class="inline__container delete__btn" id="deletePost" data-blog-id="<%= blog._id %>">
+            <i class="fa-solid fa-trash"></i>
+            <span>Delete</span>
+          </button>
+        </div>
       </div>
-    </section>
+
+      <!-- Right inputs group -->
+      <div class="fluid form__group right">
+        <!-- TinyMCE text area -->
+        <label for="editPostTextArea"><b>Content</b></label>
+        <textarea name="editPostTextArea" id="editPostTextArea"><%= blog.descriptions %></textarea>
+      </div>
+    </form>
+
+    <!-- Footer/Help -->
+    <div class="card edit__post--footer">
+      <h6>Need Help?</h6>
+      <ul class="fluid">
+        <li>Review our <a href="/help/editing-tips" target="_blank">editing tips</a> for best practices.</li>
+        <li>Check the <a href="/help/formatting" target="_blank">formatting guide</a> for content styling.</li>
+        <li>Contact <a href="/support" target="_blank">support</a> if you have any issues.</li>
+      </ul>
+    </div>
+  </section>
 </main>
 
 <%- include('../../partials/footer.ejs') %>

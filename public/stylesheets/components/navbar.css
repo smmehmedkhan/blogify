@@ -1,8 +1,7 @@
 nav {
   width: 100%;
-  border-bottom: 1px dashed var(--border);
-  background-color: oklch(0.95 0 0 / 75%);
-  box-shadow: var(--shadow-bottom);
+  border-bottom: var(--border);
+  box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
   left: 0;
@@ -21,7 +20,7 @@ nav {
   }
   &.disappear {
     transform: translateY(-100%);
-    transition: all 250ms ease-in-out;
+    transition: transform 250ms ease;
   }
 
   & .desktop {
@@ -41,80 +40,70 @@ nav {
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
       gap: 1.5rem;
 
       & li {
         width: max-content;
         cursor: pointer;
-        transition: all 250ms ease-in-out;
-        &:hover {
-          & a,
-          button {
-            opacity: 0.75;
-            & i,
-            svg {
-              opacity: 7.5;
-            }
-          }
-        }
         &.sign-out a {
-          font-size: var(--md);
+          font-size: var(--font-md);
         }
         & a {
-          text-decoration: none;
+          font-size: var(--font-sm);
           text-transform: capitalize;
-          transition: var(--transition);
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
           &.active {
             color: var(--purple);
           }
-        }
-        & button {
-          color: var(--foreground);
-          background: transparent;
-          width: fit-content;
-          height: fit-content;
-          padding: 0.3rem;
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          cursor: pointer;
-          transition: all 250ms ease-in-out;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          & svg {
-            width: 20px;
-            height: 20px;
+          &:hover img {
+            opacity: 0.75;
+            transition: var(--transition-opacity);
           }
-        }
-        & .profile-badge {
-          width: initial;
-          padding-left: 1rem;
-          border: 0;
-          border-radius: 3rem;
-          outline: 2px solid var(--blue);
-          background-color: var(--blue-trans);
-          & a {
+          & .profile-badge {
+            width: initial;
+            padding-left: 1rem;
+            border: 0;
+            border-radius: 3rem;
+            outline: 1px solid var(--blue);
+            background-color: var(--bg-blue);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            text-decoration: none;
             & span {
-              font-size: var(--xs);
+              font-size: var(--font-xs);
               font-weight: 500;
             }
             & img {
               width: 32px;
               height: 32px;
-              border: 1px solid var(--blue);
+              border: var(--border);
               border-radius: 50%;
               object-fit: cover;
               background-position: center center;
             }
+          }
+        }
+        & button {
+          cursor: pointer;
+          width: fit-content;
+          height: fit-content;
+          padding: 0.3rem;
+          border: var(--border);
+          border-radius: var(--radius);
+          color: var(--fg);
+          background: transparent;
+          transition: var(--transition-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          & svg {
+            width: 20px;
+            height: 20px;
+          }
+          &:hover {
+            color: var(--fuchsia);
           }
         }
       }
@@ -126,11 +115,11 @@ nav {
 
   & .mobile {
     width: 100%;
-    height: 40px;
+    height: initial;
+    padding: 0.5rem;
     display: none;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 0.5rem;
 
     & .buttons {
       width: max-content;
@@ -141,22 +130,24 @@ nav {
       gap: 0.5rem;
 
       & button {
-        color: var(--foreground);
-        background: transparent;
+        cursor: pointer;
         width: fit-content;
         height: fit-content;
         padding: 0.3rem;
-        border: 1px solid var(--border);
+        border: var(--border);
         border-radius: var(--radius);
-        cursor: pointer;
-        transition: all 250ms ease-in-out;
+        color: var(--fg);
+        background: transparent;
+        transition: var(--transition-color);
         display: flex;
         align-items: center;
         justify-content: center;
-
         & svg {
           width: 20px;
           height: 20px;
+        }
+        &:hover {
+          color: var(--fuchsia);
         }
       }
 
@@ -166,26 +157,24 @@ nav {
         display: flex;
         place-items: center;
         cursor: pointer;
-        transition: var(--transition);
-        &.active {
-          & i {
-            color: var(--purple);
-          }
+        &:hover i {
+          color: var(--fuchsia);
         }
-        &:hover {
-          scale: 0.95;
-          opacity: 0.7;
+
+        &.active i {
+          color: var(--purple);
         }
 
         & i {
-          color: var(--foreground);
-          font-size: var(--lg);
+          color: var(--fg);
+          font-size: var(--font-lg);
+          transition: var(--transition-color);
         }
       }
     }
     & menu {
       width: 100%;
-      border-bottom: 1px solid var(--border);
+      border: var(--border);
       border-radius: 0 0 0.5rem 0.5rem;
       visibility: hidden;
       position: absolute;
@@ -229,24 +218,19 @@ nav {
 
         & li {
           width: 100%;
-          padding-block: 0.75rem;
+          padding-block: 0.5rem;
           margin: 0;
-          font-size: var(--nm);
+          font-size: var(--font-base);
           font-weight: 500;
           cursor: pointer;
-          transition: all 250ms ease-in;
+          transition: var(--transition-bg-color);
           &:not(:last-child) {
-            border-bottom: 1px dashed var(--border);
+            border-bottom: var(--border);
           }
           &:hover {
-            color: var(--popover-foreground);
-            background-color: var(--popover);
-            opacity: 0.75;
+            background-color: var(--bg-popover);
           }
-
           & a {
-            text-decoration: none;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;

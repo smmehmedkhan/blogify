@@ -1,7 +1,7 @@
-<section class="latest_blogs" id="latestPost">
+<section class="container latest__blogs" id="latestPost">
 
-  <div class="blogs_header">
-    <h3>Latest blog posts</h3>
+  <div class="inline__container blogs__header">
+    <h4>Latest blog posts</h4>
     <%- include('../components/search.ejs') %>
   </div>
 
@@ -12,26 +12,29 @@
           <% blogs.forEach(blog=> { %>
             <li>
               <a href="/blog/<%= blog._id %>">
-                <div class="blog_card">
-                  <h5>
+                <div class="card post__card">
+                  <h5 class="headline">
                     <%= blog.title %>
                   </h5>
-                  <div class="blog_credit-wrapper">
-                    <h6 class="blog_author">
+                  <div class="inline__container credit__container">
+                    <div class="tags blog__author">
                       <i class="fa-solid fa-at"></i>
-                      <%= blog.author %>
-                    </h6>
-                    <span class="blog_date">
+                      <span>
+                        <%= blog.author %>
+                      </span>
+                    </div>
+                    <div class="tags blog__date">
                       <i class="fa-solid fa-calendar-days"></i>
-                      <%= blog.createdAt.toDateString() %>
-                    </span>
+                      <span>
+                        <%= blog.createdAt.toDateString() %>
+                      </span>
+                    </div>
                   </div>
-                  <div class="blog_card-contents">
+                  <div class="contents__container">
                     <% if (blog.coverImage?.url) { %>
-                      <img class="image-content" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>"
-                        loading="lazy">
+                      <img class="cover__img" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" loading="lazy">
                       <% } else { %>
-                        <div class="text-content">
+                        <div class="text__content">
                           <%- blog.descriptions %>
                         </div>
                         <% } %>

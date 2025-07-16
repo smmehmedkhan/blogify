@@ -28,19 +28,19 @@
     </ul>
     <ul class="right">
       <li>
-        <button class="toggle-theme"></button>
+        <button class="toggle-theme" aria-label="Toggle theme"></button>
       </li>
       <% if (signedIn) { %>
         <li>
-          <div class="profile-badge">
-            <a href="/users" class="<%= activeRoute ? activeRoute('/users', path) : '' %>">
+          <a href="/users" class="<%= activeRoute ? activeRoute('/users', path) : '' %>">
+            <div class="profile-badge">
               <span>
                 <%= user.name || 'Guest' %>
               </span>
-              <img src="<%= user?.photo?.url || '/images/user.png' %>" alt="<%= user?.name || 'Guest' %>" width="40"
+              <img src="<%= user.photo?.url || '/images/user.png' %>" alt="<%= user?.name || 'Guest' %>" width="40"
                 height="40" />
-            </a>
-          </div>
+            </div>
+          </a>
         </li>
         <li class="sign-out">
           <a href="/auth/sign-out" class="<%= activeRoute ? activeRoute('/auth/sign-out', path) : '' %>">
@@ -66,7 +66,7 @@
   <div class="mobile">
     <%- include('../components/brand-logo.ejs') %>
       <div class="buttons">
-        <button class="toggle-theme"></button>
+        <button class="toggle-theme" aria-label="Toggle theme"></button>
         <button id="hamburger" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars"></i>
         </button>

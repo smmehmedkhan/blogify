@@ -8,45 +8,49 @@ function setLogo(logo, path) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const body = document.body;
+  const root = document.documentElement;
   const toggleBtns = document.querySelectorAll('.toggle-theme');
   const logos = document.querySelectorAll('.logo');
+
   const sunIcon = '/icons/sun.svg';
   const moonIcon = '/icons/moon.svg';
-  const whiteLogo = '/images/blogify-logo-light.png';
-  const blackLogo = '/images/blogify-logo-dark.png';
+  const lightLogo = '/images/blogify-logo-dark.png'; // used in light theme
+  const darkLogo = '/images/blogify-logo-light.png'; // used in dark theme
 
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    body.classList.add('dark');
-    toggleBtns.forEach(async (btn) => {
-      await setIcon(btn, sunIcon);
-    });
-
-    logos.forEach((logo) => {
-      setLogo(logo, whiteLogo);
-    });
-  } else {
-    toggleBtns.forEach(async (btn) => {
-      await setIcon(btn, moonIcon);
-    });
-
-    logos.forEach((logo) => {
-      setLogo(logo, blackLogo);
-    });
+  // Get stored theme or detect system preference
+  let savedTheme = localStorage.getItem('theme');
+  if (!savedTheme) {
+    savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
   }
 
+  // Apply saved/detected theme
+  root.setAttribute('data-theme', savedTheme);
+  const isDark = savedTheme === 'dark';
+
+  toggleBtns.forEach(async (btn) => {
+    await setIcon(btn, isDark ? sunIcon : moonIcon);
+  });
+
+  logos.forEach((logo) => {
+    setLogo(logo, isDark ? darkLogo : lightLogo);
+  });
+
+  // Toggle theme on button click
   toggleBtns.forEach((btn) => {
     btn.addEventListener('click', async () => {
-      body.classList.toggle('dark');
-      const isDark = body.classList.contains('dark');
-      await setIcon(btn, isDark ? sunIcon : moonIcon);
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      const isNowDark = newTheme === 'dark';
+      await setIcon(btn, isNowDark ? sunIcon : moonIcon);
 
       logos.forEach((logo) => {
-        setLogo(logo, isDark ? whiteLogo : blackLogo);
+        setLogo(logo, isNowDark ? darkLogo : lightLogo);
       });
-
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
   });
 });

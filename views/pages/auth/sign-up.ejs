@@ -1,50 +1,70 @@
-<div class="sign_up-wrapper">
-  <div class="sign_up-box">
-    <h5>Sign Up</h5>
-    <p>Join and start your journey with us!</p>
+<!-- Auth cards wrapper -->
+<main class="fluid auth__wrapper">
 
-    <form id="SignUpForm" action="/auth/sign-up" method="post" autocomplete="on">
+  <!-- Form Card -->
+  <div class="container sign__up">
+
+    <!-- Card header -->
+    <div class="auth__header">
+      <h5>Sign Up</h5>
+      <p>Join and start your journey with us!</p>
+    </div>
+
+    <!-- Main Form -->
+    <form class="fluid" id="SignUpForm" action="/auth/sign-up" method="post" autocomplete="on">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <div class="input-group">
+
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="username"><b>User name</b></label>
         <input type="text" name="username" id="username" placeholder="John Doe" value="<%- userName || null %>" />
         <p id="userNameError"><%- userNameError %></p>
       </div>
 
-      <div class="input-group">
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="email"><b>Email</b></label>
         <input type="text" name="email" id="email" placeholder="johndoe@gmail.com" value="<%- email || null %>" />
         <p id="emailError"><%- emailError %></p>
       </div>
 
-      <div class="input-group">
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="password"><b>Password</b></label>
         <input type="password" name="password" id="password" placeholder="Enter your secure password"
           value="<%- password || null %>" />
         <p id="passError"><%- notValidPassword %></p>
       </div>
 
-      <div class="input-group">
+      <!-- Inputs gruop -->
+      <div class="fluid form__group">
         <label for="confirmPassword"><b>Confirm password</b></label>
         <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Re-enter your password"
           value="<%- confirmPassword || null %>" />
         <p id="confirmPassError"><%- passMismatch %></p>
       </div>
 
-      <button class="btn" type="submit" id="signUpSubmitBtn">Sign Up</button>
+      <!-- Inputs gruop -->
+      <div class="fluid fluid form__group">
+        <button class="btn" type="submit" id="signUpSubmitBtn">Sign Up</button>
+      </div>
     </form>
 
-    <p class="condition-links">
-      By signing up, you agree to our
-      <a href="/terms">Terms &amp; Conditions</a> and
-      <a href="/privacy">Privacy Policy</a>.
-    </p>
+    <!-- Card Footer -->
+    <div class="fluid auth__footer">
+      <p class="condition-links">
+        <span>By signing up, you agree to our</span>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <span> and </span>
+        <a href="/privacy">Privacy Policy</a>.
+      </p>
 
-    <p class="sign_in-link">
-      Already signed up an account?
-      <a href="/auth/sign-in">Sign in</a>
-    </p>
+      <p class="sign__in-link">
+        <span>Already signed up an account? </span>
+        <a href="/auth/sign-in">Sign in</a>
+      </p>
+    </div>
   </div>
-</div>
+</main>
 
 <script type="text/javascript" src="/javascripts/auth/signUpValidator.js" nonce="<%= nonce %>"></script>

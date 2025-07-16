@@ -2,37 +2,39 @@ search {
   width: 100%;
   max-width: 300px;
 
-  & .search_form {
+  & .search__form {
     width: 100%;
-    height: max-content;
-    border: 1px solid var(--border);
+    height: initial;
+    padding: 0;
+    border: var(--border);
     border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background-color: var(--bg-input);
+    box-shadow: var(--shadow-sm);
+    justify-content: flex-start;
     transition: var(--transition);
-    background-color: var(--input);
+    gap: 0;
     &:hover {
-      color: var(--popover-foreground);
-      background-color: var(--popover);
+      color: var(--fg);
+      background-color: var(--bg-popover);
+      box-shadow: var(--shadow-md);
     }
 
-    & button {
-      width: 36px;
-      height: 36px;
-      padding: 0 0.2rem;
+    & .search__btn {
+      color: var(--fg-muted);
+      padding: 0.25rem;
+      border: none;
+      margin-left: 0.5rem;
       background: transparent;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      place-items: center;
+      box-shadow: none;
+      transition: var(--transition-color);
       &:hover {
-        color: var(--popover-foreground);
-        background-color: var(--popover);
+        color: var(--fuchsia);
       }
     }
 
     & input {
-      padding-inline: 0.5rem;
       border: none;
       outline: 0;
       background-color: transparent;
@@ -44,30 +46,18 @@ search {
   }
 }
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   search {
-    & .search_form {
-      height: 38px;
-      & input {
-        padding: 0.4rem;
-      }
+    & .search__form {
+      height: 32px;
     }
   }
 }
 
 @media screen and (max-width: 480px) {
   search {
-    & .search_form {
-      height: 32px;
-      & input {
-        font-size: var(--xs);
-        &::placeholder {
-          font-size: var(--xs);
-        }
-      }
-      & button i {
-        font-size: var(--nm);
-      }
+    & .search__form {
+      height: 28px;
     }
   }
-}
+} */

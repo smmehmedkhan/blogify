@@ -155,7 +155,7 @@ export async function userProfileUpdate(req, res) {
 export async function userProfilePreview(req, res) {
   const nonce = res.locals.nonce;
   const username = req.params.username;
-  const userId = req?.user?._id;
+  const userId = res.locals.user?._id;
 
   try {
     // Find user by username
@@ -197,9 +197,9 @@ export async function userProfilePreview(req, res) {
       nonce,
       locals,
       isFollowing,
-      user: userDetails,
+      targetUser: userDetails,
       posts: sanitizedPosts,
-      currentUser: req?.user,
+      currentUser: res.locals.user,
       currentRoute: `/users/${username}`,
     };
 
