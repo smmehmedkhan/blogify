@@ -43,31 +43,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create comment element
   function addCommentToDOM(comment) {
     const commentElement = document.createElement('li');
-    commentElement.className = 'comment';
+    commentElement.className = 'card comment';
     commentElement.dataset.commentId = comment._id;
 
     commentElement.innerHTML = `
-      <div class="comment-header">
-        <span class="comment-user">
+      <div class="fluid comment__header">
+        <div class="inline__container comment__user">
           <i class="fa-solid fa-at"></i>
-          ${comment.userId.username}
-        </span>
-        <span class="comment-date">
+          <span>${comment.userId.username}</span>
+        </div>
+        <div class="tags comment__date">
           <i class="fa-solid fa-calendar-days"></i>
           ${new Date(comment.createdAt).toLocaleDateString()}
-        </span>
+        </div>
       </div>
-      <div class="comment-content">${comment.content}</div>
+      <p class="comment__content">${comment.content}</p>
     `;
 
     // Add delete button if comment is by current user
     if (comment.userId._id === currentUserId) {
       const deleteButton = document.createElement('button');
-      deleteButton.className = 'comment-delete-button';
+      deleteButton.className = 'inline__container comment__delete-btn';
       deleteButton.innerHTML = `
-                  Delete
-                  <i class="fa-solid fa-delete-left"></i>
-                  `;
+        <span>Delete</span>
+        <i class="fa-solid fa-delete-left"></i>
+      `;
       deleteButton.onclick = async () => await deleteComment(comment._id);
       commentElement.appendChild(deleteButton);
     }

@@ -1,31 +1,23 @@
-.comments-section {
-  width: 100%;
-  height: auto;
-  padding: 1.5rem 1rem;
-  border: 1px dashed var(--border);
+.comments {
   margin-block: 1.5rem;
-  background-color: var(--accent);
-  box-shadow: var(--shadow-full);
+  background-color: var(--color-accent);
 
-  & h5 {
-    display: inline-flex;
-    align-items: center;
+  & .comments__header {
+    width: 100%;
+    justify-content: flex-start;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
     & i {
-      color: var(--emerald);
+      color: var(--color-success);
     }
     & span {
-      color: var(--gray);
+      color: var(--fg-muted);
     }
   }
-  & form {
-    width: 100%;
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
+
+  & .comments__form {
+    padding: clamp(0.5rem, 0.8vw, 1rem);
+    border-block: var(--border);
     align-items: flex-start;
-    gap: 1rem;
     &.disable {
       opacity: 0.5;
       pointer-events: none;
@@ -39,175 +31,93 @@
     }
     & button {
       width: max-content;
-      background-color: var(--warning);
+      background-color: var(--color-success);
       &:hover {
-        background-color: var(--warning-popover);
+        background-color: var(--success-popover);
       }
     }
   }
-  & .login-prompt {
+
+  & .auth__prompt {
     width: 100%;
-    padding: 0.625rem 1.25rem;
-    border: 0;
+    padding-block: clamp(0.5rem, 0.8vw, 1rem);
     border-radius: var(--radius);
-    margin-block: 1rem;
-    text-align: center;
-    background-color: var(--blue-trans);
-    & p a {
-      color: var(--blue);
-      text-decoration: none;
+    background-color: var(--bg-blue);
+    & p {
+      width: 100%;
+      a {
+        color: var(--blue);
+        &:hover {
+          color: var(--fuchsia);
+        }
+      }
     }
   }
-  & .comments-list {
-    width: 100%;
-    height: max-content;
-    padding: 1.5rem 1rem;
-    border-block: 1px solid var(--border);
-    margin-block: 1rem;
+
+  & .comments__list {
+    padding-block: clamp(0.5rem, 0.8vw, 1rem);
+    border-block: var(--border);
     list-style: none;
     & .comment {
-      width: 100%;
-      padding: 1rem 2rem;
-      border: 1px solid var(--border);
-      margin-bottom: 1rem;
-      display: flex;
+      height: initial;
+      flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      & .comment-header {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        & .comment-user {
-          width: max-content;
+      gap: clamp(1rem, 1.2vw, 1.5rem);
+      & .comment__header {
+        width: 25%;
+        height: inherit;
+        justify-content: center;
+        & .comment__user {
+          width: 100%;
           font-weight: bold;
           color: var(--purple);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+          gap: 0.25rem;
           & i {
             font-size: var(--md);
           }
         }
-        & .comment-date {
-          font-size: var(--xs);
-          color: var(--muted-foreground);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
+        & .comment__date {
+          color: var(--fg-muted);
+          background-color: var(--bg-muted);
+          font-size: var(--font-xs);
           & i {
-            font-size: var(--xs);
+            font-size: var(--font-xs);
           }
         }
       }
-      & .comment-content {
+      & .comment__content {
         width: 100%;
-        text-align: left;
+        text-align: start;
       }
-      & .comment-delete-button {
-        width: max-content;
-        padding: 0.625rem 1.25rem;
-        border: 0;
-        border-radius: var(--radius);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background-color: var(--destructive);
-        cursor: pointer;
-        transition: var(--transition);
+      & .comment__delete-btn {
+        width: fit-content;
+        height: max-content;
+        background-color: var(--color-error);
         &:hover {
-          background-color: var(--destructive-popover);
+          background-color: var(--error-popover);
         }
       }
     }
-  }
-}
-
-@media screen and (max-width: 1536px) {
-  .comments-section {
-    width: calc(100% - 1rem);
-    margin-inline: auto;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .comments-section h4 {
-    margin-bottom: 0.625rem;
-  }
-  & form {
-    padding: 0.5rem;
-    gap: 0.625rem;
-  }
-  & .comments-list {
-    padding: 0.625rem 0.5rem;
-    margin-block: 0.625rem;
-    & .comment {
-      padding: 0.625rem;
-      margin-bottom: 0.625rem;
-      gap: 0.625rem;
+    & .empty__comment {
+      display: block;
+      color: var(--fg-muted);
+      background-color: var(--bg-muted);
+      text-align: center;
     }
   }
 }
 
 @media screen and (max-width: 768px) {
-  .comments-section {
-    width: calc(100% - 0.75rem);
-    & h4 {
-      margin-bottom: 0.75rem;
-    }
-    & form {
-      padding: 0;
-      gap: 0.75rem;
-    }
-    & .comments-list {
-      padding: 0.75rem 0;
-      margin-block: 0.75rem;
-      & .comment {
-        padding: 0.5rem 0.75rem;
-        margin-bottom: 0.75rem;
-        flex-direction: column;
-        gap: 0.75rem;
-        & .comment-header {
-          width: 100%;
-          align-items: center;
-        }
+  .comments .comments__list {
+    & .comment {
+      flex-direction: column;
+      & .comment__header {
+        width: 100%;
+        justify-content: space-between;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .comments-section {
-    width: calc(100% - 0.5rem);
-    padding: 1rem 0.5rem;
-    & h4 {
-      margin-bottom: 0.5rem;
-    }
-    & form {
-      padding: 0;
-      gap: 0.5rem;
-      & button {
-        font-size: var(--xs);
-        padding: 0.5rem 0.75rem;
-      }
-    }
-    & .comments-list {
-      padding: 0.5rem 0;
-      margin-block: 0.5rem;
-      & .comment {
-        padding: 0.75rem 0.5rem;
-        margin-bottom: 0.5rem;
-        gap: 0.5rem;
-        & .comment-content {
-          font-size: var(--sm);
-          line-height: 1.5;
-        }
-        & .comment-delete-button {
-          font-size: var(--xs);
-          padding: 0.25rem 0.5rem;
-          gap: 0.25rem;
-        }
+      & .comment__content {
+        text-align: center;
       }
     }
   }

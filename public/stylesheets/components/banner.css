@@ -18,23 +18,9 @@
 
   & .banner__buttons {
     gap: clamp(1rem, 1.5vw, 2.5rem);
-    & .get__started,
-    .explore {
-      width: clamp(8rem, 20vw, 10.125rem) !important;
-    }
-    & .get__started {
-      background-color: var(--color-info);
-      &:hover {
-        color: var(--fg);
-        background-color: var(--info-popover);
-      }
-    }
-    & .explore {
-      transition: var(--transition-bg-color);
-      &:hover {
-        color: var(--fg);
-        background-color: var(--bg-popover);
-      }
+    & .btn-primary,
+    .btn-secondary {
+      width: clamp(8rem, 20vw, 10.5rem) !important;
     }
   }
 }

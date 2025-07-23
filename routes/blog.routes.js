@@ -1,23 +1,34 @@
 import express from 'express';
 
-import * as bc from '../controllers/blog.controller.js';
-import * as cc from '../controllers/comment.controller.js';
+import authStatus from '../middlewares/authStatus.middleware.js';
 import auth from '../middlewares/auth.middleware.js';
 import loginLimiter from '../utils/loginLimiter.utils.js';
+import * as blogController from '../controllers/blog.controller.js';
+import * as commentController from '../controllers/comment.controller.js';
 
 const router = express.Router();
 
 // Get a single blog
-router.get('/:id', bc.findABlog);
+router.get('/:id', authStatus, blogController.findABlog);
 
 // Like/dislike routes (require authentication)
-router.post('/:id/like', auth, loginLimiter, bc.toggleLike);
-router.post('/:id/dislike', auth, loginLimiter, bc.toggleDislike);
-router.post('/:id/share', loginLimiter, bc.incrementShareCount);
+router.post('/:id/like', auth, loginLimiter, blogController.toggleLike);
+router.post('/:id/dislike', auth, loginLimiter, blogController.toggleDislike);
+router.post('/:id/share', loginLimiter, blogController.incrementShareCount);
 
 // Comment routes
-router.get('/:id/comments', cc.getComments);
-router.post('/:id/comments', auth, loginLimiter, cc.createComment);
-router.delete('/:id/comments/:commentId', auth, loginLimiter, cc.deleteComment);
+router.get('/:id/comments', commentController.getComments);
+router.post(
+  '/:id/comments',
+  auth,
+  loginLimiter,
+  commentController.createComment,
+);
+router.delete(
+  '/:id/comments/:commentId',
+  auth,
+  loginLimiter,
+  commentController.deleteComment,
+);
 
 export default router;

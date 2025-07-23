@@ -1,0 +1,35 @@
+.platform__stats {
+  background-color: var(--color-primary);
+  & h4 {
+    color: var(--fg-inverse);
+  }
+
+  & .stats__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1rem, 1.2vw, 1.5rem);
+
+    & .stat__card {
+      color: var(--fg-inverse);
+      box-shadow: var(--shadow-md);
+
+      & .icon--wrapper i {
+        color: var(--color-secondary);
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin-bottom: 1rem;
+      }
+
+      & .stat__number {
+        font-size: var(--font-2xl);
+        font-weight: 700;
+        color: var(--purple);
+        margin: 0.5rem 0;
+      }
+
+      & p {
+        color: var(--fg-muted);
+      }
+    }
+  }
+}

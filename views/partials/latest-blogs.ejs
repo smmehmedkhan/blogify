@@ -8,15 +8,15 @@
   <% if (blogs.length===0) { %>
     <%- include('../components/empty-post.ejs') %>
       <% } else { %>
-        <ul id="blogsContainer">
+        <ul id="blogsContainer" class="blogs__container">
           <% blogs.forEach(blog=> { %>
             <li>
               <a href="/blog/<%= blog._id %>">
                 <div class="card post__card">
-                  <h5 class="headline">
+                  <h5>
                     <%= blog.title %>
                   </h5>
-                  <div class="inline__container credit__container">
+                  <div class="flex credit__container">
                     <div class="tags blog__author">
                       <i class="fa-solid fa-at"></i>
                       <span>

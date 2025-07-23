@@ -1,43 +1,57 @@
-<main class="blog_page">
-  <a class="back_btn" href="/">
-    <i class="fa-solid fa-left-long"></i>
-    Back
-  </a>
+<main>
+  <!-- Back button -->
+  <div class="inline__container back__btn">
+    <a class="link__btn" href="/">
+      <i class="fa-solid fa-left-long"></i>
+      Back
+    </a>
+  </div>
 
   <!-- Blog Section -->
-  <article id="blogContainer" data-blog-id="<%= blog._id %>" data-user-id="<%= userId || '' %>">
-    <h4 class="blog-title">
+  <article class="container blog" id="blogContainer" data-blog-id="<%= blog._id %>" data-user-id="<%= userId || '' %>">
+    <!-- Blog Title -->
+    <h3 class="blog__title">
       <%= blog.title %>
-    </h4>
-    <div class="blog_credit-wrapper">
-      <span class="blog_author">
-        <i class="fa-solid fa-at"></i>
-        <%= blog.author %>
-      </span>
-      <span class="blog_date">
+    </h3>
+
+    <!-- Blog Credits -->
+    <div class="flex blog__credits">
+      <div class="tags blog__author">
+        <a href="/users/<%= blog.author %>">
+          <i class="fa-solid fa-at"></i>
+          <span>
+            <%= blog.author %>
+          </span>
+        </a>
+      </div>
+      <div class="tags blog__date">
         <i class="fa-solid fa-calendar-days"></i>
-        <%= blog.createdAt.toDateString() %>
-      </span>
+        <span>
+          <%= blog.createdAt.toDateString() %>
+        </span>
+      </div>
     </div>
-    <div class="blog_content">
+
+    <!-- Blog Contents -->
+    <div class="blog__contents">
       <%- blog.descriptions %>
     </div>
 
     <!-- Blog Interactions Section -->
-    <div class="blog-interactions">
-      <button id="likeBtn" class="like <%= userLiked ? 'active' : '' %>">
+    <div class="flex blog-interactions">
+      <button id="likeBtn" class="flex like <%= userLiked ? 'active' : '' %>">
         <i class="fa-solid fa-thumbs-up"></i>
         <span id="likeCounter">
           <%= blog?.likes?.length || 0 %>
         </span>
       </button>
-      <button id="dislikeBtn" class="dislike <%= userDisliked ? 'active' : '' %>">
+      <button id="dislikeBtn" class="flex dislike <%= userDisliked ? 'active' : '' %>">
         <i class="fa-solid fa-thumbs-down"></i>
         <span id="dislikeCounter">
           <%= blog?.dislikes?.length || 0 %>
         </span>
       </button>
-      <button class="share" id="shareButton">
+      <button class="flex share" id="shareButton">
         <i class="fa-solid fa-share"></i>
         <span id="share-count">
           <%= blog.shareCount || 0 %>

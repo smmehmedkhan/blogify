@@ -1,0 +1,47 @@
+.platform__features {
+  background-color: var(--bg-purple);
+
+  & .features__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    place-content: center;
+    gap: clamp(1rem, 1.2vw, 1.5rem);
+
+    & .feature__card {
+      background-color: var(--bg-fuchsia);
+      box-shadow: var(--shadow-md);
+      & .icon--wrapper i {
+        color: var(--color-primary);
+        font-size: var(--font-xl);
+      }
+      & p {
+        color: var(--fg-muted);
+      }
+      &.main {
+        box-shadow: var(--shadow-lg);
+      }
+      &.primary {
+        transform: scale(0.95);
+      }
+      &.secondary {
+        transform: scale(0.9);
+        box-shadow: var(--shadow-sm);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1424px) {
+  .platform__features .features__grid .feature__card {
+    &.main {
+      transform: scale(1);
+    }
+    &.primary {
+      transform: scale(1);
+    }
+    &.secondary {
+      transform: scale(1);
+    }
+  }
+}

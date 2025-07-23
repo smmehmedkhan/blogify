@@ -69,19 +69,19 @@ export async function findABlog(req, res) {
     const blog = await blogService.getBlogById(blogId);
     const comments = await commentService.getCommentsByBlogId(blogId);
 
-    const userId = req.user ? req.user._id : null; // Check user sign-in
+    const userId = res.locals?.user?._id || null; // Check user sign-in
     const userLiked = userId ? blog.likes.includes(userId) : false;
     const userDisliked = userId ? blog.dislikes.includes(userId) : false;
-    const locals = {
+    const metaData = {
       title: blog.title,
       description: striptags(blog.descriptions),
     };
 
     const bundle = {
       nonce,
-      locals,
+      metaData,
       blog,
-      comments,
+      comments: comments.length > 0 ? comments : [],
       userLiked,
       userDisliked,
       userId,

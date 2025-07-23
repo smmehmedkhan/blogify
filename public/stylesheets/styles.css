@@ -10,6 +10,11 @@
 @import url('./components/latest-blogs.css');
 @import url('./components/empty-post.css');
 @import url('./components/pagination.css');
+@import url('./components/platform-features.css');
+@import url('./components/platform-stats.css');
+@import url('./components/call-to-action.css');
+@import url('./components/testimonials.css');
+@import url('./components/partners.css');
 @import url('./components/blog.css');
 @import url('./components/comments.css');
 @import url('./components/about.css');

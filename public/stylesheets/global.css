@@ -161,23 +161,6 @@ button {
   }
 }
 
-/* =======================================
-   🔲 Main Content Container
-======================================= */
-main {
-  width: 100%;
-  max-width: var(--max-width);
-  min-height: 100dvh;
-  margin-inline: auto;
-  margin-block: clamp(1rem, 2.5vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-spacing);
-}
-
-/* ====================
-   🔲 Utility Classes
-======================= */
 .link__btn {
   font-size: var(--font-sm);
   font-family: var(--font-sans);
@@ -194,16 +177,6 @@ main {
   transition: var(--transition-bg-color);
 }
 
-.btn-primary {
-  color: var(--fg-inverse);
-  background: var(--color-primary);
-}
-
-.btn-secondary {
-  color: var(--fg);
-  background: var(--color-secondary);
-}
-
 .back__btn {
   width: 100%;
   align-items: flex-start;
@@ -215,6 +188,47 @@ main {
       background-color: var(--bg-popover);
     }
   }
+}
+
+.btn-primary {
+  background-color: var(--color-info);
+  border: 2px solid var(--color-info);
+  &:hover {
+    color: var(--fg);
+    background-color: var(--info-popover);
+  }
+  & i {
+    font-size: var(--font-sm);
+    margin: 0;
+  }
+}
+
+.btn-secondary {
+  color: var(--blue);
+  border: 2px solid var(--color-info);
+  &:hover {
+    color: var(--blue);
+    background-color: var(--bg-blue);
+  }
+  & i {
+    font-size: var(--font-sm);
+    margin: 0;
+  }
+}
+
+/* ====================
+   🔲 Utility Classes
+======================= */
+main {
+  width: 100%;
+  max-width: var(--max-width);
+  min-height: 100dvh;
+  margin-inline: auto;
+  margin-top: clamp(1rem, 2.5vw, 2.5rem);
+  margin-bottom: var(--section-spacing);
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-spacing);
 }
 
 .container {
@@ -278,6 +292,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: clamp(0.5rem, 1vw, 1rem);
+  transition: box-shadow 250ms ease;
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
 }
 
 @media screen and (max-width: 1536px) {

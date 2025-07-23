@@ -1,15 +1,13 @@
-section.latest__blogs {
+.latest__blogs {
   overflow: hidden;
-  border: var(--border);
   background-color: var(--color-accent);
-  box-shadow: var(--shadow-lg);
 
   & .blogs__header {
     width: 100%;
     justify-content: space-between;
   }
 
-  & ul {
+  & .blogs__container {
     width: 100%;
     min-height: 752px;
     padding-block: 1.5rem;
@@ -17,25 +15,29 @@ section.latest__blogs {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, minmax(480px, 1fr));
-    gap: 1.5rem;
+    gap: clamp(1rem, 1.2vw, 1.5rem);
 
     & li {
-      overflow: hidden;
       width: 100%;
       height: fit-content;
-      border: var(--border);
-      border-radius: var(--radius);
-      transition: var(--transition-bg-color);
-      &:hover {
-        background-color: var(--bg-popover);
-      }
+      overflow: hidden;
       & a {
         &:hover {
           color: var(--fg);
         }
         & .post__card {
+          width: 100%;
           align-items: flex-start;
-          & .headline {
+          background-color: var(--bg-card);
+          transition:
+            background-color 250ms ease-in,
+            box-shadow 250ms ease-in;
+          &:hover {
+            background-color: var(--bg-popover);
+            box-shadow: var(--shadow-md);
+          }
+          & h5 {
+            width: 100%;
             display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -44,7 +46,6 @@ section.latest__blogs {
 
           & .credit__container {
             width: 100%;
-            justify-content: space-between;
             & .blog__author {
               color: var(--fuchsia);
               background-color: var(--bg-fuchsia);
@@ -90,7 +91,7 @@ section.latest__blogs {
 }
 
 @media screen and (max-width: 1536px) {
-  section.latest__blogs ul {
+  .latest__blogs .blogs__container {
     grid-template-columns: repeat(3, minmax(400px, 1fr));
   }
 }

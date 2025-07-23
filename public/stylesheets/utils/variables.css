@@ -1,7 +1,6 @@
 /* ============================
    💡 GLOBAL DESIGN TOKENS
    ============================ */
-
 :root,
 [data-theme='light'] {
   /* ============================
@@ -41,7 +40,7 @@
   /* ============================
      🧩 UI Roles
      ============================ */
-  --border-color: oklch(0.71 0.02 261);
+  --border-color: oklch(0 0 0 / 20%); /* oklch(0.71 0.02 261) */
   --bg-input: oklch(0.95 0 0);
   --ring: oklch(0.708 0 0);
 
@@ -130,7 +129,7 @@
    ============================ */
 [data-theme='dark'] {
   --bg: oklch(0.14 0 0);
-  --bg-card: oklch(0.25 0 0);
+  --bg-card: oklch(0.225 0 0);
   --bg-popover: oklch(1 0 0 / 5%);
   --bg-muted: oklch(0.269 0 0);
 

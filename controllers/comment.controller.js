@@ -29,6 +29,10 @@ export async function getComments(req, res) {
   try {
     const comments = await commentService.getCommentsByBlogId(blogId);
 
+    if (!comments || comments.length === 0) {
+      return res.status(404).json([]);
+    }
+
     return res.status(200).json(comments);
   } catch (error) {
     handleError(res, error);

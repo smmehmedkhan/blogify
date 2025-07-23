@@ -1,0 +1,110 @@
+.testimonials {
+  background-color: var(--color-accent);
+  overflow: hidden;
+
+  & .testimonials__slider {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 1.2vw, 1.5rem);
+
+    & .testimonial__card {
+      padding-block: clamp(1.5rem, 2vw, 2.5rem);
+      padding-inline: clamp(1rem, 1.25vw, 1.5rem);
+      background-color: var(--bg-card);
+      box-shadow: var(--shadow-md);
+      justify-content: space-between;
+      gap: clamp(1rem, 1.5vw, 2rem);
+
+      & .quote {
+        color: var(--fuchsia);
+        font-size: var(--font-md);
+        font-style: italic;
+        line-height: 1.6;
+      }
+
+      & .user__wrapper {
+        width: 100%;
+        padding-block: clamp(0.125rem, 0.2vw, 0.25rem);
+        padding-left: clamp(0.5rem, 0.6vw, 0.75rem);
+        border: var(--border);
+        border-radius: var(--radius);
+        background-color: var(--bg-muted);
+        justify-content: flex-start;
+        & .avatar__wrapper {
+          width: clamp(2rem, 2.5vw, 3rem);
+          height: clamp(2rem, 2.5vw, 3rem);
+          border: 2px solid var(--color-info);
+          border-radius: 50%;
+          overflow: hidden;
+          justify-content: center;
+          & .avatar {
+            width: 100%;
+            object-fit: cover;
+            background-position: center center;
+          }
+        }
+
+        & .user__info {
+          width: initial;
+          align-items: flex-start;
+          text-align: start;
+          gap: 0 !important;
+          & h6 {
+            font-size: var(--font-base);
+            font-weight: 600;
+            margin: 0;
+          }
+          & .user__role {
+            font-size: var(--font-sm);
+            color: var(--blue);
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  & .slider__controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+
+    & .slider__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--bg-muted);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background-color 250ms ease;
+
+      &.active {
+        background-color: var(--color-info);
+      }
+
+      &:hover {
+        background-color: var(--bg-popover);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .testimonials .testimonials__slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .testimonial__card {
+      width: 100%;
+      max-width: 600px;
+    }
+  }
+
+  .testimonials .slider__controls {
+    display: flex;
+  }
+}

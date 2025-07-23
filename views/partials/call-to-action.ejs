@@ -1,0 +1,29 @@
+<!-- Call to Action -->
+<section class="container cta">
+  <div class="fluid wrapper">
+    <h4>Ready to Share Your Story?</h4>
+    <p class="cta__content">Join thousands of writers who trust Blogify to share their thoughts, ideas, and stories
+      with the world.</p>
+    <div class="flex cta__buttons">
+      <% if (signedIn) { %>
+        <a href="/users/dashboard" class="inline__container link__btn btn-primary">
+          <i class="fa-solid fa-gauge"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/users/dashboard/add" class="inline__container link__btn btn-secondary">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span>Write a Post</span>
+        </a>
+        <% } else { %>
+          <a href="/auth/sign-up" class="inline__container link__btn btn-primary">
+            <i class="fa-solid fa-rocket"></i>
+            <span>Get Started</span>
+          </a>
+          <a href="/auth/sign-in" class="inline__container link__btn btn-secondary">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Sign In</span>
+          </a>
+          <% } %>
+    </div>
+  </div>
+</section>
