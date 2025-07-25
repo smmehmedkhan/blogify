@@ -1,60 +1,58 @@
 .contact {
-  & .wrapper {
-    min-height: calc(100dvh - 2.5rem);
-    flex-direction: row;
-    align-items: flex-start;
-    background-color: var(--color-accent);
-    & .contact__info {
-      gap: clamp(1rem, 1.2vw, 1.5rem);
-      & .contact__header,
-      .contact__guidance {
-        text-align: start;
+  min-height: calc(100dvh - 2.5rem);
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: var(--color-accent);
+  & .contact__info {
+    gap: clamp(1rem, 1.2vw, 1.5rem);
+    & .contact__header,
+    .contact__guidance {
+      text-align: start;
+    }
+    & .contact__guidance {
+      & h4 {
+        margin: 0;
       }
-      & .contact__guidance {
-        & h4 {
-          margin: 0;
-        }
-        & ul {
-          padding-block: clamp(1rem, 1.5vw, 1.5rem);
-          padding-inline: clamp(0.5rem, 0.9vw, 1rem);
-          list-style: none;
-          text-align: start;
+      & ul {
+        padding-block: clamp(1rem, 1.5vw, 1.5rem);
+        padding-inline: clamp(0.5rem, 0.9vw, 1rem);
+        list-style: none;
+        text-align: start;
+        align-items: flex-start;
+        & li {
           align-items: flex-start;
-          & li {
-            align-items: flex-start;
-            text-align: start;
-            gap: 0.25rem;
-            & .topics {
-              gap: 0.5rem;
-            }
+          text-align: start;
+          gap: 0.25rem;
+          & .topics {
+            gap: 0.5rem;
           }
         }
       }
     }
-    & .contact__form-wrapper {
-      align-items: flex-start;
-      & .contact__form {
-        align-items: normal;
-        gap: clamp(0.75rem, 1.2vw, 1.5rem);
-        & .form__group {
-          align-items: flex-start;
-          gap: 0.25rem;
-          & select {
-            & option {
-              color: var(--fg);
-              background-color: var(--bg-card);
-            }
+  }
+  & .contact__form-wrapper {
+    align-items: flex-start;
+    & .contact__form {
+      align-items: normal;
+      gap: clamp(0.75rem, 1.2vw, 1.5rem);
+      & .form__group {
+        align-items: flex-start;
+        gap: 0.25rem;
+        & select {
+          & option {
+            color: var(--fg);
+            background-color: var(--bg-card);
           }
+        }
 
-          & textarea {
-            resize: none;
-          }
-          & .submit__btn {
-            background-color: var(--color-info);
-            gap: clamp(0.25rem, 0.4vw, 0.5rem);
-            &:hover {
-              background-color: var(--info-popover);
-            }
+        & textarea {
+          resize: none;
+        }
+        & .submit__btn {
+          background-color: var(--color-info);
+          gap: clamp(0.25rem, 0.4vw, 0.5rem);
+          &:hover {
+            background-color: var(--info-popover);
           }
         }
       }
@@ -64,19 +62,17 @@
 
 @media screen and (max-width: 768px) {
   .contact {
-    & .wrapper {
-      min-height: 100%;
-      flex-direction: column;
+    min-height: 100%;
+    flex-direction: column;
+    align-items: center;
+    & .contact__info {
+      & .contact__header,
+      .contact__guidance {
+        text-align: center;
+      }
+    }
+    & .contact__form-wrapper {
       align-items: center;
-      & .contact__info {
-        & .contact__header,
-        .contact__guidance {
-          text-align: center;
-        }
-      }
-      & .contact__form-wrapper {
-        align-items: center;
-      }
     }
   }
 }

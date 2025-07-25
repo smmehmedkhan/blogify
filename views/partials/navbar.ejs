@@ -8,6 +8,12 @@
         </a>
       </li>
       <li>
+        <a href="/explore" class="<%= activeRoute ? activeRoute('/explore', path) : '' %>">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore</span>
+        </a>
+      </li>
+      <li>
         <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">
           <i class="fa-solid fa-envelope-open-text"></i>
           <span>About</span>
@@ -74,6 +80,12 @@
 
       <menu id="navbarMenu" aria-hidden="true">
         <ul>
+          <li>
+            <a href="/explore" class="<%= activeRoute ? activeRoute('/explore', path) : '' %>">
+              <i class="fa-solid fa-compass"></i>
+              <span>Explore</span>
+            </a>
+          </li>
           <li>
             <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">
               <i class="fa-solid fa-envelope-open-text"></i>

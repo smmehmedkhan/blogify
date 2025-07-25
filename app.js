@@ -37,6 +37,7 @@ import contactRouter from './routes/contact.routes.js';
 import blogRouter from './routes/blog.routes.js';
 import imageRouter from './routes/image.routes.js';
 import tagRoutes from './routes/tag.routes.js';
+import exploreRouter from './routes/explore.routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -81,6 +82,7 @@ app.use(generateToken); // CSRF token generator
 
 // Public routes
 app.use('/', indexRouter);
+app.use('/explore', exploreRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
 app.use('/auth', verifyToken, authRouter);

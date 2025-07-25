@@ -5,11 +5,12 @@ import auth from '../middlewares/auth.middleware.js';
 import loginLimiter from '../utils/loginLimiter.utils.js';
 import * as blogController from '../controllers/blog.controller.js';
 import * as commentController from '../controllers/comment.controller.js';
+import storeReturnTo from '../middlewares/sessionManager.middleware.js';
 
 const router = express.Router();
 
 // Get a single blog
-router.get('/:id', authStatus, blogController.findABlog);
+router.get('/:id', storeReturnTo, authStatus, blogController.findABlog);
 
 // Like/dislike routes (require authentication)
 router.post('/:id/like', auth, loginLimiter, blogController.toggleLike);

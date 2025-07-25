@@ -1,0 +1,57 @@
+<div class="card blog__card">
+  <!-- Blog cover image -->
+  <% if (blog?.coverImage?.url) { %>
+    <img class="blog__cover" src="<%= blog?.coverImage?.url %>" alt="<%= blog.title %>">
+    <% } %>
+
+      <!-- Blog title -->
+      <h2 class="blog__title">
+        <%= blog.title %>
+      </h2>
+
+      <!-- Blog credits -->
+      <div class="flex blog__credits">
+        <div class="tags blog__author">
+          <i class="fa-solid fa-at"></i>
+          <span>
+            <%= blog.author %>
+          </span>
+        </div>
+        <div class="tags blog__date">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>
+            <%= blog.createdAt.toDateString() %>
+          </span>
+        </div>
+      </div>
+
+      <!-- Blog tags -->
+      <div class="flex blog__tags">
+        <% blog.tags.forEach(tag=> { %>
+          <a href="/explore?tags=<%= tag %>" class="tags blog__tag">
+            #<%= tag %>
+          </a>
+          <% }) %>
+      </div>
+
+      <!-- Blog description -->
+      <div class="blog__description">
+        <%- blog.descriptions %>
+      </div>
+
+      <!-- Blog stats -->
+      <div class="flex blog__stats">
+        <div class="inline__container blog__likes">
+          <i class="fa-solid fa-heart"></i>
+          <span>
+            <%= blog.likes ? blog.likes.length : 0 %>
+          </span>
+        </div>
+        <div class="inline__container blog__comments">
+          <i class="fa-solid fa-comment"></i>
+          <span>
+            <%= blog.commentCount || 0 %>
+          </span>
+        </div>
+      </div>
+</div>

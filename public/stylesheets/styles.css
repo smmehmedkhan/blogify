@@ -12,13 +12,15 @@
 @import url('./components/pagination.css');
 @import url('./components/platform-features.css');
 @import url('./components/platform-stats.css');
-@import url('./components/call-to-action.css');
 @import url('./components/testimonials.css');
 @import url('./components/partners.css');
+@import url('./components/explore.css');
+@import url('./components/blog-card.css');
 @import url('./components/blog.css');
 @import url('./components/comments.css');
 @import url('./components/about.css');
 @import url('./components/contact.css');
+@import url('./components/call-to-action.css');
 @import url('./components/user-profile.css');
 @import url('./components/edit-profile.css');
 @import url('./components/dashboard.css');

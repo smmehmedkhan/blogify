@@ -1,5 +1,5 @@
-<main class="contact">
-  <div class="container wrapper">
+<main>
+  <div class="container contact">
     <section class="fluid contact__info">
       <div class="contact__header">
         <h3>Contact Us</h3>
@@ -119,6 +119,8 @@
       </form>
     </section>
   </div>
+
+  <%- include('../partials/call-to-action.ejs', { signedIn: signedIn }) %>
 </main>
 
 <%- include('../partials/footer.ejs') %>

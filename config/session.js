@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import MongoStore from 'connect-mongo';
-import { NODE_ENV } from './env.js';
+import { MONGODB_URI, NODE_ENV, SESSION_SECRET } from './env.js';
 
 dotenv.config();
 
 const options = {
-  sessionSecret: process.env.SESSION_SECRET,
-  dbUrl: process.env.MONGODB_URI,
-  cookiesAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+  sessionSecret: SESSION_SECRET,
+  dbUrl: MONGODB_URI,
+  cookiesAge: 1000 * 60 * 60 * 24 * 3, // 3 days
 };
 
 /**

@@ -35,6 +35,74 @@ class BlogService {
   async getBlogById(id) {
     return await Blog.findById(id).populate('userId', 'username');
   }
+  
+  /**
+   * Get blogs with advanced filtering, sorting, and pagination
+   */
+  async getBlogsWithFilters({
+    page = 1,
+    limit = 12,
+    sortBy = 'createdAt',
+    sortOrder = 'desc',
+    tags = [],
+    search = '',
+  }) {
+    const query = {};
+
+    // Apply tag filtering if provided
+    if (tags && tags.length > 0) {
+      query.tags = { $in: tags.map((tag) => tag.toLowerCase()) };
+    }
+
+    // Apply search if provided
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { descriptions: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    // Calculate pagination values
+    const totalBlogs = await Blog.countDocuments(query);
+    const totalPages = Math.ceil(totalBlogs / limit);
+    const currentPage = Math.min(Math.max(1, page), totalPages || 1);
+    const skipValue = (currentPage - 1) * limit;
+
+    // Determine sort direction
+    const sortDirection = sortOrder.toLowerCase() === 'asc' ? 1 : -1;
+
+    // Get blogs with filters and sorting
+    const blogs = await Blog.find(query)
+      .sort({ [sortBy]: sortDirection })
+      .skip(skipValue)
+      .limit(limit)
+      .populate('userId', 'username')
+      .lean();
+
+    return {
+      blogs,
+      pagination: {
+        currentPage,
+        totalPages,
+        hasNextPage: currentPage < totalPages,
+        hasPrevPage: currentPage > 1,
+        nextPage: currentPage < totalPages ? currentPage + 1 : null,
+        prevPage: currentPage > 1 ? currentPage - 1 : null,
+      },
+    };
+  }
+
+  /**
+   * Get all unique tags used in blogs with count
+   */
+  async getTagsWithCount() {
+    return await Blog.aggregate([
+      { $unwind: '$tags' },
+      { $group: { _id: '$tags', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $project: { _id: 0, name: '$_id', count: 1 } },
+    ]);
+  }
 
   /**
    * Toggle like on a blog

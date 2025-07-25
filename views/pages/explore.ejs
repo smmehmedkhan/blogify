@@ -1,0 +1,152 @@
+<main>
+
+  <!-- Header -->
+  <header class="container explore__header">
+    <h3><i class="fa-solid fa-compass"></i>Explore Blogs</h3>
+    <p>Discover interesting content from our community</p>
+  </header>
+
+  <section class="container explore">
+    <!-- Sidebar -->
+    <aside class="explore__sidebar">
+      <div class="card">
+
+        <!-- Search -->
+        <search class="fluid explore__search">
+          <h6>Search</h6>
+          <form action="/explore" method="GET" class="inline__container search__form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <button type="submit" class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="search" placeholder="Search blogs..." value="<%= filters.search %>">
+          </form>
+        </search>
+
+        <!-- Sort By -->
+        <div class="fluid explore__filter">
+          <h6>Sort By</h6>
+          <form action="/explore" method="GET" class="sort-form">
+            <!-- Preserve other filters when changing sort -->
+            <% if (filters.search) { %>
+              <input type="hidden" name="search" value="<%= filters.search %>">
+              <% } %>
+
+                <% if (filters.tags && filters.tags.length> 0) { %>
+                  <% filters.tags.forEach(tag=> { %>
+                    <input type="hidden" name="tags" value="<%= tag %>">
+                    <% }) %>
+                      <% } %>
+
+                        <div class="flex sort__controls">
+                          <select name="sortBy" id="sortBy">
+                            <% sortOptions.forEach(option=> { %>
+                              <option value="<%= option.value %>" <%=filters.sortBy===option.value ? 'selected' : '' %>>
+                                <%= option.label %>
+                              </option>
+                              <% }) %>
+                          </select>
+
+                          <select name="sortOrder" id="sortOrder">
+                            <option value="desc" <%=filters.sortOrder==='desc' ? 'selected' : '' %>>Newest</option>
+                            <option value="asc" <%=filters.sortOrder==='asc' ? 'selected' : '' %>>Oldest</option>
+                          </select>
+
+                          <!-- <button type="submit">Apply</button> -->
+                        </div>
+          </form>
+        </div>
+
+        <!-- Categories/Tags -->
+        <div class="fluid explore__filter">
+          <h6>Categories</h6>
+          <form action="/explore" method="GET" class="tags__form">
+            <!-- Preserve other filters when changing tags -->
+            <% if (filters.search) { %>
+              <input type="hidden" name="search" value="<%= filters.search %>">
+              <% } %>
+
+                <input type="hidden" name="sortBy" value="<%= filters.sortBy %>">
+                <input type="hidden" name="sortOrder" value="<%= filters.sortOrder %>">
+
+                <ul class="flex tags__list">
+                  <% availableTags.forEach(tag=> { %>
+                    <li class="inline__container tag__item">
+                      <span>
+                        <input type="checkbox" name="tags" id="tag-<%= tag.name %>" value="<%= tag.name %>"
+                          <%=filters.tags.includes(tag.name) ? 'checked' : '' %>
+                        >
+                      </span>
+                      <span>
+                        <label for="tag-<%= tag.name %>">
+                          <%= tag.name %> (<%= tag.count %>)
+                        </label>
+                      </span>
+                    </li>
+                    <% }) %>
+                </ul>
+          </form>
+        </div>
+
+        <!-- Reset Filters -->
+        <a href="/explore" class="link__btn btn-primary filter__reset">Reset Filters</a>
+      </div>
+    </aside>
+
+    <!-- Vertical Divider -->
+    <div class="explore__divider"></div>
+
+    <!-- Main content area -->
+    <div class="fluid explore__content">
+      <% if (blogs.length===0) { %>
+
+        <!-- Empty post card -->
+        <%- include('../components/empty-post.ejs') %>
+          <% } else if (blogs) { %>
+
+            <!-- Blogs Grid -->
+            <ul class="blogs__grid">
+              <% blogs.forEach(blog=> { %>
+                <li>
+                  <a href="/blog/<%= blog._id %>">
+                    <%- include('../components/blog-card.ejs', { blog: blog }) %>
+                  </a>
+                </li>
+                <% }) %>
+            </ul>
+
+            <!-- Pagination -->
+            <% if (pagination.totalPages> 1) { %>
+              <div class="flex pagination">
+                <% if (pagination.hasPrevPage) { %>
+                  <a href="/explore?page=<%= pagination.prevPage %>&sortBy=<%= filters.sortBy %>&sortOrder=<%= filters.sortOrder %><%= filters.search ? '&search=' + filters.search : '' %><%= filters.tags.map(tag => '&tags=' + tag).join('') %>"
+                    class="link__btn prev__link <%= prevPage===null && 'disabled' %>"
+                    aria-disabled="<%= prevPage===null %>" <%=prevPage===null && 'tabindex="-1"' %>>Previous</a>
+                  <% } %>
+
+                    <span class="page__number">
+                      Page <%= pagination.currentPage %> of <%= pagination.totalPages %>
+                    </span>
+
+                    <% if (pagination.hasNextPage) { %>
+                      <a href="/explore?page=<%= pagination.nextPage %>&sortBy=<%= filters.sortBy %>&sortOrder=<%= filters.sortOrder %><%= filters.search ? '&search=' + filters.search : '' %><%= filters.tags.map(tag => '&tags=' + tag).join('') %>"
+                        class="link__btn next__link <%= nextPage===null && 'disabled' %>"
+                        aria-disabled="<%= nextPage===null %>" <%=nextPage===null && 'tabindex="-1"' %>>Next</a>
+                      <% } %>
+              </div>
+              <% } %>
+                <% } else { %>
+                  <div class="card no-blogs">
+                    <h4>No blogs found</h4>
+                    <p>Try adjusting your search or filters.</p>
+                    <a class="link__btn filter__reset" href="/explore">Reset Filters</a>
+                  </div>
+                  <% } %>
+    </div>
+  </section>
+
+  <%- include('../partials/call-to-action.ejs', { signedIn: signedIn }) %>
+</main>
+
+<%- include('../partials/footer.ejs') %>
+
+  <script src="/javascripts/components/exploreInteractions.js" nonce="<%= nonce %>"></script>

@@ -1,5 +1,7 @@
 <search>
   <form id="searchForm" action="/search" class="inline__container search__form" role="search" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
     <button type="submit" id="searchBtn" class="search__btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     <input type="search" name="search__input" id="searchInput" aria-label="Search blogs"
       placeholder="Search blogs here" />

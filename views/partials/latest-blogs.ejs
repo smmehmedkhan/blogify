@@ -5,45 +5,17 @@
     <%- include('../components/search.ejs') %>
   </div>
 
-  <% if (blogs.length===0) { %>
-    <%- include('../components/empty-post.ejs') %>
-      <% } else { %>
-        <ul id="blogsContainer" class="blogs__container">
-          <% blogs.forEach(blog=> { %>
-            <li>
+  <ul class="blogs__container">
+    <% if (blogs.length===0) { %>
+      <%- include('../components/empty-post.ejs') %>
+        <% } %>
+          <% blogs?.forEach(blog=> { %>
+            <li class="blog__item">
               <a href="/blog/<%= blog._id %>">
-                <div class="card post__card">
-                  <h5>
-                    <%= blog.title %>
-                  </h5>
-                  <div class="flex credit__container">
-                    <div class="tags blog__author">
-                      <i class="fa-solid fa-at"></i>
-                      <span>
-                        <%= blog.author %>
-                      </span>
-                    </div>
-                    <div class="tags blog__date">
-                      <i class="fa-solid fa-calendar-days"></i>
-                      <span>
-                        <%= blog.createdAt.toDateString() %>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="contents__container">
-                    <% if (blog.coverImage?.url) { %>
-                      <img class="cover__img" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>" loading="lazy">
-                      <% } else { %>
-                        <div class="text__content">
-                          <%- blog.descriptions %>
-                        </div>
-                        <% } %>
-                  </div>
-                </div>
+                <%- include('../components/blog-card.ejs', { blog: blog }) %>
               </a>
             </li>
             <% }) %>
-        </ul>
-        <%- include('../components/pagination.ejs')%>
-          <% } %>
+  </ul>
+  <%- include('../components/pagination.ejs')%>
 </section>

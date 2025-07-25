@@ -63,9 +63,10 @@ export async function signIn(req, res) {
       req.flash('warning', 'Please verify your email address!');
     }
 
-    const returnTo = req.session.returnTo || '/users/dashboard';
+    const redirectTo = req.session.returnTo || '/users/dashboard';
+    delete req.session.returnTo; // Clean up session variable
 
-    return res.redirect(returnTo);
+    return res.redirect(redirectTo);
   } catch (error) {
     let emailError = '',
       notValidPassword = error.message;
@@ -119,7 +120,11 @@ export async function signOut(req, res) {
   try {
     res.clearCookie('token');
     req.flash('success', 'You have successfully signed out!');
-    return res.redirect('/');
+
+    const redirectTo = req.session.returnTo || '/';
+    delete req.session.returnTo; // Clean up session variable
+
+    return res.redirect(redirectTo);
   } catch (error) {
     req.flash('error', error.message);
     handleError(res, error);
