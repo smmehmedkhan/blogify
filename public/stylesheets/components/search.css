@@ -2,7 +2,7 @@ search {
   width: initial;
   & .search__form {
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     height: initial;
     padding: 0;
     border: var(--border);
@@ -35,6 +35,7 @@ search {
     }
 
     & input {
+      width: 100%;
       border: none;
       outline: 0;
       background-color: transparent;

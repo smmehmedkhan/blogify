@@ -32,6 +32,15 @@
       </div>
     </div>
 
+    <!-- Blog tags -->
+    <div class="flex blog__tags">
+      <% blog.tags.forEach(tag=> { %>
+        <a href="/explore?tags=<%= tag %>" class="tags blog__tag">
+          #<%= tag %>
+        </a>
+        <% }) %>
+    </div>
+
     <!-- Blog Contents -->
     <div class="blog__contents">
       <%- blog.descriptions %>

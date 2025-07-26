@@ -28,9 +28,9 @@
       <!-- Blog tags -->
       <div class="flex blog__tags">
         <% blog.tags.forEach(tag=> { %>
-          <a href="/explore?tags=<%= tag %>" class="tags blog__tag">
+          <span class="tags blog__tag">
             #<%= tag %>
-          </a>
+          </span>
           <% }) %>
       </div>
 

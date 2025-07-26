@@ -187,35 +187,11 @@
         <% if (posts?.length===0) { %>
           <%- include('../../components/empty-post.ejs') %>
             <% } else { %>
-              <ul class="profile--posts">
+              <ul class="blogs__grid">
                 <% posts.forEach(post=> { %>
                   <li>
                     <a href="/blog/<%= post._id %>">
-                      <div class="card post__card">
-                        <h6>
-                          <%= post.title %>
-                        </h6>
-                        <div class="inline__container post__date">
-                          <i class="fa-solid fa-calendar-days"></i>
-                          <% if (post.createdAt) { %>
-                            <span>
-                              <%= new Date(post.createdAt).toDateString() %>
-                            </span>
-                            <% } else { %>
-                              <span>Unknown date</span>
-                              <% } %>
-                        </div>
-                        <div class="post__contents">
-                          <% if (post.coverImage?.url) { %>
-                            <img class="image__content" src="<%= post.coverImage?.url %>" alt="<%= post.title %>"
-                              loading="lazy">
-                            <% } else { %>
-                              <div class="text__content">
-                                <%- post.descriptions %>
-                              </div>
-                              <% } %>
-                        </div>
-                      </div>
+                      <%- include('../../components/blog-card.ejs', { blog: post }) %>
                     </a>
                   </li>
                   <% }) %>

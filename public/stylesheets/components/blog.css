@@ -18,8 +18,21 @@
     }
 
     & .blog__date {
-      color: var(--blue);
-      background: var(--bg-blue);
+      color: var(--fg-muted);
+    }
+  }
+
+  & .blog__tags {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    & .blog__tag {
+      color: var(--fg);
+      background-color: var(--bg-blue);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -56,6 +69,7 @@
       }
     }
   }
+
   & .blog-interactions {
     width: 100%;
     justify-content: flex-start;

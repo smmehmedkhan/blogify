@@ -5,12 +5,12 @@
     <%- include('../components/search.ejs') %>
   </div>
 
-  <ul class="blogs__container">
+  <ul class="blogs__grid">
     <% if (blogs.length===0) { %>
       <%- include('../components/empty-post.ejs') %>
         <% } %>
           <% blogs?.forEach(blog=> { %>
-            <li class="blog__item">
+            <li>
               <a href="/blog/<%= blog._id %>">
                 <%- include('../components/blog-card.ejs', { blog: blog }) %>
               </a>

@@ -103,24 +103,27 @@
   & .explore__content {
     width: 100%;
     height: inherit;
-    padding-block: clamp(1rem, 1.2vw, 1.5rem);
-    border-block: var(--border);
     & .blogs__grid {
       width: 100%;
+      min-height: 60dvh;
+      padding-block: clamp(1rem, 1.2vh, 1.5rem);
+      border-block: var(--border);
       list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: clamp(1rem, 1.2vw, 1.5rem);
+      position: relative;
+
       & li {
         width: 100%;
         overflow: hidden;
-        & a:hover {
-          color: var(--fg);
+        & a {
+          &:hover {
+            color: var(--fg);
+          }
         }
       }
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .explore {
     grid-template-columns: 1fr;

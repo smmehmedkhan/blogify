@@ -4,6 +4,14 @@
 
 ---
 
+## 📅 2025-07-26 – masonry layout for all blogs card
+
+- **Issue**: Simple grid-box/grid-layout isn't working for dynamically rendered blogs card.
+- **Diagnosis**: Blogs card has images, tags & senitize-html, which are rendered dynamically. So blogs card height/width are different from each other. These break normal grid-layout.
+- **Fix**: Made a custom masonry-layout using vanilla js. It calculate container height/width dynamically and adjust cards to fit in wrapper container.
+
+---
+
 ## 📅 2025-07-03 – route order matters
 
 - **Issue**: '/user/dashboard' route get hanging on every request after adding two new routes path in user routes file.
