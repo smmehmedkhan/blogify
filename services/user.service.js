@@ -88,6 +88,12 @@ class UserService {
    */
   async createBlog(blogData) {
     const blog = await Blog.create(blogData);
+
+    // Update user post array
+    await User.findByIdAndUpdate(blogData.userId, {
+      $push: { posts: blog._id },
+    });
+
     return blog;
   }
 
@@ -112,6 +118,14 @@ class UserService {
    * Delete a blog
    */
   async deleteBlog(blogId) {
+    const blog = await Blog.findById(blogId);
+
+    // Remove blog ID from user.post
+    if (blog) {
+      await User.findByIdAndUpdate(blog.userId, {
+        $pull: { posts: blogId },
+      });
+    }
     return await Blog.findByIdAndDelete(blogId);
   }
 }

@@ -1,6 +1,11 @@
 import express from 'express';
 
-import loginLimiter from '../utils/loginLimiter.utils.js';
+import {
+  followLimiter,
+  likeLimiter,
+  postCreationLimiter,
+  profileUpdateLimiter,
+} from '../utils/rateLimit.utils.js';
 import auth from '../middlewares/auth.middleware.js';
 import * as uc from '../controllers/user.controller.js';
 import emailVerification from '../middlewares/emailVerification.middleware.js';
@@ -18,7 +23,7 @@ userRouter
   .post(
     auth,
     upload.single('photo'),
-    loginLimiter,
+    profileUpdateLimiter,
     verifyToken,
     uc.userProfileUpdate,
   );
@@ -31,7 +36,7 @@ userRouter
   .post(
     auth,
     upload.single('addPostCoverImage'),
-    loginLimiter,
+    postCreationLimiter,
     verifyToken,
     uc.addABlog,
   );
@@ -42,15 +47,15 @@ userRouter
   .put(
     auth,
     upload.single('editPostCoverImage'),
-    loginLimiter,
+    postCreationLimiter,
     verifyToken,
     uc.updateABlog,
   );
 
-userRouter.delete('/dashboard/delete/:id', auth, loginLimiter, uc.deleteBlog);
+userRouter.delete('/dashboard/delete/:id', auth, likeLimiter, uc.deleteBlog);
 
 userRouter.get('/:username', authStatus, uc.userProfilePreview);
-userRouter.post('/:username/follow', auth, uc.followUser);
-userRouter.post('/:username/unfollow', auth, uc.unfollowUser);
+userRouter.post('/:username/follow', auth, followLimiter, uc.followUser);
+userRouter.post('/:username/unfollow', auth, followLimiter, uc.unfollowUser);
 
 export default userRouter;

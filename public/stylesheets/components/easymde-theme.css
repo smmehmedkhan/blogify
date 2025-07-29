@@ -1,0 +1,356 @@
+/* ============================
+   📝 EasyMDE Custom Theme
+   Integrated with Blogify Design System
+   ============================ */
+
+/* ============================
+   🎨 Editor Container
+   ============================ */
+.EasyMDEContainer {
+  width: 100%;
+  font-family: var(--font-sans);
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ============================
+   🖊️ CodeMirror Editor
+   ============================ */
+.EasyMDEContainer .CodeMirror {
+  min-height: clamp(20rem, 25vh, 30rem);
+  border: none;
+  border-block: var(--border);
+  border-radius: 0;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--fg);
+  background-color: var(--bg-card);
+  text-align: left;
+}
+
+.EasyMDEContainer .CodeMirror-lines {
+  padding: 1rem;
+  text-align: left;
+}
+
+.EasyMDEContainer .CodeMirror-line {
+  text-align: left;
+}
+
+.EasyMDEContainer .CodeMirror-cursor {
+  border-left: 4px solid var(--fuchsia);
+}
+
+.EasyMDEContainer .CodeMirror-selected {
+  background-color: var(--bg-fuchsia);
+}
+
+.EasyMDEContainer .CodeMirror-focused .CodeMirror-selected {
+  background-color: var(--bg-purple);
+}
+
+.EasyMDEContainer .CodeMirror-placeholder {
+  color: var(--fg-muted);
+}
+
+/* ============================
+   🔧 Toolbar
+   ============================ */
+.editor-toolbar {
+  background-color: var(--bg-input);
+  border: none;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  padding-inline: clamp(0.75rem, 1.25vw, 1.5rem);
+  padding-block: clamp(0.5rem, 0.8vw, 1rem);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.editor-toolbar button {
+  min-width: clamp(1.25rem, 1.5vw, 2rem);
+  min-height: clamp(1.25rem, 1.5vh, 2rem);
+  padding: clamp(0.25rem, 0.5vw, 0.5rem);
+  border: var(--border);
+  border-radius: var(--radius);
+  font-size: var(--font-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 250ms ease-in-out,
+    background-color 250ms ease-in-out,
+    border-color 250ms ease-in-out;
+}
+
+.editor-toolbar button:hover {
+  color: var(--fuchsia);
+  background-color: var(--bg-fuchsia);
+  border-color: var(--fuchsia);
+}
+
+.editor-toolbar button.active {
+  background-color: var(--bg-purple);
+  color: var(--purple);
+  border-color: var(--purple);
+}
+
+.editor-toolbar i.separator {
+  width: 1px;
+  height: 1.5rem;
+  background-color: var(--border-color);
+  margin-inline: clamp(0.25rem, 0.5vw, 0.5rem);
+  border: none;
+}
+
+/* ============================
+   📊 Status Bar
+   ============================ */
+.editor-statusbar {
+  color: var(--fg-muted);
+  background-color: var(--bg-input);
+  padding-inline: clamp(0.75rem, 1.25vw, 1.5rem);
+  padding-block: clamp(0.5rem, 0.8vw, 1rem);
+  border: none;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  font-size: var(--font-xs);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-statusbar span {
+  margin-left: 1rem;
+}
+
+.editor-statusbar .reading-time {
+  color: var(--fuchsia);
+  font-weight: 600;
+}
+
+/* ============================
+   👁️ Preview Modes
+   ============================ */
+.editor-preview,
+.editor-preview-side {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  padding: 1.5rem;
+  border: var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  background-color: var(--bg-card);
+}
+
+.editor-preview h1,
+.editor-preview h2,
+.editor-preview h3,
+.editor-preview h4,
+.editor-preview h5,
+.editor-preview h6 {
+  color: var(--fg);
+  font-family: var(--font-serif);
+  margin-bottom: 0.625rem;
+}
+
+.editor-preview p {
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.editor-preview blockquote {
+  border-left: 4px solid var(--fuchsia);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+.editor-preview code {
+  font-size: var(--font-sm);
+  font-family: 'Courier New', monospace;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  color: var(--purple);
+  background-color: var(--bg-muted);
+}
+
+.editor-preview pre {
+  color: var(--fg);
+  background-color: var(--bg-muted);
+  padding: 1rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 1rem auto;
+}
+
+.editor-preview pre code {
+  background: none;
+  padding: 0;
+}
+
+.editor-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.editor-preview table th,
+.editor-preview table td {
+  border: var(--border);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.editor-preview table th {
+  background-color: var(--bg-muted);
+  font-weight: 600;
+}
+
+/* ============================
+   🎯 Syntax Highlighting
+   ============================ */
+.cm-s-easymde .cm-header-1,
+.cm-s-easymde .cm-header-2,
+.cm-s-easymde .cm-header-3,
+.cm-s-easymde .cm-header-4,
+.cm-s-easymde .cm-header-5,
+.cm-s-easymde .cm-header-6 {
+  color: var(--fg);
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+.cm-s-easymde .cm-quote {
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+.cm-s-easymde .cm-link {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.cm-s-easymde .cm-url {
+  color: var(--purple);
+}
+
+.cm-s-easymde .cm-string {
+  color: var(--fuchsia);
+}
+
+.cm-s-easymde .cm-tag {
+  color: var(--blue);
+}
+
+.cm-s-easymde .cm-attribute {
+  color: var(--purple);
+}
+
+.cm-s-easymde .cm-comment {
+  background-color: var(--bg-muted);
+  color: var(--fg-muted);
+  border-radius: var(--radius);
+  padding: 0.125rem 0.25rem;
+}
+
+/* ============================
+   📱 Responsive Design
+   ============================ */
+@media (max-width: 768px) {
+  .editor-toolbar i.separator {
+    margin: 0 0.25rem;
+  }
+
+  .EasyMDEContainer .CodeMirror {
+    min-height: 400px;
+  }
+
+  .EasyMDEContainer .CodeMirror-lines {
+    padding: 0.75rem;
+  }
+}
+
+/* ============================
+   🌙 Dark Mode Adjustments
+   ============================ */
+[data-theme='dark'] .editor-toolbar.fullscreen {
+  background-color: var(--bg-card);
+}
+
+[data-theme='dark'] .editor-toolbar.fullscreen::before,
+[data-theme='dark'] .editor-toolbar.fullscreen::after {
+  background: linear-gradient(to right, var(--bg-card) 0, transparent 100%);
+}
+
+[data-theme='dark'] .EasyMDEContainer .CodeMirror-fullscreen {
+  background-color: var(--bg-card);
+}
+
+/* ============================
+   🔍 Spell Check
+   ============================ */
+.CodeMirror
+  .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
+  background: var(--color-error);
+  background: linear-gradient(90deg, transparent 50%, var(--color-error) 50%);
+  background-size: 2px 2px;
+  background-repeat: repeat-x;
+  background-position: bottom;
+}
+
+/* ============================
+   🎨 Custom Dropdown
+   ============================ */
+.editor-toolbar .easymde-dropdown {
+  background-color: var(--bg-card);
+  border: var(--border);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.editor-toolbar .easymde-dropdown:hover {
+  background-color: var(--bg-popover);
+  box-shadow: var(--shadow-sm);
+}
+
+.easymde-dropdown-content {
+  background-color: var(--bg-card);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-popover);
+  padding: 0.5rem;
+}
+
+.easymde-dropdown-content button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  margin: 0.125rem 0;
+  border-radius: var(--radius);
+}
+
+.easymde-dropdown-content button:hover {
+  background-color: var(--bg-muted);
+}
+
+/* ============================
+   ⚡ Performance & Accessibility
+   ============================ */
+.EasyMDEContainer * {
+  box-sizing: border-box;
+}
+
+.editor-toolbar button:focus {
+  outline: 2px solid var(--ring);
+}
+
+.EasyMDEContainer .CodeMirror:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}

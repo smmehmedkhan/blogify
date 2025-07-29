@@ -55,19 +55,11 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      // validate: {
-      //   validator: (value) => validator.isEmail(value),
-      //   message: 'Please provide a valid email address',
-      // },
     },
     password: {
       type: String,
       required: [true, 'A password is required.'],
       minlength: [8, 'Password must be at least 8 characters long'],
-      // validate: {
-      //   validator: (value) => validator.isStrongPassword(value),
-      //   message: 'Password is not strong enough',
-      // },
     },
     socials: {
       facebook: { type: String, trim: true },

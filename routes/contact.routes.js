@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { verifyToken } from '../middlewares/csrf.middleware.js';
-import loginLimiter from '../utils/loginLimiter.utils.js';
+import { contactLimiter } from '../utils/rateLimit.utils.js';
 import {
   renderContactPage,
   submitContactForm,
@@ -14,6 +14,6 @@ const contactRouter = express.Router();
 contactRouter.get('/', storeReturnTo, renderContactPage);
 
 // Handle contact form submission
-contactRouter.post('/', verifyToken, loginLimiter, submitContactForm);
+contactRouter.post('/', verifyToken, contactLimiter, submitContactForm);
 
 export default contactRouter;

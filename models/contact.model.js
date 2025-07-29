@@ -9,32 +9,44 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
-      trim: true
+      required: [true, 'Name is required'],
+      trim: true,
+      min: 2,
+      max: 32,
     },
     email: {
       type: String,
-      required: true,
-      trim: true
+      required: [true, 'Email is required'],
+      trim: true,
+      max: 32,
+      lowercase: true,
     },
     subject: {
       type: String,
-      required: true,
-      enum: ['technical-support', 'feature-suggestion', 'partnership', 'feedback', 'other']
+      required: [true, 'Subject is required'],
+      enum: [
+        'technical-support',
+        'feature-suggestion',
+        'partnership',
+        'feedback',
+        'other',
+      ],
     },
     message: {
       type: String,
-      required: true
+      required: [true, 'Message is required'],
+      min: 10,
+      max: 1000,
     },
     status: {
       type: String,
       enum: ['new', 'read', 'responded'],
-      default: 'new'
-    }
+      default: 'new',
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const Contact = mongoose.model('Contact', contactSchema);

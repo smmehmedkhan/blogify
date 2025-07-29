@@ -1,5 +1,6 @@
 import handleError from '../utils/handleError.utils.js';
 import validationService from '../services/validation.service.js';
+import contactService from '../services/contact.service.js';
 
 /**
  * Render contact page
@@ -65,21 +66,13 @@ export async function submitContactForm(req, res) {
     // Save contact message to database
     await contactService.saveContactMessage(contactData);
 
-    // Send email notification to admin (non-blocking)
-    emailService
-      .sendContactNotification(contactData)
-      .then((sent) => {
-        if (!sent) {
-          console.warn('Email notification could not be sent');
-        }
-      })
-      .catch((err) => console.error('Failed to send email notification:', err));
-
-    // Show success message
+    // Send confirmation email
+    await contactService.sendConfirmationEmail(contactData);
     req.flash(
       'success',
       'Thank you for your message! We will get back to you soon.',
     );
+
     return res.redirect('/contact');
   } catch (error) {
     handleError(res, error);

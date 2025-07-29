@@ -151,7 +151,7 @@ export async function signUp(req, res) {
       confirmPassword,
     });
 
-    // If validation failed render sing-up page
+    // Provide error messages to
     if (!isValid) {
       const bundle = {
         nonce,
@@ -186,8 +186,6 @@ export async function signUp(req, res) {
     req.flash('success', 'You have successfully signed up!');
 
     const returnTo = req.session.returnTo || '/users';
-
-    console.log('User signed up, user data: ' + req.user);
 
     return res.redirect(returnTo);
   } catch (error) {

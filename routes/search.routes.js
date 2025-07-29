@@ -1,11 +1,11 @@
 import express from 'express';
 
-import loginLimiter from '../utils/loginLimiter.utils.js';
+import { searchLimiter } from '../utils/rateLimit.utils.js';
 import searchBlogs from '../controllers/search.controller.js';
 
 const searchRouter = express.Router();
 
 // Search Route
-searchRouter.route('/').post(loginLimiter, searchBlogs);
+searchRouter.route('/').post(searchLimiter, searchBlogs);
 
 export default searchRouter;

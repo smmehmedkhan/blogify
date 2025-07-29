@@ -11,8 +11,7 @@
   & .blog__cover {
     display: block;
     width: 100%;
-    max-height: clamp(15rem, 18vh, 20rem);
-    border-radius: 0.25rem;
+    border-radius: clamp(0.125rem, 0.2vw, 0.25rem);
     object-fit: cover;
     object-position: center;
   }

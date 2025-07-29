@@ -26,6 +26,7 @@ import isActiveRoute from './helpers/routes.helper.js';
 
 // Utilities
 import nonceToken from './utils/nonce.utils.js';
+import { generalApiLimiter } from './utils/rateLimit.utils.js';
 
 // Routes
 import indexRouter from './routes/index.routes.js';
@@ -38,6 +39,7 @@ import blogRouter from './routes/blog.routes.js';
 import imageRouter from './routes/image.routes.js';
 import tagRoutes from './routes/tag.routes.js';
 import exploreRouter from './routes/explore.routes.js';
+import subscribeRouter from './routes/subscribe.routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -65,6 +67,7 @@ app.use(flash());
 // Security
 app.use(nonceToken); // CSP nonce
 app.use(helmetMiddleware); // helmet
+app.use(generalApiLimiter); // General API rate limiter
 
 // Toast notifications
 app.use(toastMiddleware);
@@ -85,6 +88,7 @@ app.use('/', indexRouter);
 app.use('/explore', exploreRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
+app.use('/subscribe', subscribeRouter);
 app.use('/auth', verifyToken, authRouter);
 
 // Private routes

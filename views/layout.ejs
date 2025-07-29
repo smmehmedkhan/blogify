@@ -19,8 +19,10 @@
     href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Play:wght@400;700&display=swap"
     rel="stylesheet" />
   <link rel="manifest" href="/site.webmanifest" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+  <link rel="stylesheet" href="/stylesheets/components/easymde-theme.css">
   <link rel="stylesheet" href="/stylesheets/styles.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify" nonce="<%= nonce %>"></script>
@@ -36,6 +38,8 @@
       <%- include('./components/toast.ejs') %>
         <script src="/javascripts/navigation/theme.js" nonce="<%= nonce %>"></script>
         <script src="/javascripts/components/masonry.js" nonce="<%= nonce %>"></script>
+        <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+        <script src="/javascripts/components/easyMDEConfig.js"></script>
 </body>
 
 </html>

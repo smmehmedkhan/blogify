@@ -51,29 +51,25 @@
 
     <section class="fluid contact__form-wrapper">
       <h4>Send Us a Message</h4>
-      <form class="fluid contact__form" action="/contact" method="POST">
+      <form class="fluid contact__form" action="/contact" method="POST" autofocus="autofocus" autocomplete="on">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <div class="fluid form__group">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" placeholder="Your name"
             value="<%= formData && formData.name || '' %>" required>
-          <% if (errors && errors.nameError) { %>
-            <div class="error-message">
-              <%= errors.nameError %>
-            </div>
-            <% } %>
+          <p>
+            <%= errors?.name || '' %>
+          </p>
         </div>
 
         <div class="fluid form__group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Your email address"
             value="<%= formData && formData.email || '' %>" required>
-          <% if (errors && errors.emailError) { %>
-            <div class="error-message">
-              <%= errors.emailError %>
-            </div>
-            <% } %>
+          <p>
+            <%= errors?.email || '' %>
+          </p>
         </div>
 
         <div class="fluid form__group">
@@ -92,22 +88,18 @@
             <option value="other" <%=formData && formData.subject==='other' ? 'selected' : '' %>>Other
             </option>
           </select>
-          <% if (errors && errors.subjectError) { %>
-            <div class="error-message">
-              <%= errors.subjectError %>
-            </div>
-            <% } %>
+          <p>
+            <%= errors?.subject || '' %>
+          </p>
         </div>
 
         <div class="fluid form__group">
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="10" placeholder="Please describe your inquiry in detail..."
             required><%= formData && formData.message || '' %></textarea>
-          <% if (errors && errors.messageError) { %>
-            <div class="error-message">
-              <%= errors.messageError %>
-            </div>
-            <% } %>
+          <p>
+            <%= errors?.message || '' %>
+          </p>
         </div>
 
         <div class="fluid form__group">

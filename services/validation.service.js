@@ -8,68 +8,77 @@ class ValidationService {
     if (!message || validator.isEmpty(message.trim())) {
       return { isValid: false, error: 'Message is required' };
     }
-    
+
     if (message.trim().length < 10) {
-      return { isValid: false, error: 'Message must be at least 10 characters long' };
+      return {
+        isValid: false,
+        error: 'Message must be at least 10 characters long',
+      };
     }
-    
+
     if (message.trim().length > 1000) {
       return { isValid: false, error: 'Message cannot exceed 1000 characters' };
     }
-    
+
     return { isValid: true };
   }
-  
+
   // Contact form subject validation
   validateSubject(subject) {
-    const validSubjects = ['technical-support', 'feature-suggestion', 'partnership', 'feedback', 'other'];
-    
+    const validSubjects = [
+      'technical-support',
+      'feature-suggestion',
+      'partnership',
+      'feedback',
+      'other',
+    ];
+
     if (!subject || validator.isEmpty(subject.trim())) {
       return { isValid: false, error: 'Subject is required' };
     }
-    
+
     if (!validSubjects.includes(subject)) {
       return { isValid: false, error: 'Please select a valid subject' };
     }
-    
+
     return { isValid: true };
   }
-  
+
   // Contact form validation
   validateContactForm({ name, email, subject, message }) {
     const errors = {
-      nameError: '',
-      emailError: '',
-      subjectError: '',
-      messageError: ''
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
     };
-    
+
     let isValid = true;
-    
+
     const nameValidation = this.validateUsername(name);
     if (!nameValidation.isValid) {
-      errors.nameError = nameValidation.error;
+      errors.name = nameValidation.error;
       isValid = false;
     }
-    
+
     const emailValidation = this.validateEmail(email);
     if (!emailValidation.isValid) {
-      errors.emailError = emailValidation.error;
+      errors.email = emailValidation.error;
       isValid = false;
     }
-    
+
     const subjectValidation = this.validateSubject(subject);
     if (!subjectValidation.isValid) {
-      errors.subjectError = subjectValidation.error;
+      errors.subject = subjectValidation.error;
       isValid = false;
     }
-    
+
     const messageValidation = this.validateMessage(message);
     if (!messageValidation.isValid) {
-      errors.messageError = messageValidation.error;
+      errors.message = messageValidation.error;
       isValid = false;
     }
-    
+
     return { isValid, errors };
   }
   // Contact form message validation
@@ -77,68 +86,77 @@ class ValidationService {
     if (!message || validator.isEmpty(message.trim())) {
       return { isValid: false, error: 'Message is required' };
     }
-    
+
     if (message.trim().length < 10) {
-      return { isValid: false, error: 'Message must be at least 10 characters long' };
+      return {
+        isValid: false,
+        error: 'Message must be at least 10 characters long',
+      };
     }
-    
+
     if (message.trim().length > 1000) {
       return { isValid: false, error: 'Message cannot exceed 1000 characters' };
     }
-    
+
     return { isValid: true };
   }
-  
+
   // Contact form subject validation
   validateSubject(subject) {
-    const validSubjects = ['technical-support', 'feature-suggestion', 'partnership', 'feedback', 'other'];
-    
+    const validSubjects = [
+      'technical-support',
+      'feature-suggestion',
+      'partnership',
+      'feedback',
+      'other',
+    ];
+
     if (!subject || validator.isEmpty(subject.trim())) {
       return { isValid: false, error: 'Subject is required' };
     }
-    
+
     if (!validSubjects.includes(subject)) {
       return { isValid: false, error: 'Please select a valid subject' };
     }
-    
+
     return { isValid: true };
   }
-  
+
   // Contact form validation
   validateContactForm({ name, email, subject, message }) {
     const errors = {
       nameError: '',
       emailError: '',
       subjectError: '',
-      messageError: ''
+      messageError: '',
     };
-    
+
     let isValid = true;
-    
+
     const nameValidation = this.validateUsername(name);
     if (!nameValidation.isValid) {
       errors.nameError = nameValidation.error;
       isValid = false;
     }
-    
+
     const emailValidation = this.validateEmail(email);
     if (!emailValidation.isValid) {
       errors.emailError = emailValidation.error;
       isValid = false;
     }
-    
+
     const subjectValidation = this.validateSubject(subject);
     if (!subjectValidation.isValid) {
       errors.subjectError = subjectValidation.error;
       isValid = false;
     }
-    
+
     const messageValidation = this.validateMessage(message);
     if (!messageValidation.isValid) {
       errors.messageError = messageValidation.error;
       isValid = false;
     }
-    
+
     return { isValid, errors };
   }
   // User name validation
@@ -170,7 +188,7 @@ class ValidationService {
       return { isValid: false, error: 'Please provide a valid email address' };
     }
 
-    return { isValid: true };
+    return { isValid: true, error: null };
   }
 
   // Validate exits email

@@ -22,7 +22,7 @@
   /* ============================
      🌗 Backgrounds & Surfaces
      ============================ */
-  --bg: oklch(0.92 0 0); /* background */
+  --bg: oklch(0.92 0 0);
   --bg-card: oklch(0.99 0 0);
   --bg-popover: oklch(0 0 0 / 5%);
   --bg-muted: oklch(0.95 0 0);
@@ -33,7 +33,7 @@
   /* ============================
      🖋️ Typography
      ============================ */
-  --fg: oklch(0.14 0 0); /* foreground */
+  --fg: oklch(0.14 0 0);
   --fg-muted: oklch(0.556 0 0);
   --fg-inverse: oklch(0.985 0 0);
 
@@ -85,7 +85,7 @@
   --font-brand: 'Play', sans-serif;
 
   /* ============================
-     🔠 Font Sizes (Semantic + Clamp)
+     🔠 Font Sizes
      ============================ */
   --font-xs: clamp(0.75rem, 0.8vw, 0.875rem);
   --font-sm: clamp(0.875rem, 1vw, 1rem);

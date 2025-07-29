@@ -1,10 +1,28 @@
+import MarkdownIt from 'markdown-it';
 import sanitize from 'sanitize-html';
 import striptags from 'striptags';
+import TurndownService from 'turndown';
 
 import userService from '../services/user.service.js';
 import tagService from '../services/tag.service.js';
 import { cloudinary } from '../utils/cloudinary.utils.js';
 import handleError from '../utils/handleError.utils.js';
+
+// Initialize markdown-it
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  breaks: true,
+  xhtmlOut: true,
+  langPrefix: 'language-',
+}).enable(['image']);
+
+// Initialize turndown
+const turndownService = new TurndownService({
+  headingStyle: 'atx',
+  codeBlockStyle: 'fenced',
+});
 
 /**
  * User Profile
@@ -330,8 +348,11 @@ export async function addABlog(req, res) {
   const author = req.user.username;
 
   try {
-    // Senitize blog descriptions
-    const sanitizeContent = sanitize(addPostTextArea, {
+    // Convert markdown to HTML
+    const htmlContent = md.render(addPostTextArea);
+
+    // Sanitize blog descriptions
+    const sanitizeContent = sanitize(htmlContent, {
       allowedTags: [
         'h1',
         'h2',
@@ -364,10 +385,20 @@ export async function addABlog(req, res) {
         'td',
         'pre',
         'img',
+        'video',
+        'audio',
+        'source',
+        'span',
       ],
       allowedAttributes: {
         a: ['href', 'name', 'target'],
-        img: ['src', 'alt', 'width', 'height'],
+        img: ['src', 'alt', 'width', 'height', 'title'],
+        video: ['controls', 'width', 'height'],
+        audio: ['controls'],
+        source: ['src', 'type'],
+        pre: ['class'],
+        code: ['class'],
+        span: ['class'],
       },
       // Restrict URLs to http, https, mailto
       allowedSchemes: ['http', 'https', 'mailto'],
@@ -405,8 +436,8 @@ export async function addABlog(req, res) {
 
     // Create the blog with the image data
     await userService.createBlog(blogData);
-
     req.flash('success', 'Your post added successfully');
+
     return res.redirect('/users/dashboard');
   } catch (error) {
     req.flash('error', error.message);
@@ -433,12 +464,18 @@ export async function updateBlogPage(req, res) {
       return res.redirect('/users/dashboard');
     }
 
+    // Convert HTML to Markdown
+    const markdownContent = turndownService.turndown(blog.descriptions);
+
     const tags = await tagService.getAllTags();
 
     const bandle = {
       nonce,
       locals,
-      blog,
+      blog: {
+        ...blog.toObject(),
+        descriptions: markdownContent,
+      },
       tags,
       currentRoute: '/users/dashboard/edit',
       user: req.user,
@@ -473,10 +510,65 @@ export async function updateABlog(req, res) {
     // Ensure tags exist in Tag collection
     await tagService.addTagNames(tags);
 
+    // Convert markdown to HTML
+    const htmlContent = md.render(editPostTextArea);
+
+    // Sanitize blog descriptions
+    const sanitizeContent = sanitize(htmlContent, {
+      allowedTags: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'blockquote',
+        'p',
+        'a',
+        'ul',
+        'ol',
+        'nl',
+        'li',
+        'b',
+        'i',
+        'strong',
+        'em',
+        'strike',
+        'code',
+        'hr',
+        'br',
+        'div',
+        'table',
+        'thead',
+        'caption',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'pre',
+        'img',
+        'video',
+        'audio',
+        'source',
+        'span',
+      ],
+      allowedAttributes: {
+        a: ['href', 'name', 'target'],
+        img: ['src', 'alt', 'width', 'height', 'title'],
+        video: ['controls', 'width', 'height'],
+        audio: ['controls'],
+        source: ['src', 'type'],
+        pre: ['class'],
+        code: ['class'],
+        span: ['class'],
+      },
+      allowedSchemes: ['http', 'https', 'mailto'],
+    });
+
     // Create update data object
     const updateData = {
       title: editPostTitle,
-      descriptions: editPostTextArea,
+      descriptions: sanitizeContent,
       tags,
       ...rest,
     };

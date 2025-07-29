@@ -16,6 +16,7 @@ export default function helmetMiddleware(_req, res, next) {
           'https://kit.fontawesome.com',
           'https://cdn.jsdelivr.net',
           'https://cdn.tiny.cloud',
+          'https://unpkg.com',
         ],
         styleSrc: [
           "'self'",
@@ -24,11 +25,14 @@ export default function helmetMiddleware(_req, res, next) {
           'https://ka-f.fontawesome.com',
           'https://cdn.jsdelivr.net',
           'https://cdn.tiny.cloud',
+          'https://unpkg.com',
+          'https://maxcdn.bootstrapcdn.com',
         ],
         fontSrc: [
           "'self'",
           'https://fonts.gstatic.com',
           'https://ka-f.fontawesome.com',
+          'https://maxcdn.bootstrapcdn.com',
         ],
         imgSrc: [
           "'self'",
@@ -36,14 +40,16 @@ export default function helmetMiddleware(_req, res, next) {
           'https://sp.tinymce.com',
           'https://res.cloudinary.com',
           'https://cdn.tiny.cloud',
+          'https://unpkg.com',
         ],
         connectSrc: [
           "'self'",
           'https://ka-f.fontawesome.com',
           'https://cdn.jsdelivr.net',
           'https://cdn.tiny.cloud',
+          'https://unpkg.com',
         ],
-        frameSrc: ["'self'", 'https://cdn.tiny.cloud'],
+        frameSrc: ["'self'", 'https://cdn.tiny.cloud', 'https://unpkg.com'],
       },
     },
     hsts: {

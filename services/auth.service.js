@@ -69,7 +69,12 @@ class AuthService {
       await sgMail
         .send(msg)
         .then(() => {
-          console.log('Email sent');
+          const sendStatus = {
+            status: 200,
+            message: `Verification email sent to ${user.email}`,
+          };
+
+          return sendStatus;
         })
         .catch((error) => {
           console.error(error);
