@@ -15,7 +15,6 @@ export default function helmetMiddleware(_req, res, next) {
           (_req, res) => `'nonce-${res.locals.nonce}'`,
           'https://kit.fontawesome.com',
           'https://cdn.jsdelivr.net',
-          'https://cdn.tiny.cloud',
           'https://unpkg.com',
         ],
         styleSrc: [
@@ -24,7 +23,6 @@ export default function helmetMiddleware(_req, res, next) {
           'https://fonts.googleapis.com',
           'https://ka-f.fontawesome.com',
           'https://cdn.jsdelivr.net',
-          'https://cdn.tiny.cloud',
           'https://unpkg.com',
           'https://maxcdn.bootstrapcdn.com',
         ],
@@ -37,19 +35,16 @@ export default function helmetMiddleware(_req, res, next) {
         imgSrc: [
           "'self'",
           'data:',
-          'https://sp.tinymce.com',
           'https://res.cloudinary.com',
-          'https://cdn.tiny.cloud',
           'https://unpkg.com',
         ],
         connectSrc: [
           "'self'",
           'https://ka-f.fontawesome.com',
           'https://cdn.jsdelivr.net',
-          'https://cdn.tiny.cloud',
           'https://unpkg.com',
         ],
-        frameSrc: ["'self'", 'https://cdn.tiny.cloud', 'https://unpkg.com'],
+        frameSrc: ["'self'", 'https://unpkg.com'],
       },
     },
     hsts: {

@@ -47,7 +47,7 @@
 
         <!-- Preview box -->
         <div class="fluid image__preview--box">
-          <img id="addPostImagePreview" src="/icons/image.svg" alt="Cover Preview" />
+          <img class="image__preview" src="/icons/image.svg" alt="Preview of cover image" />
         </div>
 
         <!-- Submit -->
@@ -71,7 +71,8 @@
       <ul class="fluid">
         <li>Read our <a href="https://www.searchenginejournal.com/content-writing-tips-from-experts/477016/"
             target="_blank" rel="noopener noreferrer">blog writing tips</a> for inspiration.</li>
-        <li>Check the <a href="/help/formatting" target="_blank">formatting guide</a> for content styling.</li>
+        <li>Check the <a href="https://www.markdownguide.org/" target="_blank" rel="noopener noreferrer">formatting
+            guide</a> for content styling.</li>
         <li>Contact <a href="/contact" target="_blank">support</a> if you have any issues.</li>
       </ul>
     </div>
@@ -79,7 +80,5 @@
 </main>
 
 <%- include('../../partials/footer.ejs') %>
-  <script type="text/javascript" src="/javascripts/components/addPostTagify.js" nonce="<%= nonce %>"></script>
-  <script type="text/javascript" src="/javascripts/components/addPostLivePreview.js" nonce="<%= nonce %>"></script>
-  <!-- <script type="application/javascript" src="/javascripts/components/addPostTinymceConfig.js"
-    nonce="<%= nonce %>"></script> -->
+  <script type="text/javascript" src="/javascripts/components/tagify.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/imagePreview.js" nonce="<%= nonce %>"></script>

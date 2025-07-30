@@ -32,10 +32,25 @@
       <div class="fluid contents">
         <h5>Quick links</h5>
         <ul class="fluid footer-links">
-          <li><a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">About</a></li>
-          <li><a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">Contact</a></li>
-          <li><a href="/privacy" class="<%= activeRoute ? activeRoute('/privacy', path) : '' %>">Privacy Policy</a></li>
-          <li><a href="/terms" class="<%= activeRoute ? activeRoute('/terms', path) : '' %>">Terms of Service</a></li>
+          <li>
+            <a href="/explore" class="<%= activeRoute ? activeRoute('/explore', path) : '' %>">Explore</a>
+          </li>
+          <li>
+            <a href="/about" class="<%= activeRoute ? activeRoute('/about', path) : '' %>">About</a>
+          </li>
+          <li>
+            <a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">Contact</a>
+          </li>
+          <li>
+            <a href="/auth/sign-in" class="<%= activeRoute ? activeRoute('/auth/sign-in', path) : '' %>">Sign In</a>
+          </li>
+          <li>
+            <a href="/auth/sign-up" class="<%= activeRoute ? activeRoute('/auth/sign-up', path) : '' %>">Sign Up</a>
+          </li>
+          <li>
+            <a href="/users/dashboard/add"
+              class="<%= activeRoute ? activeRoute('/users/dashboard/add', path) : '' %>">Add Post</a>
+          </li>
         </ul>
       </div>
     </div>

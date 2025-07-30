@@ -38,8 +38,8 @@
               display.</small>
           </div>
 
-          <div class="fluid image__preview">
-            <img id="photoPreview" src="<%= user.photo?.url || '/images/user.png' %>" alt="Profile Preview">
+          <div class="fluid preview--wrapper">
+            <img class="image__preview" src="<%= user.photo?.url || '/images/user.png' %>" alt="Profile Preview">
           </div>
         </div>
 
@@ -143,4 +143,4 @@
 </main>
 
 <%- include('../../partials/footer.ejs') %>
-  <script type="text/javascript" src="/javascripts/components/profileImgLivePreview.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/imagePreview.js" nonce="<%= nonce %>"></script>

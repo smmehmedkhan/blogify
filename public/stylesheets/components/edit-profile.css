@@ -40,7 +40,7 @@
           gap: 0.25rem;
         }
 
-        & .image__preview {
+        & .preview--wrapper {
           width: 100%;
           & img {
             display: block;

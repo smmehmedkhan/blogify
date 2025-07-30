@@ -8,14 +8,15 @@
     gap: clamp(1rem, 2vw, 2.5rem);
     align-items: center;
 
-    & .partner__logo {
+    & .logo__wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
 
       & img {
-        max-width: 100%;
-        max-height: 60px;
+        width: 100px;
+        object-fit: fill;
+        background-position: center;
       }
     }
   }

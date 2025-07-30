@@ -51,9 +51,9 @@
 
         <div class="fluid image__preview--box">
           <% if (blog?.coverImage?.url) { %>
-            <img id="editPostImagePreview" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>">
+            <img class="image__preview" src="<%= blog.coverImage.url %>" alt="<%= blog.title %>">
             <% } else { %>
-              <img id="editPostImagePreview" src="/icons/image.svg" alt="Cover image preview" />
+              <img class="image__preview" src="/icons/image.svg" alt="Cover image preview" />
               <% } %>
         </div>
 
@@ -84,7 +84,8 @@
       <ul class="fluid">
         <li>Review our <a href="https://www.searchenginejournal.com/content-writing-tips-from-experts/477016/"
             target="_blank" rel="noopener noreferrer">editing tips</a> for best practices.</li>
-        <li>Check the <a href="/help/formatting" target="_blank">formatting guide</a> for content styling.</li>
+        <li>Check the <a href="https://www.markdownguide.org/" target="_blank" rel="noopener noreferrer">formatting
+            guide</a> for content styling.</li>
         <li>Contact <a href="/contact" target="_blank">support</a> if you have any issues.</li>
       </ul>
     </div>
@@ -92,8 +93,6 @@
 </main>
 
 <%- include('../../partials/footer.ejs') %>
-  <script type="text/javascript" src="/javascripts/components/editPostTagify.js" nonce="<%= nonce %>"></script>
-  <script type="text/javascript" src="/javascripts/components/editPostLivePreview.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/tagify.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/imagePreview.js" nonce="<%= nonce %>"></script>
   <script type="text/javascript" src="/javascripts/components/editPostDeleteBtn.js" nonce="<%= nonce %>"></script>
-  <!-- <script type="application/javascript" src="/javascripts/components/editPostTinymceConfig.js"
-    nonce="<%= nonce %>"></script> -->
