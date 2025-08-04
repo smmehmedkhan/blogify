@@ -63,7 +63,7 @@
             <i class="fa-solid fa-check"></i>
             <span>Update</span>
           </button>
-          <button type="button" class="inline__container delete__btn" id="deletePost" data-blog-id="<%= blog._id %>">
+          <button type="button" class="inline__container delete__btn delete__post" data-blog-id="<%= blog._id %>">
             <i class="fa-solid fa-trash"></i>
             <span>Delete</span>
           </button>
@@ -95,4 +95,4 @@
 <%- include('../../partials/footer.ejs') %>
   <script type="text/javascript" src="/javascripts/components/tagify.js" nonce="<%= nonce %>"></script>
   <script type="text/javascript" src="/javascripts/components/imagePreview.js" nonce="<%= nonce %>"></script>
-  <script type="text/javascript" src="/javascripts/components/editPostDeleteBtn.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/deletePost.js" nonce="<%= nonce %>"></script>

@@ -17,7 +17,6 @@ import sessionConfig from './config/session.js';
 import errorHandler from './middlewares/errorHandler.middleware.js';
 import authStatus from './middlewares/authStatus.middleware.js';
 import pathMiddleware from './middlewares/path.middleware.js';
-import toastMiddleware from './middlewares/toast.middleware.js';
 import { generateToken, verifyToken } from './middlewares/csrf.middleware.js';
 import helmetMiddleware from './middlewares/helmet.middleware.js';
 
@@ -40,6 +39,7 @@ import imageRouter from './routes/image.routes.js';
 import tagRoutes from './routes/tag.routes.js';
 import exploreRouter from './routes/explore.routes.js';
 import subscribeRouter from './routes/subscribe.routes.js';
+import toastRouter from './routes/toast.routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -69,9 +69,6 @@ app.use(nonceToken); // CSP nonce
 app.use(helmetMiddleware); // helmet
 app.use(generalApiLimiter); // General API rate limiter
 
-// Toast notifications
-app.use(toastMiddleware);
-
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -85,6 +82,7 @@ app.use(generateToken); // CSRF token generator
 
 // Public routes
 app.use('/', indexRouter);
+app.use('/api', toastRouter);
 app.use('/explore', exploreRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);

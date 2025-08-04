@@ -1,56 +1,80 @@
-async function setIcon(btn, path) {
-  const res = await fetch(path);
-  btn.innerHTML = await res.text();
-}
+class ThemeManager {
+  constructor() {
+    this.root = document.documentElement;
+    this.themeToggleButtons = document.querySelectorAll('.toggle-theme');
+    this.mainLogos = document.querySelectorAll('.logo');
+    this.partnerLogos = document.querySelectorAll('.brand__logo[data-partner]');
 
-function setLogo(logo, path) {
-  logo.src = path;
-}
+    this.icons = {
+      sun: '/icons/sun.svg',
+      moon: '/icons/moon.svg',
+    };
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const root = document.documentElement;
-  const toggleBtns = document.querySelectorAll('.toggle-theme');
-  const logos = document.querySelectorAll('.logo');
+    this.logos = {
+      light: '/images/blogify-logo-dark.png', // for light theme
+      dark: '/images/blogify-logo-light.png', // for dark theme
+    };
 
-  const sunIcon = '/icons/sun.svg';
-  const moonIcon = '/icons/moon.svg';
-  const lightLogo = '/images/blogify-logo-dark.png'; // used in light theme
-  const darkLogo = '/images/blogify-logo-light.png'; // used in dark theme
+    this.theme = this.getInitialTheme();
+    this.applyTheme(this.theme);
+    this.addEventListeners();
+  }
 
-  // Get stored theme or detect system preference
-  let savedTheme = localStorage.getItem('theme');
-  if (!savedTheme) {
-    savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  getInitialTheme() {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) return storedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light';
   }
 
-  // Apply saved/detected theme
-  root.setAttribute('data-theme', savedTheme);
-  const isDark = savedTheme === 'dark';
+  async setButtonIcon(button, theme) {
+    const iconPath = theme === 'dark' ? this.icons.sun : this.icons.moon;
+    const response = await fetch(iconPath);
+    button.innerHTML = await response.text();
+  }
 
-  toggleBtns.forEach(async (btn) => {
-    await setIcon(btn, isDark ? sunIcon : moonIcon);
-  });
+  setMainLogos(theme) {
+    const logoPath = this.logos[theme];
+    this.mainLogos.forEach((logo) => {
+      logo.src = logoPath;
+    });
+  }
 
-  logos.forEach((logo) => {
-    setLogo(logo, isDark ? darkLogo : lightLogo);
-  });
+  setPartnerLogos(theme) {
+    const partnerLogoTheme = theme === 'dark' ? 'light' : 'dark';
+    this.partnerLogos.forEach((logo) => {
+      const partner = logo.getAttribute('data-partner');
+      logo.src = `/icons/partners/${partner}-${partnerLogoTheme}.svg`;
+    });
+  }
 
-  // Toggle theme on button click
-  toggleBtns.forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const currentTheme = root.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+  async applyTheme(theme) {
+    this.root.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
 
-      const isNowDark = newTheme === 'dark';
-      await setIcon(btn, isNowDark ? sunIcon : moonIcon);
+    // Set icons for all toggle buttons
+    await Promise.all(
+      Array.from(this.themeToggleButtons).map((btn) =>
+        this.setButtonIcon(btn, theme),
+      ),
+    );
 
-      logos.forEach((logo) => {
-        setLogo(logo, isNowDark ? darkLogo : lightLogo);
+    this.setMainLogos(theme);
+    this.setPartnerLogos(theme);
+  }
+
+  addEventListeners() {
+    this.themeToggleButtons.forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const currentTheme = this.root.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        await this.applyTheme(newTheme);
       });
     });
-  });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new ThemeManager();
 });

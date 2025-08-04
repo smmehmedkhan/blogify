@@ -1,38 +1,46 @@
 .partners {
   background-color: var(--bg-blue);
 
-  & .partners__grid {
+  & .logo__wrapper {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: clamp(1rem, 2vw, 2.5rem);
+    display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 2.2vw, 2.5rem);
 
-    & .logo__wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    & .logo__container {
+      max-width: 10rem;
+      border: none;
+      position: relative;
+      transition: opacity 250ms ease;
 
       & img {
-        width: 100px;
+        width: 100%;
         object-fit: fill;
         background-position: center;
+      }
+
+      &:hover {
+        opacity: 0.75;
       }
     }
   }
 }
 
-@media screen and (max-width: 768px) {
-  .partners .partners__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .partners .partners__grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
+.brand__logo[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-sm);
+  padding: 0.5rem;
+  border: var(--border);
+  border-radius: var(--radius);
+  color: var(--fg-inverse);
+  background-color: var(--color-primary);
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
 }

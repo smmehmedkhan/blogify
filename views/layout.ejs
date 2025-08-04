@@ -33,11 +33,11 @@
 <body>
   <%- include('./partials/navbar.ejs') %>
     <%- body %>
-      <%- include('./components/toast.ejs') %>
-        <script src="/javascripts/navigation/theme.js" nonce="<%= nonce %>"></script>
-        <script src="/javascripts/components/masonry.js" nonce="<%= nonce %>"></script>
-        <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
-        <script src="/javascripts/components/easyMDEConfig.js"></script>
+      <script src="/javascripts/navigation/theme.js" nonce="<%= nonce %>"></script>
+      <script src="/javascripts/components/toastHandler.js" nonce="<%= nonce %>"></script>
+      <script src="/javascripts/components/masonry.js" nonce="<%= nonce %>"></script>
+      <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+      <script src="/javascripts/components/easyMDEConfig.js"></script>
 </body>
 
 </html>
