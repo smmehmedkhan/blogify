@@ -4,17 +4,28 @@ class BlogService {
   /**
    * Get blogs with pagination
    */
-  async getBlogs(page = 1, limit = 12) {
+  async getBlogs(page = 1, limit = 12, search = '') {
+    const query = {};
+
+    // Apply search if provided
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { descriptions: { $regex: search, $options: 'i' } },
+      ];
+    }
+
     const totalBlogs = await Blog.countDocuments();
     const totalPages = Math.ceil(totalBlogs / limit);
     const currentPage = Math.min(Math.max(1, page), totalPages || 1);
     const skipValue = (currentPage - 1) * limit;
 
-    const blogs = await Blog.aggregate([
-      { $sort: { createdAt: -1 } },
-      { $skip: skipValue },
-      { $limit: limit },
-    ]).exec();
+    const blogs = await Blog.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skipValue)
+      .limit(limit)
+      .populate('userId', 'username')
+      .lean();
 
     return {
       blogs,
@@ -35,7 +46,7 @@ class BlogService {
   async getBlogById(id) {
     return await Blog.findById(id).populate('userId', 'username');
   }
-  
+
   /**
    * Get blogs with advanced filtering, sorting, and pagination
    */

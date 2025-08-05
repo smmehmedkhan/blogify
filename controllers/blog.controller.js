@@ -9,8 +9,9 @@ import commentService from '../services/comment.service.js';
  */
 export async function findBlogs(req, res) {
   const nonce = res.locals.nonce;
-  const blogPerPage = 12;
-  const pageNumber = parseInt(req.query.page) || 1;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 12;
+  const search = req.query.search || '';
   const locals = {
     title: 'Blogify',
     description:
@@ -19,8 +20,9 @@ export async function findBlogs(req, res) {
 
   try {
     const { blogs, pagination } = await blogService.getBlogs(
-      pageNumber,
-      blogPerPage,
+      page,
+      limit,
+      search,
     );
 
     // Strip HTML from descriptions
@@ -29,7 +31,7 @@ export async function findBlogs(req, res) {
       descriptions: striptags(blog.descriptions),
     }));
 
-    if (blogs.length === 0 && pageNumber === 1) {
+    if (blogs.length === 0 && page === 1) {
       const bundle = {
         nonce,
         locals,
