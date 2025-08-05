@@ -7,7 +7,7 @@ class EasyMDEConfig {
   static CONSTANTS = {
     MAX_FILE_SIZE: 100 * 1024 * 1024, // 100 MB
     READING_SPEED: 200, // Words per minute
-    UPLOAD_ENDPOINT: '/api/images/upload', // Changed to media endpoint
+    UPLOAD_ENDPOINT: '/api/media/upload', // Changed to media endpoint
     SUPPORTED_MEDIA_TYPES: {
       image: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
       video: ['video/mp4', 'video/webm', 'video/ogg'],
@@ -249,11 +249,7 @@ class EasyMDEConfig {
   uploadMedia(file) {
     if (!this.validateFile(file)) return;
 
-    Toastify({
-      text: 'Uploading media...',
-      duration: 3000,
-      backgroundColor: '#2196F3',
-    }).showToast();
+    window.toast.show('info', 'File upload in progress...');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -265,27 +261,20 @@ class EasyMDEConfig {
     })
       .then((response) => {
         if (!response.ok) throw new Error(`Upload failed: ${response.status}`);
+        console.log(response);
         return response.json();
       })
       .then((data) => {
         if (data.location) {
           this.insertMediaMarkdown(data.location, file);
-          Toastify({
-            text: 'Media uploaded successfully',
-            duration: 3000,
-            backgroundColor: '#4CAF50',
-          }).showToast();
+          window.toast.show('success', 'File uploaded successfully!');
         } else {
           throw new Error('Invalid server response');
         }
       })
       .catch((error) => {
         console.error('Media upload error:', error);
-        Toastify({
-          text: `Upload failed: ${error.message}`,
-          duration: 3000,
-          backgroundColor: '#f44336',
-        }).showToast();
+        window.toast.show('error', 'Media upload failed.');
       });
   }
 
@@ -294,29 +283,17 @@ class EasyMDEConfig {
    */
   validateFile(file) {
     if (!file) {
-      Toastify({
-        text: 'Please select at least one media file',
-        duration: 3000,
-        backgroundColor: '#f44336',
-      }).showToast();
+      window.toast.show('warning', 'Please select at least one media file');
       return false;
     }
 
     if (file.size > EasyMDEConfig.CONSTANTS.MAX_FILE_SIZE) {
-      Toastify({
-        text: 'File size must be less than 100MB',
-        duration: 3000,
-        backgroundColor: '#f44336',
-      }).showToast();
+      window.toast.show('warning', 'File size must be less than 100MB');
       return false;
     }
 
     if (!this.isMediaFile(file)) {
-      Toastify({
-        text: 'Unsupported file type',
-        duration: 3000,
-        backgroundColor: '#f44336',
-      }).showToast();
+      window.toast.show('warning', 'File type is not supported');
       return false;
     }
 
@@ -352,11 +329,7 @@ class EasyMDEConfig {
    */
   saveDraft(editor) {
     localStorage.setItem(`draft_${window.location.pathname}`, editor.value());
-    Toastify({
-      text: 'Draft saved locally',
-      duration: 3000,
-      backgroundColor: '#4CAF50',
-    }).showToast();
+    window.toast.show('info', 'Post saved locally as a draft.');
   }
 
   /**
@@ -366,12 +339,7 @@ class EasyMDEConfig {
     const text = editor.value();
     const words = text.split(/\s+/).filter((word) => word.length > 0).length;
     const chars = text.length;
-
-    Toastify({
-      text: `Words: ${words} | Characters: ${chars}`,
-      duration: 3000,
-      backgroundColor: '#2196F3',
-    }).showToast();
+    window.toast.show('info', `Words: ${words}, Characters: ${chars}`);
   }
 }
 

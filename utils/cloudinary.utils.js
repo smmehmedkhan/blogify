@@ -17,10 +17,31 @@ cloudinary.config(options);
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: 'blogify', // optional folder in Cloudinary
-    allowed_formats: ['jpg', 'png', 'jpeg'],
-    transformation: [{ width: 800, height: 600, crop: 'limit' }],
+  params: (req, file) => {
+    let folder = 'blogify/image';
+    let allowedFormats = ['jpg', 'png', 'jpeg', 'webp', 'gif'];
+    let transformation = [{ width: 800, height: 600, crop: 'limit' }];
+
+    if (file.mimetype.startsWith('video/')) {
+      folder = 'blogify/video';
+      allowedFormats = ['mp4', 'webm', 'ogg'];
+      transformation = [{ width: 1280, height: 720, crop: 'limit' }];
+    } else if (file.mimetype.startsWith('audio/')) {
+      folder = 'blogify/audio';
+      allowedFormats = ['mp3', 'wav', 'ogg'];
+      transformation = undefined;
+    }
+
+    return {
+      folder,
+      allowed_formats: allowedFormats,
+      transformation,
+      resource_type: file.mimetype.startsWith('video/')
+        ? 'video'
+        : file.mimetype.startsWith('audio/')
+          ? 'video'
+          : 'image',
+    };
   },
 });
 

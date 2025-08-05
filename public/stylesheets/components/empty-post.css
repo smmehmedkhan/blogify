@@ -1,10 +1,12 @@
-.empty_post {
+.empty__post-wrapper {
   width: 100%;
   height: inherit;
-  padding: clamp(1rem, 1.2vw, 1.5rem);
+  padding-block: clamp(1rem, 1.2vw, 1.5rem);
+  border-block: var(--border);
   justify-content: center;
-  & .card-empty_post {
+  & .empty__post {
     max-width: 480px;
+    background-color: var(--bg-card);
     & i {
       font-size: var(--font-3xl);
     }
@@ -15,7 +17,7 @@
   & p {
     color: var(--fg-muted);
   }
-  & .btn-empty_post {
+  & .empty__post-btn {
     margin-inline: auto;
     color: var(--fg-inverse);
     background-color: var(--color-primary);

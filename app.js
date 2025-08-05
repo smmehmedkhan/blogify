@@ -35,7 +35,7 @@ import searchRouter from './routes/search.routes.js';
 import aboutRouter from './routes/about.routes.js';
 import contactRouter from './routes/contact.routes.js';
 import blogRouter from './routes/blog.routes.js';
-import imageRouter from './routes/image.routes.js';
+import mediaRouter from './routes/media.routes.js';
 import tagRoutes from './routes/tag.routes.js';
 import exploreRouter from './routes/explore.routes.js';
 import subscribeRouter from './routes/subscribe.routes.js';
@@ -93,7 +93,7 @@ app.use('/auth', verifyToken, authRouter);
 app.use('/users', usersRouter);
 app.use('/search', verifyToken, searchRouter);
 app.use('/blog', verifyToken, blogRouter);
-app.use('/api/images', imageRouter);
+app.use('/api/media', mediaRouter);
 app.use('/api/tags', tagRoutes);
 
 // Error handler

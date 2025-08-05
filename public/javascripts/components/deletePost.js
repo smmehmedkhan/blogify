@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         )
       ) {
         try {
+          // Send delete post request to the server
           const res = await fetch(`/users/dashboard/delete/${blogId}`, {
             method: 'DELETE',
             headers: {
@@ -20,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
           });
           const data = await res.json();
           if (res.ok && data.success) {
-            // Remove the blog card from the DOM
-            const postElem = btn.closest('.post');
-            if (postElem) postElem.remove();
-            // Show toast
             window.toast.show('success', 'Post deleted successfully!');
+            if (window.location.pathname.includes('/edit/')) {
+              window.location.href = '/users/dashboard';
+            } else {
+              const postElem = btn.closest('li');
+              if (postElem) postElem.remove();
+            }
           } else {
             window.toast.show(
               'error',

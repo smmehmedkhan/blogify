@@ -11,19 +11,39 @@ class ToastManager {
     this.styles = {
       success: {
         background: 'var(--color-success)',
-        color: 'var(--fg-inverse)',
+        color: 'black',
+        maxWidth: '400px',
+        borderRadius: 'var(--radius)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 'var(--font-sm)',
+        boxShadow: 'var(--shadow-md)',
       },
       error: {
         background: 'var(--color-error)',
-        color: 'var(--fg-inverse)',
+        color: 'black',
+        maxWidth: '400px',
+        borderRadius: 'var(--radius)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 'var(--font-sm)',
+        boxShadow: 'var(--shadow-md)',
       },
       warning: {
         background: 'var(--color-warning)',
-        color: 'var(--fg-inverse)',
+        color: 'black',
+        maxWidth: '400px',
+        borderRadius: 'var(--radius)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 'var(--font-sm)',
+        boxShadow: 'var(--shadow-md)',
       },
       info: {
         background: 'var(--color-info)',
-        color: 'var(--fg-inverse)',
+        color: 'black',
+        maxWidth: '400px',
+        borderRadius: 'var(--radius)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: 'var(--font-sm)',
+        boxShadow: 'var(--shadow-md)',
       },
     };
   }

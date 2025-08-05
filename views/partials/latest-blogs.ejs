@@ -5,10 +5,11 @@
     <%- include('../components/search.ejs') %>
   </div>
 
-  <ul class="blogs__grid">
-    <% if (blogs.length===0) { %>
-      <%- include('../components/empty-post.ejs') %>
-        <% } %>
+
+  <% if (blogs.length===0) { %>
+    <%- include('../components/empty-post.ejs') %>
+      <% } else { %>
+        <ul class="blogs__grid">
           <% blogs?.forEach(blog=> { %>
             <li>
               <a href="/blog/<%= blog._id %>">
@@ -16,6 +17,9 @@
               </a>
             </li>
             <% }) %>
-  </ul>
-  <%- include('../components/pagination.ejs')%>
+        </ul>
+        <%- include('../components/pagination.ejs')%>
+          <% } %>
+
+
 </section>

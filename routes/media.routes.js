@@ -5,8 +5,8 @@ import { imageUploadLimiter } from '../utils/rateLimit.utils.js';
 import upload from '../middlewares/upload.middleware.js';
 import { uploadImage } from '../controllers/image.controller.js';
 
-const imageRouter = express.Router();
-imageRouter.post(
+const mediaRouter = express.Router();
+mediaRouter.post(
   '/upload',
   auth,
   imageUploadLimiter,
@@ -14,4 +14,4 @@ imageRouter.post(
   uploadImage,
 );
 
-export default imageRouter;
+export default mediaRouter;
