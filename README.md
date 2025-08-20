@@ -1,11 +1,11 @@
 # Blogify
 
-🚀 **Blogify** is a feature-rich, production-ready blogging platform that empowers writers and content creators to share their stories with the world. Built with modern web technologies and following industry best practices, Blogify offers a seamless writing experience with powerful content management capabilities.
+🚀 **Blogify** is a feature-rich blogging platform that empowers writers and content creators to share their stories with the world. Built with modern web technologies and following industry best practices, Blogify offers a seamless writing experience with powerful content management capabilities.
 
 ✨ **Why Blogify?**
 
 - **Professional Grade**: Enterprise-level security, performance optimization, and scalability
-- **Writer-Focused**: Intuitive interface with rich text editing, live preview, and seamless image management
+- **Writer-Focused**: Intuitive interface with Markdown editing, live preview, and seamless media management
 - **Community-Driven**: Built-in social features including comments, likes, follows, and content discovery
 - **Developer-Friendly**: Clean MVC architecture, comprehensive API, and extensive customization options
 - **SEO Optimized**: Built-in SEO features, meta tags, and search engine friendly URLs
@@ -24,12 +24,26 @@
 
 ### 📝 Content Management
 
-- **Rich Text Editor**: TinyMCE integration with live preview and formatting options
-- **Image Management**: Cloudinary integration for optimized image upload and storage
+- **Markdown Editor**: EasyMDE with live preview, syntax highlighting, and drag & drop support
+- **Multi-Media Support**: Images, videos, and audio files with Cloudinary integration
 - **Tag System**: Dynamic tagging with autocomplete and tag management
-- **Draft System**: Save drafts and publish when ready
+- **Draft System**: Auto-save drafts with localStorage backup
 - **Content Sanitization**: HTML sanitization to prevent XSS attacks
 - **SEO Optimization**: Meta tags, slugs, and search engine friendly URLs
+
+### 📧 Newsletter & Subscription
+
+- **Email Subscription**: Newsletter signup with validation
+- **Welcome Emails**: Automated SendGrid email templates
+- **Subscriber Management**: Backend subscriber database
+- **Email Templates**: Responsive HTML email design
+
+### 🔍 Enhanced Content Discovery
+
+- **Explore Page**: Dedicated content discovery with advanced filtering
+- **Multi-criteria Search**: Filter by tags, date, popularity, and keywords
+- **Dynamic Pagination**: Efficient content browsing
+- **Tag-based Discovery**: Browse content by categories
 
 ### 👥 User Experience
 
@@ -52,7 +66,7 @@
 
 ## Project Structure
 
-```
+```text
 blogify/
 ├── app.js                  # Application configuration and middleware setup
 ├── server.js               # Server entry point and database connection
@@ -68,6 +82,9 @@ blogify/
 ├── ROADMAP.md              # Project roadmap
 ├── combined.log            # Application logs
 ├── error.log               # Error logs
+├── Dockerfile              # Docker containerization
+├── ci-cd.yml               # CI/CD pipeline configuration
+└── .dockerignore           # Docker ignore rules
 │
 ├── config/                 # Configuration files
 │   ├── db.js               # MongoDB database configuration
@@ -79,8 +96,10 @@ blogify/
 │   ├── blog.controller.js  # Blog post management controller
 │   ├── comment.controller.js # Comment system controller
 │   ├── contact.controller.js # Contact form controller
+│   ├── explore.controller.js # Content discovery controller
 │   ├── image.controller.js # Image upload controller
 │   ├── search.controller.js # Search functionality controller
+│   ├── subscribe.controller.js # Newsletter subscription controller
 │   ├── tag.controller.js   # Tag management controller
 │   └── user.controller.js  # User management controller
 │
@@ -88,6 +107,7 @@ blogify/
 │   ├── blog.model.js       # Blog post schema
 │   ├── comment.model.js    # Comment schema
 │   ├── contact.model.js    # Contact message schema
+│   ├── subscriber.model.js # Newsletter subscriber schema
 │   ├── tag.model.js        # Tag schema
 │   └── user.model.js       # User schema
 │
@@ -96,10 +116,14 @@ blogify/
 │   ├── auth.routes.js      # Authentication routes
 │   ├── blog.routes.js      # Blog interaction routes
 │   ├── contact.routes.js   # Contact page routes
+│   ├── explore.routes.js   # Content discovery routes
 │   ├── image.routes.js     # Image upload API routes
 │   ├── index.routes.js     # Home page routes
+│   ├── media.routes.js     # Media upload API routes
 │   ├── search.routes.js    # Search functionality routes
+│   ├── subscribe.routes.js  # Newsletter subscription routes
 │   ├── tag.routes.js       # Tag API routes
+│   ├── toast.routes.js     # Toast notification API
 │   └── users.routes.js     # User management routes
 │
 ├── services/               # Business logic layer
@@ -108,6 +132,7 @@ blogify/
 │   ├── comment.service.js  # Comment services
 │   ├── contact.service.js  # Contact form services
 │   ├── search.service.js   # Search services
+│   ├── subscribe.service.js # Newsletter and email services
 │   ├── tag.service.js      # Tag management services
 │   ├── user.service.js     # User management services
 │   └── validation.service.js # Input validation services
@@ -121,6 +146,7 @@ blogify/
 │   ├── errorLogger.middleware.js # Error logging middleware
 │   ├── helmet.middleware.js # Security headers middleware
 │   ├── path.middleware.js  # Path handling middleware
+│   ├── sessionManager.middleware.js # Session management middleware
 │   ├── signInChecker.middleware.js # Sign-in verification
 │   ├── toast.middleware.js # Flash message handling
 │   └── upload.middleware.js # File upload handling
@@ -130,8 +156,8 @@ blogify/
 │   ├── createToken.utils.js # JWT token creation
 │   ├── handleError.utils.js # Error handling utilities
 │   ├── logger.js           # Winston logger configuration
-│   ├── loginLimiter.utils.js # Rate limiting for login attempts
-│   └── nonce.utils.js      # CSP nonce generation
+│   ├── nonce.utils.js      # CSP nonce generation
+│   └── rateLimit.utils.js  # Rate limiting utilities
 │
 ├── helpers/                # View helpers
 │   └── routes.helper.js    # Active route helper for navigation
@@ -164,17 +190,19 @@ blogify/
 │   │   │   ├── signUpValidator.js # Sign-up form validation
 │   │   │   └── verification.js # Email verification handling
 │   │   ├── components/     # UI component scripts
-│   │   │   ├── addPostLivePreview.js # Live preview for new posts
-│   │   │   ├── addPostTagify.js # Tag input for new posts
-│   │   │   ├── addPostTinymceConfig.js # TinyMCE config for new posts
 │   │   │   ├── blogInteractions.js # Like/dislike functionality
 │   │   │   ├── comments.js # Comment system
 │   │   │   ├── deletePost.js # Post deletion
-│   │   │   ├── editPost*.js # Post editing functionality
+│   │   │   ├── easyMDEConfig.js # EasyMDE configuration
+│   │   │   ├── exploreInteractions.js # Explore page interactions
 │   │   │   ├── followHandler.js # User follow system
-│   │   │   ├── profileImgLivePreview.js # Profile image preview
+│   │   │   ├── imagePreview.js # Image preview functionality
+│   │   │   ├── masonry.js  # Masonry layout
 │   │   │   ├── searchHandler.js # Search functionality
-│   │   │   └── tinymceLoader.js # TinyMCE initialization
+│   │   │   ├── stats-counter.js # Statistics counter
+│   │   │   ├── tagify.js    # Tag input component
+│   │   │   ├── testimonial-slider.js # Testimonial carousel
+│   │   │   └── toastHandler.js # Toast notifications
 │   │   └── navigation/     # Navigation scripts
 │   │       ├── navbarDisappear.js # Auto-hide navbar
 │   │       ├── theme.js    # Dark/light theme toggle
@@ -192,6 +220,7 @@ blogify/
 │       │   ├── contact.css # Contact page styles
 │       │   ├── dash-banner.css # Dashboard banner styles
 │       │   ├── dashboard.css # Dashboard styles
+│       │   ├── easymde-theme.css # EasyMDE custom theme
 │       │   ├── edit-profile.css # Profile editing styles
 │       │   ├── empty-post.css # Empty state styles
 │       │   ├── footer.css  # Footer styles
@@ -211,6 +240,7 @@ blogify/
     ├── components/         # Reusable UI components
     │   ├── auth-buttons.ejs # Authentication buttons
     │   ├── back-btn.ejs    # Back button component
+    │   ├── blog-card.ejs   # Reusable blog card component
     │   ├── brand-logo.ejs  # Brand logo component
     │   ├── comments.ejs    # Comments component
     │   ├── empty-post.ejs  # Empty state component
@@ -235,23 +265,30 @@ blogify/
     │   ├── blog.ejs        # Individual blog post page
     │   ├── contact.ejs     # Contact page
     │   ├── error.ejs       # Error page template
+    │   ├── explore.ejs     # Content discovery page
     │   └── index.ejs       # Home page
     └── partials/           # Reusable template parts
         ├── banner.ejs      # Page banner partial
+        ├── call-to-action.ejs # CTA component
         ├── dash-banner.ejs # Dashboard banner partial
         ├── footer.ejs      # Footer partial
         ├── hero-image.ejs  # Hero section partial
         ├── latest-blogs.ejs # Latest blogs partial
         ├── navbar.ejs      # Navigation partial
-        └── search-results.ejs # Search results partial
+        ├── partners.ejs    # Partner logos
+        ├── platform-features.ejs # Feature highlights
+        ├── platform-stats.ejs # Statistics display
+        ├── search-results.ejs # Search results partial
+        └── testimonials.ejs # User testimonials
 ```
 
 ## Getting Started
 
 1. Clone the repository
 2. Install dependencies: `npm install` or `pnpm install`
-3. Create a `.env` file with the following variables:
-   ```
+3. Create a `.env` file with the required variables:
+
+   ```env
    NODE_ENV=development
    PORT=3000
    APP_URL=http://localhost:3000
@@ -261,85 +298,14 @@ blogify/
    EMAIL_USERNAME=your_email_username
    EMAIL_FROM=your_email_address
    EMAIL_PASSWORD=your_email_password
+   SENDGRID_API_KEY=your_sendgrid_api_key
    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
    CLOUDINARY_API_KEY=your_cloudinary_api_key
    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
    ```
+
 4. Start the development server: `npm run dev` or `pnpm dev`
 5. Visit `http://localhost:3000` in your browser
-
-## Architecture
-
-Blogify follows a **layered MVC architecture** with additional service and middleware layers for better separation of concerns and maintainability.
-
-### Core Architecture Layers
-
-#### 🎯 **Models (Data Layer)**
-
-- **Mongoose Schemas**: Define data structure and validation rules
-- **Database Interactions**: Handle CRUD operations and complex queries
-- **Data Relationships**: Manage references between users, blogs, comments, and tags
-- **Indexing**: Optimized database indexes for search and performance
-
-#### 🎨 **Views (Presentation Layer)**
-
-- **EJS Templates**: Server-side rendering with dynamic content
-- **Layout System**: Consistent page structure with express-ejs-layouts
-- **Component Architecture**: Reusable UI components and partials
-- **Responsive Design**: Mobile-first CSS with theme support
-
-#### 🎮 **Controllers (Request Layer)**
-
-- **Request Handling**: Process HTTP requests and coordinate responses
-- **Input Validation**: Validate and sanitize user input
-- **Error Handling**: Graceful error management and user feedback
-- **Response Formatting**: Structure data for views and API responses
-
-#### ⚙️ **Services (Business Logic Layer)**
-
-- **Core Business Logic**: Isolated business rules and operations
-- **Data Processing**: Complex data manipulation and calculations
-- **External Integrations**: Third-party service interactions (Cloudinary, SendGrid)
-- **Reusable Functions**: Shared functionality across controllers
-
-### Supporting Architecture Layers
-
-#### 🛣️ **Routes (Routing Layer)**
-
-- **Endpoint Definition**: RESTful API and web route definitions
-- **Middleware Integration**: Route-specific middleware application
-- **Parameter Handling**: URL parameters and query string processing
-- **Route Protection**: Authentication and authorization guards
-
-#### 🔧 **Middlewares (Processing Layer)**
-
-- **Authentication**: JWT token validation and user session management
-- **Security**: CSRF protection, rate limiting, and security headers
-- **Logging**: Request/response logging and error tracking
-- **Data Processing**: File uploads, input parsing, and validation
-
-#### 🛠️ **Utils & Helpers (Utility Layer)**
-
-- **Common Functions**: Shared utility functions and helpers
-- **Configuration**: Environment and application configuration
-- **External Services**: API clients and service integrations
-- **View Helpers**: Template helper functions for dynamic content
-
-### Design Patterns
-
-- **Dependency Injection**: Service layer dependency management
-- **Factory Pattern**: Database connection and configuration factories
-- **Middleware Pattern**: Request/response processing pipeline
-- **Observer Pattern**: Event-driven architecture for notifications
-- **Repository Pattern**: Data access abstraction through services
-
-### Security Architecture
-
-- **Multi-layer Security**: Authentication, authorization, and input validation
-- **CSRF Protection**: Token-based cross-site request forgery prevention
-- **Rate Limiting**: API and login attempt protection
-- **Content Security Policy**: XSS prevention with CSP headers
-- **Session Security**: Secure session management with MongoDB store
 
 ## Technologies Used
 
@@ -394,7 +360,9 @@ Blogify follows a **layered MVC architecture** with additional service and middl
 
 ### Content Processing
 
-- **TinyMCE**: Rich text editor integration
+- **EasyMDE**: Advanced Markdown editor with live preview
+- **Markdown-it**: Markdown parsing and rendering
+- **Turndown**: HTML to Markdown conversion
 - **sanitize-html**: HTML sanitization
 - **striptags**: HTML tag removal
 - **slugify**: URL-friendly string generation
@@ -419,127 +387,33 @@ Blogify follows a **layered MVC architecture** with additional service and middl
 - **Tagify**: Tag input component
 - **Debug**: Debugging utility
 
-## Features in Detail
+## API Endpoints
 
-### 🔐 Authentication & User Management
+### Media Upload
 
-**Secure Authentication System**
+- `POST /api/media/upload` - Upload images, videos, or audio files
 
-- Multi-factor authentication with email verification
-- JWT tokens with HTTP-only cookies for enhanced security
-- bcrypt password hashing with salt rounds
-- Rate-limited login attempts to prevent brute force attacks
-- Secure password reset with time-limited tokens
-- Session management with MongoDB store
+### Newsletter
 
-**User Profiles & Management**
+- `POST /subscribe` - Subscribe to newsletter
 
-- Customizable user profiles with bio and social links
-- Profile picture upload with Cloudinary optimization
-- User dashboard for content and account management
-- Follow/unfollow system for user connections
-- Account verification status and email management
+### Toast Notifications
 
-### 📝 Content Creation & Management
+- `GET /api/toast` - Get flash messages
 
-**Rich Text Editor**
+### Content Discovery
 
-- TinyMCE integration with custom toolbar
-- Live preview functionality during content creation
-- HTML sanitization to prevent XSS attacks
-- Auto-save drafts to prevent content loss
-- Image insertion with drag-and-drop support
+- `GET /explore` - Browse and filter blog posts with advanced options
 
-**Advanced Blog Features**
+## Docker Deployment
 
-- Dynamic tagging system with autocomplete
-- SEO-friendly URLs with automatic slug generation
-- Meta description and keyword management
-- Content categorization and organization
-- Scheduled publishing capabilities
-- Blog post analytics and view tracking
+```bash
+# Build the Docker image
+docker build -t blogify .
 
-**Media Management**
-
-- Cloudinary integration for optimized image storage
-- Automatic image compression and format optimization
-- Multiple image format support (JPEG, PNG, WebP)
-- Image transformation and resizing
-- CDN delivery for fast global access
-
-### 👥 Social & Community Features
-
-**Interaction System**
-
-- Like and dislike functionality with real-time updates
-- Comprehensive commenting system with nested replies
-- Comment moderation and management tools
-- Social sharing with platform-specific optimization
-- Share count tracking and analytics
-
-**Discovery & Engagement**
-
-- Advanced search with full-text indexing
-- Tag-based content discovery
-- User-based content recommendations
-- Trending posts and popular content
-- Recent activity feeds
-
-### 🔍 Search & Navigation
-
-**Powerful Search Engine**
-
-- Full-text search across all blog content
-- Advanced filtering by tags, authors, and dates
-- Search result highlighting and relevance scoring
-- Pagination with infinite scroll option
-- Search analytics and popular queries
-
-**Navigation & UX**
-
-- Responsive navigation with mobile-first design
-- Breadcrumb navigation for better user orientation
-- Auto-hiding navbar for immersive reading
-- Dark/light theme toggle with system preference detection
-- Keyboard shortcuts for power users
-
-### 🛡️ Security & Performance
-
-**Security Measures**
-
-- CSRF protection with token validation
-- Content Security Policy (CSP) headers
-- Rate limiting for API endpoints
-- Input validation and sanitization
-- SQL injection prevention through ODM
-- XSS protection with HTML sanitization
-
-**Performance Optimization**
-
-- Database query optimization with indexing
-- Image lazy loading and optimization
-- CSS and JavaScript minification
-- Gzip compression for faster loading
-- CDN integration for static assets
-- Caching strategies for improved performance
-
-### 📊 Analytics & Monitoring
-
-**Comprehensive Logging**
-
-- Winston-based logging system
-- Error tracking and monitoring
-- User activity logging
-- Performance metrics collection
-- Security event logging
-
-**Admin Features**
-
-- Contact form management system
-- User management and moderation tools
-- Content moderation capabilities
-- System health monitoring
-- Analytics dashboard for insights
+# Run the container
+docker run -p 3000:3000 --env-file .env blogify
+```
 
 ## License
 
