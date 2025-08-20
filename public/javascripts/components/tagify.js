@@ -1,3 +1,5 @@
+import Tagify from '@yaireo/tagify';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const input =
     document.getElementById('addPostTags') ||

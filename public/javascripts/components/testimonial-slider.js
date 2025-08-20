@@ -1,4 +1,3 @@
-// public/javascripts/components/testimonial-slider.js
 document.addEventListener('DOMContentLoaded', function () {
   const dots = document.querySelectorAll('.slider__dot');
   const cards = document.querySelectorAll('.testimonial__card');

@@ -6,27 +6,10 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 export default [
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
+  eslintPluginPrettierRecommended,
   {
     rules: {
       'capitalized-comments': ['error', 'always'],
     },
   },
-  {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        parser: 'flow',
-      },
-      {
-        usePrettierrc: true,
-      },
-      {
-        fileInfoOptions: {
-          withNodeModules: true,
-        },
-      },
-    ],
-  },
-  eslintPluginPrettierRecommended,
 ];

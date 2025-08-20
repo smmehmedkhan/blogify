@@ -30,6 +30,7 @@ export default async function authStatus(req, res, next) {
     } catch (error) {
       res.clearCookie('token');
       res.locals.signedIn = false;
+      next(error);
     }
   }
 

@@ -1,3 +1,6 @@
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
 class ToastManager {
   constructor() {
     this.config = {

@@ -1,5 +1,4 @@
 export default function emailVerification(req, res, next) {
-
   if (!req.user) return next();
 
   if (req.originalUrl.startsWith('/auth/verify')) return next();
@@ -11,7 +10,6 @@ export default function emailVerification(req, res, next) {
       'warning',
       'Please verify your email address to access this feature',
     );
-    
     return res.redirect('/auth/verify');
   }
 

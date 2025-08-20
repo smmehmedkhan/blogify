@@ -1,3 +1,7 @@
+import EasyMDE from 'easymde';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
 /**
  * EasyMDE Configuration for Blogify
  * Handles markdown editor initialization with media upload and drag & drop support

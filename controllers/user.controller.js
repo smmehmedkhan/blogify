@@ -38,7 +38,7 @@ export async function userProfile(req, res) {
 
   if (!userId) {
     req.flash('info', 'Please sign in first to get in profile page.');
-    return redirect('/auth/sign-in');
+    return res.redirect('/auth/sign-in');
   }
 
   try {

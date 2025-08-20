@@ -66,7 +66,7 @@ app.use(flash());
 
 // Security
 app.use(nonceToken); // CSP nonce
-app.use(helmetMiddleware); // helmet
+app.use(helmetMiddleware); // Helmet
 app.use(generalApiLimiter); // General API rate limiter
 
 // View engine setup
@@ -87,7 +87,7 @@ app.use('/explore', exploreRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
 app.use('/subscribe', subscribeRouter);
-app.use('/auth', verifyToken, authRouter);
+app.use('/auth', authRouter);
 
 // Private routes
 app.use('/users', usersRouter);

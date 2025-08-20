@@ -11,8 +11,8 @@ class ThemeManager {
     };
 
     this.logos = {
-      light: '/images/blogify-logo-dark.png', // for light theme
-      dark: '/images/blogify-logo-light.png', // for dark theme
+      light: '/images/blogify-logo-dark.png', // For light theme
+      dark: '/images/blogify-logo-light.png', // For dark theme
     };
 
     this.theme = this.getInitialTheme();
