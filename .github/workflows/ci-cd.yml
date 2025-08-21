@@ -16,7 +16,17 @@ jobs:
       MONGODB_URI: mongodb://localhost:27017/blogify_test
       JWT_SECRET: test_jwt_secret_for_ci
       SESSION_SECRET: test_session_secret_for_ci
-      SENDGRID_API_KEY: test_sendgrid_key
+      EMAIL_USERNAME: test_email_username_for_ci
+      EMAIL_PASSWORD: test_email_password_for_ci
+      EMAIL_FROM: test@mail.com
+      CLOUDINARY_CLOUD_NAME: test_cloud_name_for_ci
+      CLOUDINARY_API_KEY: test_cloudinary_api_key_for_ci
+      CLOUDINARY_API_SECRET: test_cloudinary_api_secret_for_ci
+      BREVO_SMTP_HOST: test_brevo_smtp_host_for_ci
+      BREVO_SMTP_PORT: 587
+      BREVO_SMTP_USER: test_brevo_smtp_user_for_ci
+      BREVO_SMTP_PASS: test_brevo_smtp_pass_for_ci
+
     steps:
       - uses: actions/checkout@v4
 
