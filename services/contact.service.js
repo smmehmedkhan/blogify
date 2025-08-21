@@ -1,9 +1,6 @@
-import { EMAIL_FROM, SENDGRID_API_KEY } from '../config/env.js';
+import { EMAIL_FROM } from '../config/env.js';
 import Contact from '../models/contact.model.js';
-import sgMail from '@sendgrid/mail';
-
-// Initialize SendGrid
-sgMail.setApiKey(SENDGRID_API_KEY);
+import emailService from '../utils/brevoSMTP.utils.js';
 
 class ContactService {
   /**
@@ -18,23 +15,20 @@ class ContactService {
    * Send confirmation email to the user
    */
   async sendConfirmationEmail(contactData) {
-    const userMsg = {
-      to: contactData.email,
-      from: EMAIL_FROM,
-      subject: 'Thank you for contacting Blogify',
-      text: `Hello ${contactData.name},\n\nThank you for reaching out to us. We have received your message regarding "${this.getSubjectLabel(contactData.subject)}". Our team will review your inquiry and get back to you within 24-48 hours.\n\nBest regards,\nThe Blogify Team`,
-      html: this.getUserConfirmationTemplate(contactData),
-    };
-
-    const teamMsg = {
-      to: EMAIL_FROM,
-      from: EMAIL_FROM,
-      subject: `New Contact Form Submission - ${this.getSubjectLabel(contactData.subject)}`,
-      text: `New contact form submission:\n\nName: ${contactData.name}\nEmail: ${contactData.email}\nSubject: ${this.getSubjectLabel(contactData.subject)}\nMessage: ${contactData.message}`,
-      html: this.getTeamNotificationTemplate(contactData),
-    };
-
-    await Promise.all([sgMail.send(userMsg), sgMail.send(teamMsg)]);
+    await Promise.all([
+      emailService.sendEmail(
+        contactData.email,
+        'Thank you for contacting Blogify',
+        `Hello ${contactData.name},\n\nThank you for reaching out to us. We have received your message regarding "${this.getSubjectLabel(contactData.subject)}". Our team will review your inquiry and get back to you within 24-48 hours.\n\nBest regards,\nThe Blogify Team`,
+        this.getUserConfirmationTemplate(contactData),
+      ),
+      emailService.sendEmail(
+        EMAIL_FROM,
+        `New Contact Form Submission - ${this.getSubjectLabel(contactData.subject)}`,
+        `New contact form submission:\n\nName: ${contactData.name}\nEmail: ${contactData.email}\nSubject: ${this.getSubjectLabel(contactData.subject)}\nMessage: ${contactData.message}`,
+        this.getTeamNotificationTemplate(contactData),
+      ),
+    ]);
   }
 
   /**

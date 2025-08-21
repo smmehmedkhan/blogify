@@ -18,7 +18,6 @@
     "build:docker": "pnpm run format && pnpm run lint"
   },
   "dependencies": {
-    "@sendgrid/mail": "^8.1.5",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "connect-flash": "^0.1.1",

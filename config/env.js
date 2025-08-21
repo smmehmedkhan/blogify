@@ -24,7 +24,10 @@ export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+export const BREVO_SMTP_HOST = process.env.BREVO_SMTP_HOST;
+export const BREVO_SMTP_PORT = process.env.BREVO_SMTP_PORT;
+export const BREVO_SMTP_USER = process.env.BREVO_SMTP_USER;
+export const BREVO_SMTP_PASS = process.env.BREVO_SMTP_PASS;
 
 const requiredEnvVars = [
   'NODE_ENV',
@@ -33,7 +36,16 @@ const requiredEnvVars = [
   'MONGODB_URI',
   'JWT_SECRET',
   'SESSION_SECRET',
-  'SENDGRID_API_KEY',
+  'EMAIL_USERNAME',
+  'EMAIL_FROM',
+  'EMAIL_PASSWORD',
+  'CLOUDINARY_CLOUD_NAME',
+  'CLOUDINARY_API_KEY',
+  'CLOUDINARY_API_SECRET',
+  'BREVO_SMTP_HOST',
+  'BREVO_SMTP_PORT',
+  'BREVO_SMTP_USER',
+  'BREVO_SMTP_PASS',
 ];
 
 for (const envVar of requiredEnvVars) {

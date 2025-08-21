@@ -1,9 +1,6 @@
-import { APP_URL, EMAIL_FROM, SENDGRID_API_KEY } from '../config/env.js';
-import sgMail from '@sendgrid/mail';
+import { APP_URL } from '../config/env.js';
 import Subscriber from '../models/subscriber.model.js';
-
-// Set API key
-sgMail.setApiKey(SENDGRID_API_KEY);
+import emailService from '../utils/brevoSMTP.utils.js';
 
 class SubscribeService {
   /**
@@ -32,12 +29,7 @@ class SubscribeService {
    * @returns {Promise<Object>} - Send status object
    */
   async sendWelcomeEmail(email) {
-    const msg = {
-      to: email,
-      from: EMAIL_FROM,
-      subject: '🚀 Welcome to Blogify Newsletter!',
-      text: `Welcome to Blogify!\n\nThank you for subscribing to our newsletter! You're now part of a community of passionate writers and content creators.\n\nWhat to expect:\n• Latest blog posts and featured content\n• Writing tips and best practices\n• Platform updates and new features\n• Community highlights and success stories\n\nStay tuned for amazing content coming your way!\n\nHappy reading,\nThe Blogify Team\n\nVisit us: ${APP_URL}`,
-      html: `
+    const template = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -115,13 +107,16 @@ class SubscribeService {
         </table>
       </body>
       </html>
-    `,
-    };
+    `;
 
     try {
-      // Send the email using SendGrid
-      await sgMail.send(msg);
-      console.log('Subscriber welcome email sent');
+      await emailService.sendEmail(
+        email,
+        '🚀 Welcome to Blogify Newsletter!',
+        `Welcome to Blogify!\n\nThank you for subscribing to our newsletter! You're now part of a community of passionate writers and content creators.\n\nWhat to expect:\n• Latest blog posts and featured content\n• Writing tips and best practices\n• Platform updates and new features\n• Community highlights and success stories\n\nStay tuned for amazing content coming your way!\n\nHappy reading,\nThe Blogify Team\n\nVisit us: ${APP_URL}`,
+        template,
+      );
+
       return {
         status: 200,
         message: `Welcome email sent to ${email}`,

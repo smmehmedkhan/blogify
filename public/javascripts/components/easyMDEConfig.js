@@ -1,6 +1,4 @@
-import EasyMDE from 'easymde';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+/* global EasyMDE */
 
 /**
  * EasyMDE Configuration for Blogify
@@ -201,11 +199,10 @@ class EasyMDEConfig {
     );
 
     if (mediaFiles.length === 0) {
-      Toastify({
-        text: 'Please drop media files only (images, videos, audio)',
-        duration: 3000,
-        backgroundColor: '#f44336',
-      }).showToast();
+      window.toast.show(
+        'warning',
+        'Please drop media files only (images, videos, audio)',
+      );
       return;
     }
 

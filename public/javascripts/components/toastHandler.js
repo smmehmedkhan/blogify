@@ -1,6 +1,3 @@
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
-
 class ToastManager {
   constructor() {
     this.config = {
@@ -52,6 +49,7 @@ class ToastManager {
   }
 
   show(type, message) {
+    // eslint-disable-next-line no-undef
     Toastify({
       text: message,
       avatar: `/icons/${type}.svg`,

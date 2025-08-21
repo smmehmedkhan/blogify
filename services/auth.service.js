@@ -1,13 +1,10 @@
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import sgMail from '@sendgrid/mail';
 
+import { APP_URL } from '../config/env.js';
 import User from '../models/user.model.js';
 import createToken from '../utils/createToken.utils.js';
-import { APP_URL, EMAIL_FROM, SENDGRID_API_KEY } from '../config/env.js';
-
-// Set API key
-sgMail.setApiKey(SENDGRID_API_KEY);
+import emailService from '../utils/brevoSMTP.utils.js';
 
 class AuthService {
   /**
@@ -50,35 +47,18 @@ class AuthService {
       // Create verification URL
       const verificationUrl = `${APP_URL}/auth/verify/${verificationToken}`;
 
-      // Email options
-      const msg = {
-        to: user.email,
-        from: EMAIL_FROM,
-        subject: 'Email Verification - Blogify',
-        text: `Welcome to Blogify! Please verify your email address by clicking the link below:\n\n${verificationUrl}\n\nThis link will expire in 1 hour.\n\nIf you didn't create an account, please ignore this email.`,
-        html: `
+      await emailService.sendEmail(
+        user.email,
+        'Email Verification - Blogify',
+        `Welcome to Blogify! Please verify your email address by clicking the link below:\n\n${verificationUrl}\n\nThis link will expire in 1 hour.\n\nIf you didn't create an account, please ignore this email.`,
+        `
           <h1>Welcome to Blogify!</h1>
           <p>Thank you for signing up. Please verify your email address by clicking the link below:</p>
           <a href="${verificationUrl}">${verificationUrl}</a>
           <p>This link will expire in 1 hour.</p>
           <p>If you didn't create an account, please ignore this email.</p>
         `,
-      };
-
-      // Send email
-      await sgMail
-        .send(msg)
-        .then(() => {
-          const sendStatus = {
-            status: 200,
-            message: `Verification email sent to ${user.email}`,
-          };
-
-          return sendStatus;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      );
 
       return true;
     } catch (err) {
@@ -149,29 +129,18 @@ class AuthService {
       // Create reset URL
       const resetUrl = `${APP_URL}/auth/reset-password/${token}`;
 
-      // Email options
-      const msg = {
-        to: email,
-        from: EMAIL_FROM,
-        subject: 'Password Reset Request',
-        html: `
+      await emailService.sendEmail(
+        email,
+        'Password Reset Request',
+        `Reset your password: ${resetUrl}`,
+        `
           <p>You requested a password reset.</p>
           <p>Click this link to reset your password:</p>
           <a href="${resetUrl}">${resetUrl}</a>
           <p>This link will expire in 1 hour.</p>
           <p>If you didn't request this, please ignore this email.</p>
         `,
-      };
-
-      // Send email
-      await sgMail
-        .send(msg)
-        .then(() => {
-          console.log('Password reset email sent');
-        })
-        .catch((error) => {
-          console.error('Error sending password reset email: ', error);
-        });
+      );
 
       return true;
     } catch (error) {
