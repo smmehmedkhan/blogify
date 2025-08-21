@@ -86,6 +86,38 @@
       }
     }
   }
+
+  & .delete__account--wrapper {
+    width: 100%;
+    padding-block: clamp(0.75rem, 1.2vw, 1.5rem);
+    border-block: var(--border);
+    gap: clamp(1.5rem, 2vw, 2.5rem);
+
+    & .delete__account {
+      width: initial;
+      padding-inline: clamp(0.5rem, 1vw, 1rem);
+      text-align: start;
+
+      & h5 {
+        width: 100%;
+        margin: 0;
+      }
+
+      & p {
+        width: 100%;
+        font-size: var(--font-base);
+        color: var(--fg-muted);
+      }
+    }
+
+    & .delete__account--button {
+      background-color: var(--color-error);
+
+      &:hover {
+        background-color: var(--error-popover);
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -96,6 +128,14 @@
       & .edit__profile--divider {
         width: 100%;
         height: 1px;
+      }
+    }
+    & .delete__account--wrapper {
+      flex-direction: column;
+      align-items: center;
+      & .delete__account {
+        width: 100%;
+        text-align: center;
       }
     }
   }

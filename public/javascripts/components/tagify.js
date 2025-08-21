@@ -1,4 +1,4 @@
-import Tagify from '@yaireo/tagify';
+/* global Tagify */
 
 document.addEventListener('DOMContentLoaded', async () => {
   const input =

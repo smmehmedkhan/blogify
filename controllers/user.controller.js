@@ -168,6 +168,29 @@ export async function userProfileUpdate(req, res) {
 }
 
 /**
+ * User Profile Delete
+ * Delete user profile via edit profile form.
+ */
+export async function deleteUser(req, res) {
+  const userId = req.params.id;
+
+  try {
+    // Delete user
+    await userService.deleteUser(userId);
+
+    // Clear authentication cookies
+    res.clearCookie('token');
+    res.clearCookie('connect.sid'); // Session cookie
+
+    req.flash('success', 'Your account deleted successfully');
+    return res.redirect('/');
+  } catch (error) {
+    req.flash('error', error.message);
+    handleError(res, error);
+  }
+}
+
+/**
  * Render profile preview page
  */
 export async function userProfilePreview(req, res) {

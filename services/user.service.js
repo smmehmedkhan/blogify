@@ -24,6 +24,13 @@ class UserService {
   }
 
   /**
+   * Delete user
+   */
+  async deleteUser(userId) {
+    return await User.findByIdAndDelete(userId);
+  }
+
+  /**
    * Get all blogs for a specific user
    */
   async previewUserDetails(username) {

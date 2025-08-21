@@ -11,9 +11,9 @@
   <!-- Update profile form -->
   <section class="container edit__profile">
 
-    <!-- Header section -->
+    <!-- Header -->
     <div class="fluid edit__profile--header">
-      <h4>Update Profile</h4>
+      <h4>Your personal informations</h4>
       <p class="inline__container">
         <i class="fa-solid fa-lightbulb"></i>
         <span>Enhance your profile by updating your public informations.</span>
@@ -139,8 +139,22 @@
         </button>
       </div>
     </form>
+
+    <!-- Delete Account -->
+    <div class="flex delete__account--wrapper">
+      <div class="fluid delete__account">
+        <h5>Close this account</h5>
+        <p>Once you delete your account, there is no going back. Please be certain.</p>
+      </div>
+      <button type="button" id="deleteAccountBtn" class="delete__account--button">
+        <i class="fa-solid fa-trash"></i>
+        Delete Account
+      </button>
+    </div>
+
   </section>
 </main>
 
 <%- include('../../partials/footer.ejs') %>
   <script type="text/javascript" src="/javascripts/components/imagePreview.js" nonce="<%= nonce %>"></script>
+  <script type="text/javascript" src="/javascripts/components/deleteAccount.js" nonce="<%= nonce %>"></script>

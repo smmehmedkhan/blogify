@@ -221,7 +221,7 @@ button {
    🔲 Utility Classes
 ======================= */
 main {
-  width: 100%;
+  width: clamp(calc(100% - 2rem), calc(100% - 2vw), 100%);
   max-width: var(--max-width);
   min-height: 100dvh;
   margin-inline: auto;
@@ -296,41 +296,5 @@ main {
   transition: box-shadow 250ms ease;
   &:hover {
     box-shadow: var(--shadow-md);
-  }
-}
-
-@media screen and (max-width: 1536px) {
-  main {
-    width: calc(100% - 2rem);
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  main {
-    width: calc(100% - 1.75rem);
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  main {
-    width: calc(100% - 1.5rem);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  main {
-    width: calc(100% - 1rem);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  main {
-    width: calc(100% - 0.5rem);
-  }
-}
-
-@media screen and (max-width: 320px) {
-  main {
-    width: calc(100% - 0.25rem);
   }
 }

@@ -28,6 +28,8 @@ userRouter
     uc.userProfileUpdate,
   );
 
+userRouter.route('/delete/:id').delete(auth, uc.deleteUser);
+
 userRouter.get('/dashboard', auth, emailVerification, uc.userDashboard);
 
 userRouter
