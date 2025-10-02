@@ -33,6 +33,9 @@
         <h5>Quick links</h5>
         <ul class="fluid footer-links">
           <li>
+            <a href="/" class="<%= activeRoute ? activeRoute('/', path) : '' %>">Home</a>
+          </li>
+          <li>
             <a href="/explore" class="<%= activeRoute ? activeRoute('/explore', path) : '' %>">Explore</a>
           </li>
           <li>
@@ -42,14 +45,16 @@
             <a href="/contact" class="<%= activeRoute ? activeRoute('/contact', path) : '' %>">Contact</a>
           </li>
           <li>
-            <a href="/auth/sign-in" class="<%= activeRoute ? activeRoute('/auth/sign-in', path) : '' %>">Sign In</a>
-          </li>
-          <li>
-            <a href="/auth/sign-up" class="<%= activeRoute ? activeRoute('/auth/sign-up', path) : '' %>">Sign Up</a>
+            <a href="/dashboard" class="<%= activeRoute ? activeRoute('/dashboard', path) : '' %>">Dashboard</a>
           </li>
           <li>
             <a href="/users/dashboard/add"
-              class="<%= activeRoute ? activeRoute('/users/dashboard/add', path) : '' %>">Add Post</a>
+              class="<%= activeRoute ? activeRoute('/users/dashboard/add', path) : '' %>">Write a post</a>
+          </li>
+          <li>
+            <a href="/auth/sign-in" class="<%= activeRoute ? activeRoute('/auth/sign-in', path) : '' %>">Sign In</a>
+            <span>/</span>
+            <a href="/auth/sign-up" class="<%= activeRoute ? activeRoute('/auth/sign-up', path) : '' %>">Sign Up</a>
           </li>
         </ul>
       </div>

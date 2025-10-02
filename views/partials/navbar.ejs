@@ -25,16 +25,16 @@
           <span>Contact</span>
         </a>
       </li>
+    </ul>
+    <ul class="right">
+      <li>
+        <button class="toggle-theme" aria-label="Toggle theme"></button>
+      </li>
       <li>
         <a href="/users/dashboard" class="<%= activeRoute ? activeRoute('/users/dashboard', path) : '' %>">
           <i class="fa-solid fa-chart-line"></i>
           <span>Dashboard</span>
         </a>
-      </li>
-    </ul>
-    <ul class="right">
-      <li>
-        <button class="toggle-theme" aria-label="Toggle theme"></button>
       </li>
       <% if (signedIn) { %>
         <li>

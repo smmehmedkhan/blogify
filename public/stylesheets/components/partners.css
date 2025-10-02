@@ -1,5 +1,8 @@
 .partners {
   background-color: var(--bg-blue);
+  & h4 {
+    margin-bottom: clamp(1.5rem, 1.8vh, 2rem);
+  }
 
   & .logo__wrapper {
     width: 100%;
@@ -10,7 +13,7 @@
     gap: clamp(1.5rem, 2.2vw, 2.5rem);
 
     & .logo__container {
-      max-width: 10rem;
+      width: clamp(5rem, 8vw, 10rem);
       border: none;
       position: relative;
       transition: opacity 250ms ease;
@@ -24,23 +27,23 @@
       &:hover {
         opacity: 0.75;
       }
+
+      & .brand__logo[title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: var(--font-sm);
+        padding: 0.5rem;
+        border: var(--border);
+        border-radius: var(--radius);
+        color: var(--fg-inverse);
+        background-color: var(--color-primary);
+        white-space: nowrap;
+        z-index: 1000;
+        pointer-events: none;
+      }
     }
   }
-}
-
-.brand__logo[title]:hover::after {
-  content: attr(title);
-  position: absolute;
-  bottom: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--font-sm);
-  padding: 0.5rem;
-  border: var(--border);
-  border-radius: var(--radius);
-  color: var(--fg-inverse);
-  background-color: var(--color-primary);
-  white-space: nowrap;
-  z-index: 1000;
-  pointer-events: none;
 }
