@@ -2,7 +2,7 @@
  * Active route helper
  * Checks current route to originals routes & toggle active class
  */
-export default function isActiveRoute(route, currentRoute) {
+export default function detectActiveRoute(route, currentRoute) {
   if (currentRoute === route) {
     return 'active';
   }

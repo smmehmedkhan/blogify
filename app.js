@@ -20,12 +20,10 @@ import pathMiddleware from './middlewares/path.middleware.js';
 import { generateToken, verifyToken } from './middlewares/csrf.middleware.js';
 import helmetMiddleware from './middlewares/helmet.middleware.js';
 
-// Helpers
-import isActiveRoute from './helpers/routes.helper.js';
-
 // Utilities
 import nonceToken from './utils/nonce.utils.js';
 import { generalApiLimiter } from './utils/rateLimit.utils.js';
+import detectActiveRoute from './utils/activeRouteDetector.utils.js';
 
 // Routes
 import indexRouter from './routes/index.routes.js';
@@ -46,7 +44,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Global helpers
-app.locals.activeRoute = isActiveRoute;
+app.locals.activeRoute = detectActiveRoute;
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
