@@ -44,7 +44,6 @@ COPY --from=build /app/services ./services
 COPY --from=build /app/utils ./utils
 COPY --from=build /app/views ./views
 COPY --from=build /app/public ./public
-COPY --from=build /app/helpers ./helpers
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && adduser -S blogify -u 1001
